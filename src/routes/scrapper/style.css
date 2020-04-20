@@ -3,3 +3,16 @@
 	min-height: 100%;
 	width: 100%;
 }
+
+.image {
+	width: 200px;
+}
+
+.imageBox {
+	padding: 20px;
+	vertical-align: middle;
+}
+
+.chanelBox {
+
+}

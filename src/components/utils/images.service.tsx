@@ -11,9 +11,13 @@ export interface ImageModel {
     fileSize: number,
 }
 
+export interface ChanelModel {
+    url: string;
+}
+
 
 export class ImagesServiceClass {
-    private apiUrlPrefix = "http://localhost:3000";
+    private apiUrlPrefix = "http://localhost:3000/api";
 
     public async loadImages(): Promise<ImageModel[]> {
 
@@ -24,10 +28,22 @@ export class ImagesServiceClass {
             }
         );
         let newVar = await response.json();
-        console.log({newVar});
 
         return newVar;
     }
+
+    public async loadChanels(): Promise<ChanelModel[]> {
+        const response = await fetch(this.apiUrlPrefix + "/chanels",{method: 'GET'});
+        return await response.json();
+    }
+
+
+    public async scrap(chanel: string): Promise<string> {
+        const response = await fetch(this.apiUrlPrefix + "/scrap", {method: 'POST', body: JSON.stringify({chanel})});
+        return await response.json();
+    }
+
+
 
     // .then(value => {
     //         value.json().then(value1 => {
