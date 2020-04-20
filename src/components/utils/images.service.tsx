@@ -33,7 +33,7 @@ export class ImagesServiceClass {
     }
 
     public async loadChanels(): Promise<ChanelModel[]> {
-        const response = await fetch(this.apiUrlPrefix + "/chanels",{method: 'GET'});
+        const response = await fetch(this.apiUrlPrefix + "/channels",{method: 'GET'});
         return await response.json();
     }
 

@@ -10,7 +10,7 @@ export class ScapperImage extends Component<ScrapperImageProps, any> {
     render (props: preact.RenderableProps<ImageModel> | undefined, state: Readonly<any> | undefined, context: any): preact.ComponentChild {
         return (
             <span class={style.imageBox}>
-                <img class={style.image} src={"http://localhost:3000/imagefiles/" + this.props.image.filename} />
+                <img class={style.image} src={"http://localhost:3000/api/imagefiles/" + this.props.image.filename} />
             </span>
         );
     }
