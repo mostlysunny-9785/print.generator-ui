@@ -1,16 +1,28 @@
 .main {
 	display: flex;
 	justify-content: space-between;
+
+
+	overflow: hidden;
+	position: fixed;
+	bottom: 0;
+	width: 90%;
+
 	padding-top: 20px;
 	margin-bottom: 20px;
 	margin-left: 20px;
 	margin-right: 20px;
-
 }
 .a, .b, .c {
+	display: flex;
+	width: 50%;
 	/*background: #efefef; border: 1px solid #999; */
 }
 
-.b {
-	text-align: center;
+.menuButton {
+	margin-left: 10px;
+	margin-right: 10px;
+	line-height: 50%;
 }
+
+

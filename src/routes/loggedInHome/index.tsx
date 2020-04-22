@@ -1,7 +1,7 @@
 import {Component, h} from "preact";
 import * as style from "./style.css";
 
-export default class Home extends Component<any, any> {
+export default class LoggedInHome extends Component<any, any> {
     constructor() {
         super();
         this.state = { value: "" };
@@ -20,12 +20,11 @@ export default class Home extends Component<any, any> {
     render () {
         return (
             <div  class={style.home}>
-                <div class={style.box}>
-                    Word
-                </div>
-                <div class={style.box}>
-                    Picture
-                </div>
+                <form onSubmit={this.onSubmit}>
+                    <input type="text" value={this.state.value} onInput={this.onInput} />
+                    <p>You typed this value: {this.state.value}</p>
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         );
     }

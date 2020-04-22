@@ -3,3 +3,4 @@ export const main: string;
 export const a: string;
 export const b: string;
 export const c: string;
+export const menuButton: string;

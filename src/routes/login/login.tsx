@@ -22,9 +22,8 @@ export default class Login extends Component<any, LoginState> {
         e.preventDefault();
         console.log(this.state);
         AuthorizationService.authenticate().then(result => {
-            console.log(result);
             if (result) {
-                route('/scrapper', true);
+                route('/home', true);
             }
         });
     }

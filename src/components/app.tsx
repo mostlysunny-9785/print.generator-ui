@@ -1,4 +1,4 @@
-import { FunctionalComponent, h } from "preact";
+import {Component, FunctionalComponent, h} from "preact";
 import {route, Route, Router, RouterOnChangeArgs} from "preact-router";
 
 
@@ -10,6 +10,8 @@ import Scrapper from "../routes/scrapper";
 import Login from "../routes/login/login";
 import {AuthorizationService} from "../services/authorization.service";
 import Redirect from "./Redirect";
+import LoggedInHome from "../routes/loggedInHome";
+import Menu from "./menu";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -17,34 +19,47 @@ if ((module as any).hot) {
     require("preact/debug");
 }
 
-const App: FunctionalComponent = () => {
-    let currentUrl: string;
-
-
-    var handleRoute = e => {
-        if (e.url != '/' || e.url != '/login') {
-            const isAuthed = AuthorizationService.isAuthenticated;
-            if (!isAuthed) route('/login', true);
+export default class App extends Component<any, any> {
+    constructor() {
+        super();
+        this.state = {
+            currentUrl: "/"
         }
+    }
+
+    private handleRoute = e => {
+        console.log(e.url);
+        if (e.url !== '/' && e.url !== '/login') {
+            const isAuthed = AuthorizationService.isAuthenticated;
+            if (!isAuthed) {
+                console.log("redirecting");
+                route('/login', true);
+            }
+        }
+        this.setState({currentUrl: e.url});
     };
 
-    return (
+    render(props?: preact.RenderableProps<any>, state?: Readonly<any>, context?: any): preact.ComponentChild {
+        return (
+
+            <div id="app">
+                <Header  routeChange={this.state.currentUrl} />
+                <Router onChange={this.handleRoute}>
+
+                    <Route path="/" component={Home} />
+                    <Route path="/login" component={Login}/>
+                    <Route path="/home" component={LoggedInHome} />
 
 
-        <div id="app">
-            {AuthorizationService.isAuthenticated && <Header />}
-            <Router onChange={handleRoute}>
+                    <Route path="/scrapper" component={Scrapper} />
+                    <Route path="/profile/" component={Profile} user="me" />
+                    <Route path="/profile/:user" component={Profile} />
+                    <NotFoundPage default />
+                </Router>
+                <Menu routeChange={this.state.currentUrl} />
+            </div>
+        );
+    }
 
 
-                <Route path="/" component={Home} />
-                <Route path="/login" component={Login}/>
-                <Route path="/scrapper" component={Scrapper} />
-                <Route path="/profile/" component={Profile} user="me" />
-                <Route path="/profile/:user" component={Profile} />
-                <NotFoundPage default />
-            </Router>
-        </div>
-    );
 };
-
-export default App;

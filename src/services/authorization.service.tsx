@@ -6,7 +6,7 @@ export class AuthorizationServiceClass {
 
     constructor() {
         let item = localStorage.getItem(this.localStorageKey);
-        console.log(item);
+        // console.log(item);
         if (item === null){
             localStorage.setItem(this.localStorageKey, "false");
             this.isAuthenticated = false;

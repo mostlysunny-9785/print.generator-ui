@@ -4,11 +4,11 @@ import * as style from "./style.css";
 import {AuthorizationService} from "../../services/authorization.service";
 import {route} from "preact-router";
 
-export interface HeaderProps {
+export interface MenuProps {
     routeChange: string
 }
 
-export default class Header extends Component<HeaderProps, any> {
+export default class Menu extends Component<MenuProps, any> {
     logout = () => {
         AuthorizationService.signout().then(()=>{
             route("/", true);
@@ -20,26 +20,26 @@ export default class Header extends Component<HeaderProps, any> {
         if (AuthorizationService.isAuthenticated) {
             return (
                 <div class={style.main}>
-                    <div class={style.a}>Jan Vojíř</div>
-                    <div class={style.b}>
-                        {/*<p>Ya.C.Ya.G</p>*/}
+                    <div class={style.a}>
+                        <button type="submit" class={style.menuButton + " grayButton"}>Basic instructions</button>
                     </div>
+
                     <div class={style.c}>
-                        <a href="/profile">Edit profile</a>
-                        <a href="#" onClick={this.logout}>Logout</a>
+                        <button type="submit" class={style.menuButton + " grayButton"}>Settings</button>
+                        <button type="submit" class={style.menuButton + " wireButton"}>Send</button>
                     </div>
                 </div>
             );
         } else {
             return (
                 <div class={style.main}>
-                    <div class={style.a}>Ya.C.Ya.G</div>
-                    <div class={style.b}>
-                        {/*<p>Ya.C.Ya.G</p>*/}
+                    <div class={style.a}>
+                        <button type="submit" class={style.menuButton + " grayButton"}>Basic instructions</button>
                     </div>
+
                     <div class={style.c}>
-                        <a href="/register">Sign up</a>
-                        <a href="/login">Log in</a>
+                        <button type="submit" class={style.menuButton + " grayButton"}>Settings</button>
+                        <button type="submit" class={style.menuButton + " wireButton"} disabled>Send</button>
                     </div>
                 </div>
             );
