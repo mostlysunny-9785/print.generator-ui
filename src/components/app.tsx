@@ -1,14 +1,13 @@
-import {Component, FunctionalComponent, h} from "preact";
-import {route, Route, Router, RouterOnChangeArgs} from "preact-router";
-
+import { Component, FunctionalComponent, h } from "preact";
+import { route, Route, Router, RouterOnChangeArgs } from "preact-router";
 
 import Profile from "../routes/loggedIn/profile";
-import NotFoundPage from '../routes/notfound';
+import NotFoundPage from "../routes/notfound";
 import Header from "./header";
 import Home from "../routes/home";
 import Scrapper from "../routes/loggedIn/scrapper";
 import Login from "../routes/login/login";
-import {AuthorizationService} from "../services/authorization.service";
+import { AuthorizationService } from "../services/authorization.service";
 import Redirect from "./Redirect";
 import LoggedInHome from "../routes/loggedIn/loggedInHome";
 import Menu from "./menu";
@@ -27,38 +26,37 @@ export default class App extends Component<any, any> {
         super();
         this.state = {
             currentUrl: "/"
-        }
+        };
     }
 
-    private allowedRoutes = [
-        '/',
-        '/login',
-        '/instructions'
-    ]
+    private allowedRoutes = ["/", "/login", "/instructions"];
 
-    private handleRoute = e => {
+    private handleRoute = (e: any) => {
         console.log(e.url);
 
-        if (!this.allowedRoutes.includes(e.url)) { // you need to be logged in to see different than allowedRoutes
+        if (!this.allowedRoutes.includes(e.url)) {
+            // you need to be logged in to see different than allowedRoutes
             const isAuthed = AuthorizationService.isAuthenticated;
             if (!isAuthed) {
                 console.log("redirecting");
-                route('/login', true);
+                route("/login", true);
             }
         }
-        this.setState({currentUrl: e.url});
+        this.setState({ currentUrl: e.url });
     };
 
-    render(props?: preact.RenderableProps<any>, state?: Readonly<any>, context?: any): preact.ComponentChild {
+    render(
+        props?: preact.RenderableProps<any>,
+        state?: Readonly<any>,
+        context?: any
+    ): preact.ComponentChild {
         return (
-
             <div id="app">
-                <Header  routeChange={this.state.currentUrl} />
+                <Header routeChange={this.state.currentUrl} />
                 <Router onChange={this.handleRoute}>
-
                     <Route path="/" component={Home} />
                     <Route path="/instructions" component={Instructions} />
-                    <Route path="/login" component={Login}/>
+                    <Route path="/login" component={Login} />
 
                     <Route path="/home" component={LoggedInHome} />
                     <Route path="/scrapper" component={Scrapper} />
@@ -72,6 +70,4 @@ export default class App extends Component<any, any> {
             </div>
         );
     }
-
-
-};
+}

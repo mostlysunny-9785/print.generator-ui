@@ -1,14 +1,16 @@
-import {ChanelModel, ImageModel} from "../components/utils/images.service";
+import { ChanelModel, ImageModel } from "../components/utils/images.service";
 
-export class AuthorizationServiceClass {
+class AuthorizationServiceClass {
     public isAuthenticated: boolean;
     private localStorageKey = "authentificated";
 
     constructor() {
-        let item = localStorage.getItem(this.localStorageKey);
+        const item = this.getItem(this.localStorageKey);
         // console.log(item);
-        if (item === null){
-            localStorage.setItem(this.localStorageKey, "false");
+        if (item === null) {
+            if (typeof window !== "undefined") {
+                this.setItem(this.localStorageKey, "false");
+            }
             this.isAuthenticated = false;
         } else {
             this.isAuthenticated = item === "true";
@@ -17,24 +19,40 @@ export class AuthorizationServiceClass {
 
     public async authenticate(): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            setTimeout(()=> {
+            setTimeout(() => {
                 this.isAuthenticated = true;
-                localStorage.setItem(this.localStorageKey, "true");
+                if (typeof window !== "undefined") {
+                    this.setItem(this.localStorageKey, "true");
+                }
+
                 resolve(true);
-            }, 100)
-        })
+            }, 100);
+        });
     }
 
     public async signout(): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            setTimeout(()=> {
+            setTimeout(() => {
                 this.isAuthenticated = false;
-                localStorage.setItem(this.localStorageKey, "false");
+                this.setItem(this.localStorageKey, "false");
                 resolve(false);
-            }, 100)
-        })
+            }, 100);
+        });
     }
 
+    private setItem(key: string, value: string): any {
+        if (typeof window !== "undefined") {
+            localStorage.setItem(key, "false");
+        }
+    }
+
+    private getItem(key: string): string | null {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem(key);
+        } else {
+            return null;
+        }
+    }
 }
 
-export var AuthorizationService = new AuthorizationServiceClass();
+export const AuthorizationService = new AuthorizationServiceClass();
