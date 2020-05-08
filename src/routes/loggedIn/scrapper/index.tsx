@@ -1,7 +1,7 @@
 import {Component, FunctionalComponent, h} from "preact";
 import { useEffect, useState } from "preact/hooks";
 import * as style from "./style.css";
-import {ChanelModel, ImageModel, ImagesService} from "../../components/utils/images.service";
+import {ChanelModel, ImageModel, ImagesService} from "../../../components/utils/images.service";
 import {ScapperImage} from "./image";
 import {ScrapperChanel} from "./chanel";
 

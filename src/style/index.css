@@ -5,9 +5,10 @@ html, body {
 	margin: 0;
 	background: #FFFFFF;
 	font-family: arial, sans-serif;
-	font-size: large;
-	font-weight: 400;
-	color: #444;
+	font-size: 28px;
+	/*font-weight: 400;*/
+	/*font*/
+	color: black;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -21,31 +22,45 @@ input[type=text], input[type=password], select {
 	padding: 12px 20px;
 	margin: 8px 0;
 	display: inline-block;
-	border: 1px solid #000000;
+	border: 2px solid #000000;
 	border-radius: 4px;
 	box-sizing: border-box;
-	font-size: large;
+	font-size: 28px;
+}
+
+::placeholder {
+	color: #C4C4C4;
 }
 
 button {
 	width: 100%;
 	background-color: #000;
 	color: white;
-	padding: 14px 20px;
+	padding: 22px 20px;
 	margin: 8px 0;
 	border: none;
 	cursor: pointer;
-	border-radius: 18px;
-	font-size: large;
+	border-radius: 30px;
+	font-size: 30px;
 }
 
-button:hover {
+button:hover:enabled {
 	background-color: #2d2d2d;
-
 }
+
+button:disabled {
+	border: 1px solid gray;
+	color: #C4C4C4;
+}
+
+.disabled {
+	color: #C4C4C4;
+}
+
+
 
 .grayButton {
-	background-color: gray;
+	background-color: #C4C4C4;
 	color: black;
 }
 
@@ -53,6 +68,11 @@ button:hover {
 	background-color: white;
 	border: 1px solid black;
 	color: black;
+}
+
+pre {
+	display: block;
+	white-space: normal;
 }
 
 

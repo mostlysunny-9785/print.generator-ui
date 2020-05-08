@@ -1,5 +1,5 @@
 import {Component} from "preact";
-import {ImageModel} from "../../components/utils/images.service";
+import {ImageModel} from "../../../components/utils/images.service";
 import * as style from "./style.css";
 
 export interface ScrapperImageProps {
