@@ -1,5 +1,5 @@
-import { Component, FunctionalComponent, h } from "preact";
-import { route, Route, Router, RouterOnChangeArgs } from "preact-router";
+import { Component, h } from "preact";
+import { route, Route, Router } from "preact-router";
 
 import Profile from "../routes/loggedIn/profile";
 import NotFoundPage from "../routes/notfound";
@@ -8,12 +8,13 @@ import Home from "../routes/home";
 import Scrapper from "../routes/loggedIn/scrapper";
 import Login from "../routes/login/login";
 import { AuthorizationService } from "../services/authorization.service";
-import Redirect from "./Redirect";
 import LoggedInHome from "../routes/loggedIn/loggedInHome";
 import Menu from "./menu";
 import Instructions from "../routes/public/instructions";
 import Word from "../routes/loggedIn/word";
 import Settings from "../routes/loggedIn/settings";
+import {store} from "../model/store";
+import {handleRouteChange} from "./routerHandler";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -29,21 +30,22 @@ export default class App extends Component<any, any> {
         };
     }
 
-    private allowedRoutes = ["/", "/login", "/instructions"];
+    componentDidMount() {
+        AuthorizationService.getSession().then(); // on app start get session from backend
+
+        // listen on store change to catch if user is autenticated
+        store.subscribe(() => {
+            if (store.getState().authenticated && this.state.currentUrl === '/login'){
+                route("/home", true);
+            }
+        })
+    }
 
     private handleRoute = (e: any) => {
-        console.log(e.url);
+        this.setState({ currentUrl: handleRouteChange(e) });
+    }
 
-        if (!this.allowedRoutes.includes(e.url)) {
-            // you need to be logged in to see different than allowedRoutes
-            const isAuthed = AuthorizationService.isAuthenticated;
-            if (!isAuthed) {
-                console.log("redirecting");
-                route("/login", true);
-            }
-        }
-        this.setState({ currentUrl: e.url });
-    };
+
 
     render(
         props?: preact.RenderableProps<any>,

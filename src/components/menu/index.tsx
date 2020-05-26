@@ -1,9 +1,9 @@
-import {Component, FunctionalComponent, h} from "preact";
-import { Link } from "preact-router/match";
+import {Component, h} from "preact";
 import * as style from "./menuStyle.css";
 import {AuthorizationService} from "../../services/authorization.service";
 import {route} from "preact-router";
 import {hasTheirOwnMenu} from "../utils/global";
+import {store} from "../../model/store";
 
 export interface MenuProps {
     routeChange: string
@@ -22,7 +22,7 @@ export default class Menu extends Component<MenuProps, any> {
         if (hasTheirOwnMenu.includes(this.props.routeChange)){
             return ;
         }
-        if (AuthorizationService.isAuthenticated) {
+        if (store.getState().authenticated) {
             return (
                 <div class={style.main}>
                     <div class={style.a}>

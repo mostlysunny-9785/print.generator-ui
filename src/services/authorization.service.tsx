@@ -1,58 +1,95 @@
-import { ChanelModel, ImageModel } from "../components/utils/images.service";
+import {UserDocument} from "../model/user.model";
+import {apiUrlPrefix} from "../components/utils/global";
+import {store} from "../model/store";
+import {userActionLoad, userActionLogin, userActionLogout} from "../model/user_reducer_actions";
 
 class AuthorizationServiceClass {
-    public isAuthenticated: boolean;
-    private localStorageKey = "authentificated";
 
     constructor() {
-        const item = this.getItem(this.localStorageKey);
-        // console.log(item);
-        if (item === null) {
-            if (typeof window !== "undefined") {
-                this.setItem(this.localStorageKey, "false");
-            }
-            this.isAuthenticated = false;
+
+    }
+
+    public async authenticate(username: string, password: string): Promise<UserDocument | undefined> {
+        if (store.getState().authenticated) { // we already have a state
+
         } else {
-            this.isAuthenticated = item === "true";
+            const response = await fetch(
+                apiUrlPrefix + "/login",
+                {
+                    method: 'POST',
+                    headers: {"content-type": 'application/json'},
+                    body: JSON.stringify({username, password})
+                },
+
+            );
+
+            if (response.status === 200) {
+                let user = await response.json();
+                store.dispatch(userActionLoad(user as UserDocument));
+                store.dispatch(userActionLogin());
+                return user;
+            } else {
+                return undefined;
+            }
         }
     }
 
-    public async authenticate(): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                this.isAuthenticated = true;
-                if (typeof window !== "undefined") {
-                    this.setItem(this.localStorageKey, "true");
-                }
+    public async getSession(): Promise<UserDocument | undefined> {
+        if (store.getState().authenticated) { // we already have a state
 
-                resolve(true);
-            }, 100);
-        });
+        } else { // try to ask backend for it
+            const response = await fetch(
+                apiUrlPrefix + "/session",
+                {
+                    method: 'GET',
+                    headers: {"content-type": 'application/json'}
+                },
+            );
+            if (response.status === 200) {
+                let user = await response.json();
+                store.dispatch(userActionLoad(user as UserDocument));
+                store.dispatch(userActionLogin());
+
+                return user;
+            } else {
+                return undefined;
+            }
+            // }
+
+        }
     }
 
     public async signout(): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                this.isAuthenticated = false;
-                this.setItem(this.localStorageKey, "false");
-                resolve(false);
-            }, 100);
-        });
+        const response = await fetch(
+            apiUrlPrefix + "/logout",
+            {
+                method: 'GET',
+            }
+        );
+
+        if (response.ok) {
+            store.dispatch(userActionLogout());
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    private setItem(key: string, value: string): any {
+    private static setItem(key: string, value: string): any {
+        console.log("settingup:" + value);
         if (typeof window !== "undefined") {
             localStorage.setItem(key, "false");
         }
     }
 
-    private getItem(key: string): string | null {
+    private static getItem(key: string): string | null {
         if (typeof window !== "undefined") {
             return localStorage.getItem(key);
         } else {
             return null;
         }
     }
+
 }
 
 export const AuthorizationService = new AuthorizationServiceClass();

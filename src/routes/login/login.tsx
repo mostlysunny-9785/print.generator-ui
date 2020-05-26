@@ -3,6 +3,7 @@ import * as style from "./style.css";
 import { AuthorizationService } from "../../services/authorization.service";
 import { route } from "preact-router";
 import * as menuStyle from "../../components/menu/menuStyle.css";
+import {store} from "../../model/store";
 
 interface LoginState {
     username?: string;
@@ -21,10 +22,19 @@ export default class Login extends Component<any, LoginState> {
     onSubmit = (e: any) => {
         e.preventDefault();
         console.log(this.state);
-        AuthorizationService.authenticate().then(result => {
-            if (result) {
+        if (store.getState().authenticated) {
+            route("/home", true);
+        }
+        AuthorizationService.authenticate(this.state.username || "", this.state.password || "").then(result => {
+            console.log({result});
+            if (result == undefined) {
+                // wrong passport
+            } else {
                 route("/home", true);
             }
+            // if (result) {
+            //     route("/home", true);
+            // }
         });
     };
 
