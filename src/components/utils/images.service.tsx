@@ -1,28 +1,42 @@
 import { h } from "preact";
 
+export enum ChanelTypes {
+    ARENA,
+    WWW,
+    FILE
+}
+
+
 export interface ImageModel {
+    _id: string,
     localPath: string;
     remotePath: string;
-    description: string,
-    title: string,
-    block: string,
-    created: Date,
-    filename: string,
-    fileSize: number,
+    description: string;
+    title: string;
+    block: string;
+    created: Date;
+    filename: string;
+    fileSize: number;
+    chanelId: string;
+    ownerId: string;
 }
 
 export interface ChanelModel {
-    url: string;
+    _id: string,
+    ownerId: string,
+    url: string,
+    type: ChanelTypes,
+    pictureIds: []
 }
 
 
 export class ImagesServiceClass {
-    private apiUrlPrefix = "http://localhost:3000/api";
+    private apiUrlPrefix = "/api";
 
-    public async loadImages(): Promise<ImageModel[]> {
+    public async loadImages(chanelId: string): Promise<ImageModel[]> {
 
         const response = await fetch(
-            this.apiUrlPrefix + "/images",
+            this.apiUrlPrefix + "/images/" + chanelId,
             {
                 method: 'GET'
             }
@@ -37,10 +51,15 @@ export class ImagesServiceClass {
         return await response.json();
     }
 
+    public async removeChannel(channelId: string): Promise<boolean> {
+        const response = await fetch(this.apiUrlPrefix + "/channels/" + channelId,{method: 'DELETE'});
+        return response.status === 200;
+    }
 
-    public async scrap(chanel: string): Promise<string> {
-        const response = await fetch(this.apiUrlPrefix + "/scrap", {method: 'POST', body: JSON.stringify({chanel})});
-        return await response.json();
+
+    public async scrap(chanel: string): Promise<boolean> {
+        const response = await fetch(this.apiUrlPrefix + "/scrap", {method: 'POST', headers: {"content-type": 'application/json'}, body: JSON.stringify({chanel})});
+        return response.status === 200;
     }
 
 

@@ -9,7 +9,7 @@ class AuthorizationServiceClass {
 
     }
 
-    public async authenticate(username: string, password: string): Promise<UserDocument | undefined> {
+    public async authenticate(email: string, password: string): Promise<UserDocument | undefined> {
         if (store.getState().authenticated) { // we already have a state
 
         } else {
@@ -18,7 +18,7 @@ class AuthorizationServiceClass {
                 {
                     method: 'POST',
                     headers: {"content-type": 'application/json'},
-                    body: JSON.stringify({username, password})
+                    body: JSON.stringify({email, password})
                 },
 
             );

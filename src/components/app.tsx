@@ -15,6 +15,7 @@ import Word from "../routes/loggedIn/word";
 import Settings from "../routes/loggedIn/settings";
 import {store} from "../model/store";
 import {handleRouteChange} from "./routerHandler";
+import {publicRoutes} from "./utils/global";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -26,7 +27,8 @@ export default class App extends Component<any, any> {
     constructor() {
         super();
         this.state = {
-            currentUrl: "/"
+            currentUrl: "/",
+            urlBeforeRedirect: "/"
         };
     }
 
@@ -36,13 +38,24 @@ export default class App extends Component<any, any> {
         // listen on store change to catch if user is autenticated
         store.subscribe(() => {
             if (store.getState().authenticated && this.state.currentUrl === '/login'){
-                route("/home", true);
+                route(this.state.urlBeforeRedirect, true);
             }
         })
     }
 
     private handleRoute = (e: any) => {
-        this.setState({ currentUrl: handleRouteChange(e) });
+        if (!publicRoutes.includes(e.url)) {
+            // you need to be logged in to see different than allowedRoutes
+            const isAuthed = store.getState().authenticated;
+            if (!isAuthed) {
+                this.setState({urlBeforeRedirect: e.url});
+                console.log("redirecting");
+                route("/login", true);
+            }
+        }
+        this.setState({
+            currentUrl: e.url
+        });
     }
 
 

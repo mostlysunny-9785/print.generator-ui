@@ -28,10 +28,12 @@ export default class Header extends Component<HeaderProps, any> {
             return ;
         }
 
+        var user = store.getState();
+
         if (store.getState().authenticated) {
             return (
                 <div class={style.main}>
-                    <div class={style.a}>~lablud-master</div>
+                    <div class={style.a}>~{user.email}</div>
                     <div class={style.b}>
                         {/*<p>Ya.C.Ya.G</p>*/}
                     </div>

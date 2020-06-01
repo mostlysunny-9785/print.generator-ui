@@ -25,7 +25,7 @@ export default class LoggedInHome extends Component<any, any> {
                     <div class={style.box} onClick={()=>{route("/word")}}>
                         Word
                     </div>
-                    <div class={style.box}>
+                    <div class={style.box} onClick={()=>{route("/scrapper")}}>
                         Picture
                     </div>
 

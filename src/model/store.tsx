@@ -15,7 +15,7 @@ export const store = createStore(userReducer);
 
 
 store.subscribe(() => {
-    console.log("User updated!", store.getState());
+    // console.log("User updated!", store.getState());
 })
 
 // store.dispatch({

@@ -3,3 +3,6 @@ export const scrapper: string;
 export const image: string;
 export const imageBox: string;
 export const chanelBox: string;
+export const removeButton: string;
+export const addActive: string;
+export const add: string;
