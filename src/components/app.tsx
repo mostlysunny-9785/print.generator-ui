@@ -16,6 +16,7 @@ import Settings from "../routes/loggedIn/settings";
 import {store} from "../model/store";
 import {handleRouteChange} from "./routerHandler";
 import {publicRoutes} from "./utils/global";
+import TheTool from "../routes/loggedIn/theTool";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -78,6 +79,7 @@ export default class App extends Component<any, any> {
                     <Route path="/profile/" component={Profile} user="me" />
                     <Route path="/word" component={Word} />
                     <Route path="/settings" component={Settings} />
+                    <Route path="/theTool" component={TheTool} />
                     <Route path="/profile/:user" component={Profile} />
                     <NotFoundPage default />
                 </Router>

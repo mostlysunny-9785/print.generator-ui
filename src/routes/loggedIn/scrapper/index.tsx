@@ -25,7 +25,7 @@ export default class Scrapper extends Component<any, ScrapperState> {
     componentDidMount(): void {
 
 
-        ImagesService.loadChanels().then(value => {
+        ImagesService.loadChannels().then(value => {
             this.setState({ channels: value });
         });
     }

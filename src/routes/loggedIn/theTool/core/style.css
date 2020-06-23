@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.drawingPane {
+    fill: white;
+    stroke-width: 2;
+    stroke-dasharray: 3px;
+    stroke: black;
+}
+
+.lotText {
+    font-size: 15px;
+}

@@ -31,7 +31,7 @@ export default class Menu extends Component<MenuProps, any> {
 
                     <div class={style.c}>
                         <button type="submit" class={style.menuButton + " grayButton"} onClick={()=> {route("/settings")}}>Settings</button>
-                        <button type="submit" class={style.menuButton + " wireButton"}>Send</button>
+                        <button type="submit" class={style.menuButton + " wireButton"} onClick={()=>{route("/theTool")}}>The Tool</button>
                     </div>
                 </div>
             );

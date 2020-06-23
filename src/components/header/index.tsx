@@ -33,7 +33,7 @@ export default class Header extends Component<HeaderProps, any> {
         if (store.getState().authenticated) {
             return (
                 <div class={style.main}>
-                    <div class={style.a}>~{user.email}</div>
+                    <div class={style.a} onClick={()=>{route("/home")}}>~{user.email}</div>
                     <div class={style.b}>
                         {/*<p>Ya.C.Ya.G</p>*/}
                     </div>

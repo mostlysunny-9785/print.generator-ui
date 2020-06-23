@@ -29,6 +29,15 @@ export interface ChanelModel {
     pictureIds: []
 }
 
+export interface LoadedChanelModel {
+    _id: string,
+    ownerId: string,
+    url: string,
+    type: ChanelTypes,
+    pictureIds: [],
+    pictures: ImageModel[]
+}
+
 
 export class ImagesServiceClass {
     private apiUrlPrefix = "/api";
@@ -46,9 +55,21 @@ export class ImagesServiceClass {
         return newVar;
     }
 
-    public async loadChanels(): Promise<ChanelModel[]> {
+    public async loadChannels(): Promise<ChanelModel[]> {
         const response = await fetch(this.apiUrlPrefix + "/channels",{method: 'GET'});
         return await response.json();
+    }
+
+    public async loadChannelsWithImages(): Promise<LoadedChanelModel[]> {
+        const loadedChannels: LoadedChanelModel[] = [];
+
+        const channels = await this.loadChannels();
+        for (let channel of channels) {
+            const chanelImages = await this.loadImages(channel._id);
+            loadedChannels.push({...channel, pictures: chanelImages});
+        }
+
+        return loadedChannels;
     }
 
     public async removeChannel(channelId: string): Promise<boolean> {
