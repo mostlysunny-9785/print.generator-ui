@@ -12,10 +12,7 @@ export class ScapperImage extends Component<ScrapperImageProps, any> {
             <span class={style.imageBox}>
                 <img
                     class={style.image}
-                    src={
-                        "http://localhost:3000/api/imagefiles/" +
-                        this.props.image.filename
-                    }
+                    src={"api/imagefiles/" + this.props.image.filename}
                 />
             </span>
         );

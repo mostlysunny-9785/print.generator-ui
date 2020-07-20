@@ -31,6 +31,7 @@ export default {
             "index"
         );
 
+        // TODO: THIS SHOULD BE COMMENTED OUT ON COMMIT, which sucks :D
         // config.devServer.proxy = [
         //     {
         //         // proxy requests matching a pattern:
