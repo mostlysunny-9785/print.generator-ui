@@ -46,13 +46,13 @@ export default class Header extends Component<HeaderProps, any> {
         } else {
             return (
                 <div class={style.main}>
-                    <div class={style.a}>Ya.C.Ya.G</div>
+                    <div class={style.a}></div>
                     <div class={style.b}>
-                        {/*<p>Ya.C.Ya.G</p>*/}
+                        Hello, for early access please just continue to beta as <a href="">nameless nobody #10156</a>
                     </div>
                     <div class={style.c}>
-                        <a href="/register">Sign up</a>
-                        <a href="/login">Log in</a>
+                        {/*<a href="/register">Sign up</a>*/}
+                        {/*<a href="/login">Log in</a>*/}
                     </div>
                 </div>
             );

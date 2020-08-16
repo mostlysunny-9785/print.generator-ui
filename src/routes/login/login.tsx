@@ -8,24 +8,33 @@ import {store} from "../../model/store";
 interface LoginState {
     username?: string;
     password?: string;
+    passwordHint?: string;
 }
+
+const passwordMessage = "not needed";
+const username = "nobody #10156";
 
 export default class Login extends Component<any, LoginState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            username: "",
-            password: ""
+            username: username,
+            password: "",
+            passwordHint: passwordMessage
         };
     }
 
     onSubmit = (e: any) => {
         e.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
         if (store.getState().authenticated) {
             route("/home", true);
         }
-        AuthorizationService.authenticate(this.state.username || "", this.state.password || "").then(result => {
+        var pass = this.state.password;
+        if (this.state.username === username) {
+            pass = 'dummy'
+        }
+        AuthorizationService.authenticate(this.state.username || "", pass || "").then(result => {
             console.log({result});
             if (result == undefined) {
                 // wrong passport
@@ -43,7 +52,15 @@ export default class Login extends Component<any, LoginState> {
     };
 
     onNameChange = (e: any) => {
-        this.setState({ username: e.target.value });
+        let newUsername = e.target.value;
+
+        if (this.state.username !== username) {
+            this.setState({passwordHint: 'password'})
+        } else {
+            this.setState({passwordHint: passwordMessage})
+        }
+
+        this.setState({ username:  newUsername});
     };
 
     render() {
@@ -53,13 +70,13 @@ export default class Login extends Component<any, LoginState> {
                     <div class={style.loginForm}>
                         <input
                             type="text"
-                            placeholder="Username"
+                            placeholder="username"
                             value={this.state.username}
                             onInput={this.onNameChange}
                         />
                         <input
                             type="password"
-                            placeholder="Password"
+                            placeholder={this.state.passwordHint}
                             value={this.state.password}
                             onInput={this.onPasswordChange}
                         />
@@ -68,7 +85,7 @@ export default class Login extends Component<any, LoginState> {
 
                     <div class={menuStyle.main}>
                         <button type="submit" class={style.loginButton}>
-                            Log in
+                            Continue to beta
                         </button>
                     </div>
                 </form>

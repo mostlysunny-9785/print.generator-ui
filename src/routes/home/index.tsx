@@ -7,15 +7,6 @@ export default class Home extends Component<any, any> {
         this.state = { value: "" };
     }
 
-    onSubmit = (e: any) => {
-        alert("Submitted a todo");
-        e.preventDefault();
-    };
-
-    onInput = (e: any) => {
-        const { value } = e.target;
-        this.setState({ value });
-    };
 
     render () {
         return (
