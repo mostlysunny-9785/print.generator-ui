@@ -1,5 +1,6 @@
 .home {
     display: flex;
+    flex-wrap: nowrap;
 }
 
 .box {
@@ -11,11 +12,8 @@
     border-radius: 20px;
 
     margin: 10px;
-
     font-size: 50px;
     color: black;
-
-    line-height: 100%;
 
     display: flex;
     justify-content: center;
@@ -26,4 +24,18 @@
 
 .info {
     padding-left: 20px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .box {
+        min-height: 130px;
+        width: 100%;
+        font-size: 30px;
+    }
+
+    .home {
+        flex-wrap: wrap;
+    }
+
 }

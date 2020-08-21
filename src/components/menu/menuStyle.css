@@ -22,10 +22,55 @@
 }
 
 .menuButton {
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
 	line-height: 50%;
+}
 
+.mainMenuButton {
+	width: 25%;
+	/*padding-left: 50px;*/
+	/*padding-right: 50px;*/
+}
+
+.newMain {
+	display: flex;
+	justify-content: space-between;
+	/*overflow-x: scroll;*/
+
+
+	/*overflow: hidden;*/
+	position: fixed;
+	bottom: 0;
+	/*width: 100%;*/
+
+	padding-top: 20px;
+	padding-bottom: 20px;
+	/*padding-left: 20px;*/
+	padding-right: 20px;
+
+	/*width: 30em;*/
+	width: 100%;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.restButtons {
+	max-width: 75%;
+	width: 100%;
 }
 
 
+@media only screen and (max-width: 600px) {
+	.newMain {
+		width: 100%;
+	}
+
+	.restButtons {
+		max-width: 50%;
+	}
+
+	.mainMenuButton {
+		width: 50%;
+	}
+}

@@ -4,3 +4,6 @@ export const a: string;
 export const b: string;
 export const c: string;
 export const menuButton: string;
+export const mainMenuButton: string;
+export const newMain: string;
+export const restButtons: string;

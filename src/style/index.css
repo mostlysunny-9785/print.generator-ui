@@ -35,7 +35,7 @@ input[type=text], input[type=password], select {
 }
 
 button {
-	width: 100%;
+	width: max-content;
 	background-color: #000;
 	color: white;
 	padding: 22px 20px;
@@ -43,7 +43,7 @@ button {
 	border: none;
 	cursor: pointer;
 	border-radius: 30px;
-	font-size: 30px;
+	font-size: 20px;
 }
 
 button:hover:enabled {
@@ -99,4 +99,11 @@ a:hover {
 
 a:active {
 	/*top: 5px;*/
+}
+
+
+@media only screen and (max-width: 600px) {
+	button {
+		font-size: 20px;
+	}
 }

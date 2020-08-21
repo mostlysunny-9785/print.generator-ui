@@ -33,13 +33,13 @@ export default class Header extends Component<HeaderProps, any> {
         if (store.getState().authenticated) {
             return (
                 <div class={style.main}>
-                    <div class={style.a} onClick={()=>{route("/home")}}>~{user.email}</div>
-                    <div class={style.b}>
-                        {/*<p>Ya.C.Ya.G</p>*/}
+                    <div class={style.a}> </div>
+                    <div class={style.b} onClick={()=>{route("/home")}}>
+                        ~{user.email}, X folders, unset medium
                     </div>
                     <div class={style.c}>
-                        <a href="/profile">Edit profile</a>
-                        <a href="#" onClick={this.logout}>Logout</a>
+                        {/*<a href="/profile">Edit profile</a>*/}
+                        {/*<a href="#" onClick={this.logout}>Logout</a>*/}
                     </div>
                 </div>
             );

@@ -14,7 +14,6 @@ import Instructions from "../routes/public/instructions";
 import Word from "../routes/loggedIn/word";
 import Settings from "../routes/loggedIn/settings";
 import {store} from "../model/store";
-import {handleRouteChange} from "./routerHandler";
 import {publicRoutes} from "./utils/global";
 import TheTool from "../routes/loggedIn/theTool";
 
@@ -50,7 +49,7 @@ export default class App extends Component<any, any> {
             const isAuthed = store.getState().authenticated;
             if (!isAuthed) {
                 this.setState({urlBeforeRedirect: e.url});
-                console.log("redirecting");
+                console.log("redirecting to login");
                 route("/login", true);
             }
         }
@@ -70,7 +69,7 @@ export default class App extends Component<any, any> {
             <div id="app">
                 <Header routeChange={this.state.currentUrl} />
                 <Router onChange={this.handleRoute}>
-                    <Route path="/" component={Home} />
+                    <Route path="/" component={Login} />
                     <Route path="/instructions" component={Instructions} />
                     <Route path="/login" component={Login} />
 
