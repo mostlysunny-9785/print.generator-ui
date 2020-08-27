@@ -2,6 +2,7 @@ import {Component, h} from "preact";
 import * as style from "./style.css";
 import {route} from "preact-router";
 import HomeMenu from "./menu";
+import DropdownMenu from "../../../components/dropdown";
 
 export default class LoggedInHome extends Component<any, any> {
     constructor() {
@@ -20,6 +21,8 @@ export default class LoggedInHome extends Component<any, any> {
     };
 
     render () {
+
+
         return (
             <div>
                 <div  class={style.home}>
@@ -31,17 +34,6 @@ export default class LoggedInHome extends Component<any, any> {
                     </div>
 
                 </div>
-                {/*<div class={style.info}>*/}
-                {/*    <p>*/}
-                {/*        Name: Untitled 03*/}
-                {/*    </p>*/}
-
-                {/*    <p>*/}
-                {/*    Type: Tshirt*/}
-                {/*        <br />*/}
-                {/*    Status: <span class="disabled">Empty</span>*/}
-                {/*    </p>*/}
-                {/*</div>*/}
 
                 <HomeMenu></HomeMenu>
             </div>
