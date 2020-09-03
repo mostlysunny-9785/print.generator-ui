@@ -1,0 +1,41 @@
+
+
+/*IMAGES*/
+.imageContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.image {
+    /*width: 400px;*/
+    /*height: 400px;*/
+}
+
+.imageBox {
+    padding: 20px;
+    vertical-align: middle;
+    width: 400px;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin: 10px;
+
+}
+
+.deleteButton {
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    line-height: 00px;
+    word-spacing: 0px;
+    display: flex;
+    justify-content: center;
+    color: black;
+    border-radius: 40px;
+    /*padding: 3px;*/
+}
+

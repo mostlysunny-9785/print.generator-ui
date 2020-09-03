@@ -29,7 +29,7 @@ export default class LoggedInHome extends Component<any, any> {
                     <div class={style.box} onClick={()=>{route("/word")}}>
                         Word
                     </div>
-                    <div class={style.box} onClick={()=>{route("/scrapper")}}>
+                    <div class={style.box} onClick={()=>{route("/picture/0")}}>
                         Picture
                     </div>
 

@@ -18,7 +18,7 @@ export interface State {
 export class ScrapperChanel extends Component<ScrapperChanelProps, State> {
 
     componentDidMount() {
-        ImagesService.loadImages(this.props.chanel._id).then(value => {
+        ImagesService.loadChannelImages(this.props.chanel._id).then(value => {
             this.setState({ images: value });
         });
     }

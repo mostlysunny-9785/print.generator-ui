@@ -16,6 +16,8 @@ import Settings from "../routes/loggedIn/settings";
 import {store} from "../model/store";
 import {publicRoutes} from "./utils/global";
 import TheTool from "../routes/loggedIn/theTool";
+import PictureFolder from "../routes/loggedIn/directories/picture";
+import PictureAdd from "../routes/loggedIn/directories/picture/add";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -77,6 +79,10 @@ export default class App extends Component<any, any> {
                     <Route path="/scrapper" component={Scrapper} />
                     <Route path="/profile/" component={Profile} user="me" />
                     <Route path="/word" component={Word} />
+
+                    <Route path="/picture/:id" component={PictureFolder} />
+                    <Route path="/picture/:pictureFolderId/add" component={PictureAdd} />
+
                     <Route path="/settings" component={Settings} />
                     <Route path="/theTool" component={TheTool} />
                     <Route path="/profile/:user" component={Profile} />

@@ -23,8 +23,6 @@ export default class Scrapper extends Component<any, ScrapperState> {
     }
 
     componentDidMount(): void {
-
-
         ImagesService.loadChannels().then(value => {
             this.setState({ channels: value });
         });
@@ -55,16 +53,13 @@ export default class Scrapper extends Component<any, ScrapperState> {
     }
 
     onAddChannel = (channelId: string) => {
-        ImagesService.scrap(channelId).then(value => {
+        ImagesService.scrap(channelId, "0").then(value => {
             if (value){
                 console.log("juj");
                 this.componentDidMount(); // reload everything
             } else {
                 // some error
             }
-
-
-
         });
     }
 

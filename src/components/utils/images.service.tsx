@@ -26,7 +26,7 @@ export interface ChanelModel {
     ownerId: string,
     url: string,
     type: ChanelTypes,
-    pictureIds: []
+    pictureIds: string[]
 }
 
 export interface LoadedChanelModel {
@@ -42,10 +42,10 @@ export interface LoadedChanelModel {
 export class ImagesServiceClass {
     private apiUrlPrefix = "/api";
 
-    public async loadImages(chanelId: string): Promise<ImageModel[]> {
+    public async loadChannelImages(chanelId: string): Promise<ImageModel[]> {
 
         const response = await fetch(
-            this.apiUrlPrefix + "/images/" + chanelId,
+            this.apiUrlPrefix + "/arenaimages/" + chanelId,
             {
                 method: 'GET'
             }
@@ -53,6 +53,32 @@ export class ImagesServiceClass {
         let newVar = await response.json();
 
         return newVar;
+    }
+
+    public async removeImage(imageId: string, folderId: string): Promise<boolean> {
+        const response = await fetch(this.apiUrlPrefix + "/images/" + imageId + "/" + folderId,{method: 'DELETE'});
+        return response.status === 200;
+    }
+
+    public async uploadImages(files: FileList, folderId: string): Promise<ImageModel> {
+        const uploadData = new FormData();
+        for (let i = 0; i < files.length; i++) {
+            uploadData.append('data', files[i], files[i].name);
+        }
+
+        const response = await fetch(
+            this.apiUrlPrefix + "/images/" + folderId,
+            {
+                method: 'POST',
+                body: uploadData
+            }
+        )
+        return await response.json();
+    }
+
+    public async loadFolder(folderId: string): Promise<ImageModel[]> {
+        const response = await fetch(this.apiUrlPrefix + "/images/" + folderId,{method: 'GET'});
+        return  await response.json();
     }
 
     public async loadChannels(): Promise<ChanelModel[]> {
@@ -65,8 +91,8 @@ export class ImagesServiceClass {
 
         const channels = await this.loadChannels();
         for (let channel of channels) {
-            const chanelImages = await this.loadImages(channel._id);
-            loadedChannels.push({...channel, pictures: chanelImages});
+            const chanelImages = await this.loadChannelImages(channel._id);
+            loadedChannels.push({...channel, pictures: chanelImages} as LoadedChanelModel);
         }
 
         return loadedChannels;
@@ -78,8 +104,15 @@ export class ImagesServiceClass {
     }
 
 
-    public async scrap(chanel: string): Promise<boolean> {
-        const response = await fetch(this.apiUrlPrefix + "/scrap", {method: 'POST', headers: {"content-type": 'application/json'}, body: JSON.stringify({chanel})});
+    public async scrap(channel: string, folderId: string): Promise<boolean> {
+        const response = await fetch(this.apiUrlPrefix + "/scrap",{
+            method: 'POST',
+            headers: {"content-type": 'application/json'},
+            body: JSON.stringify({
+                channel,
+                folderId
+            })
+        });
         return response.status === 200;
     }
 

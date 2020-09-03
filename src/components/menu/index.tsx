@@ -2,7 +2,6 @@ import {Component, h} from "preact";
 import * as style from "./menuStyle.css";
 import {AuthorizationService} from "../../services/authorization.service";
 import {route} from "preact-router";
-import {hasTheirOwnMenu} from "../utils/global";
 import {store} from "../../model/store";
 
 export interface MenuProps {
@@ -18,10 +17,12 @@ export default class Menu extends Component<MenuProps, any> {
 
 
     render(props?: preact.RenderableProps<any>, state?: Readonly<any>, context?: any): preact.ComponentChild {
+        // TODO: clean default menu
+        return ;
 
-        if (hasTheirOwnMenu.includes(this.props.routeChange)){
-            return ;
-        }
+        // if (!hasntGotTheirOwnMenu.includes(this.props.routeChange)){
+        //     return ;
+        // }
         if (store.getState().authenticated) {
             return (
                 <div class={style.main}>
