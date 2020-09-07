@@ -1,7 +1,7 @@
 import {Component, FunctionalComponent, h} from "preact";
 import * as style from "./style.css";
 import {GenerationModel, TShirtColors, TShirtTypes} from "../generationModel";
-import {LoadedChanelModel} from "../../../../components/utils/images.service";
+import {LoadedChanelModel} from "../../../../services/images.service";
 import {DrawArea} from "./toolCore";
 import {apiUrlPrefix} from "../../../../components/utils/global";
 

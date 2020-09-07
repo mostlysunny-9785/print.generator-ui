@@ -3,7 +3,7 @@ import * as style from "./style.css";
 import {route} from "preact-router";
 import WordMenu from "./menu";
 import TheToolMenu from "./menu";
-import {ChanelModel, ImageModel, ImagesService, LoadedChanelModel} from "../../../components/utils/images.service";
+import {ChanelModel, ImageModel, ImagesService, LoadedChanelModel} from "../../../services/images.service";
 import TheToolCore from "./core/toolCore";
 import GenerationModelPicker from "./generationModelPicker/generationModelPicker";
 import {DefaultGenerationModel, GenerationModel} from "./generationModel";

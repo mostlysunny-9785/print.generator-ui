@@ -18,6 +18,7 @@ import {publicRoutes} from "./utils/global";
 import TheTool from "../routes/loggedIn/theTool";
 import PictureFolder from "../routes/loggedIn/directories/picture";
 import PictureAdd from "../routes/loggedIn/directories/picture/add";
+import WordFolder from "../routes/loggedIn/directories/word";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 if ((module as any).hot) {
@@ -83,8 +84,11 @@ export default class App extends Component<any, any> {
                     <Route path="/picture/:id" component={PictureFolder} />
                     <Route path="/picture/:pictureFolderId/add" component={PictureAdd} />
 
+                    <Route path="/word/:wordFolderId" component={WordFolder} />
+
                     <Route path="/settings" component={Settings} />
                     <Route path="/theTool" component={TheTool} />
+                    <Route path="/send" component={TheTool} />
                     <Route path="/profile/:user" component={Profile} />
                     <NotFoundPage default />
                 </Router>

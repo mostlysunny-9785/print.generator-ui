@@ -2,8 +2,9 @@ import {Component, h} from "preact";
 import * as menuStyle from "../../../../../components/menu/menuStyle.css";
 import * as style from "./style.css";
 import {UrlCheck, UrlTypes} from "../../../../../components/utils/urlCheck";
-import {ImagesService} from "../../../../../components/utils/images.service";
+import {ImagesService} from "../../../../../services/images.service";
 import {route} from "preact-router";
+import PictureFolderHeader from "../header";
 
 interface State {
     errMsg: string;
@@ -73,6 +74,8 @@ export default class PictureAdd extends Component<Props, State> {
 
         return (
             <div>
+                <PictureFolderHeader folderId={this.props.pictureFolderId} pictures={90} returnToFolder={true}> </PictureFolderHeader>
+
                 <div class={style.container}>
                     <div class={style.url}>
                         {this.state.errMsg}

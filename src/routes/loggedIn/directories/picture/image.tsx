@@ -1,6 +1,6 @@
 import { Component, h } from "preact";
 import * as style from "./style.css";
-import {ImageModel} from "../../../../components/utils/images.service";
+import {ImageModel} from "../../../../services/images.service";
 
 export interface Props {
     image: ImageModel;

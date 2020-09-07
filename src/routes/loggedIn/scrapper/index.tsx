@@ -5,7 +5,7 @@ import {
     ChanelModel,
     ImageModel,
     ImagesService
-} from "../../../components/utils/images.service";
+} from "../../../services/images.service";
 import { ScapperImage } from "./image";
 import { ScrapperChanel } from "./chanel";
 import ScrapperMenu from "./menu";

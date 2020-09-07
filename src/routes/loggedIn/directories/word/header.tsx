@@ -6,27 +6,21 @@ import {route} from "preact-router";
 
 
 interface Props {
-    folderId: string;
-    pictures: number;
-    returnToFolder?: boolean;
+    onRouterChange: () => void
 }
 
-const PictureFolderHeader: FunctionalComponent<Props> = (props: Props) => {
+const WordFolderHeader: FunctionalComponent<Props> = (props: Props) => {
 
         return (
             <div class={style.main}>
                 <div class={style.a}></div>
                 <div class={style.b} onClick={()=>{route("/home")}}>
-                    Picture folder, {props.pictures} files
+                    Word folder, 21 words, 0 emoji
                 </div>
                 <div class={style.c}>
                     <button type="submit" class={menuStyle.menuButton} onClick={()=>{
-                        if (props.returnToFolder) {
-                            route("/picture/" + props.folderId);
-                        } else {
-                            route("/home");
-                        }
-
+                        props.onRouterChange();
+                        route("/home");
                     }}>Back</button>
 
                 </div>
@@ -37,4 +31,4 @@ const PictureFolderHeader: FunctionalComponent<Props> = (props: Props) => {
 };
 
 
-export default PictureFolderHeader;
+export default WordFolderHeader;

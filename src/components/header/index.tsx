@@ -35,8 +35,6 @@ export default class Header extends Component<HeaderProps, any> {
             }
         }
 
-        console.log({routechange: this.props.routeChange, hasTheirOwnHeader});
-
 
         var user = store.getState();
 

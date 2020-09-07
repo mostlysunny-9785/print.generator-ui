@@ -1,4 +1,5 @@
 import { h } from "preact";
+import {apiUrlPrefix} from "../components/utils/global";
 
 export enum ChanelTypes {
     ARENA,
@@ -40,12 +41,11 @@ export interface LoadedChanelModel {
 
 
 export class ImagesServiceClass {
-    private apiUrlPrefix = "/api";
 
     public async loadChannelImages(chanelId: string): Promise<ImageModel[]> {
 
         const response = await fetch(
-            this.apiUrlPrefix + "/arenaimages/" + chanelId,
+            apiUrlPrefix + "/arenaimages/" + chanelId,
             {
                 method: 'GET'
             }
@@ -56,7 +56,7 @@ export class ImagesServiceClass {
     }
 
     public async removeImage(imageId: string, folderId: string): Promise<boolean> {
-        const response = await fetch(this.apiUrlPrefix + "/images/" + imageId + "/" + folderId,{method: 'DELETE'});
+        const response = await fetch(apiUrlPrefix + "/images/" + imageId + "/" + folderId,{method: 'DELETE'});
         return response.status === 200;
     }
 
@@ -67,7 +67,7 @@ export class ImagesServiceClass {
         }
 
         const response = await fetch(
-            this.apiUrlPrefix + "/images/" + folderId,
+            apiUrlPrefix + "/images/" + folderId,
             {
                 method: 'POST',
                 body: uploadData
@@ -77,12 +77,12 @@ export class ImagesServiceClass {
     }
 
     public async loadFolder(folderId: string): Promise<ImageModel[]> {
-        const response = await fetch(this.apiUrlPrefix + "/images/" + folderId,{method: 'GET'});
+        const response = await fetch(apiUrlPrefix + "/images/" + folderId,{method: 'GET'});
         return  await response.json();
     }
 
     public async loadChannels(): Promise<ChanelModel[]> {
-        const response = await fetch(this.apiUrlPrefix + "/channels",{method: 'GET'});
+        const response = await fetch(apiUrlPrefix + "/channels",{method: 'GET'});
         return await response.json();
     }
 
@@ -99,13 +99,13 @@ export class ImagesServiceClass {
     }
 
     public async removeChannel(channelId: string): Promise<boolean> {
-        const response = await fetch(this.apiUrlPrefix + "/channels/" + channelId,{method: 'DELETE'});
+        const response = await fetch(apiUrlPrefix + "/channels/" + channelId,{method: 'DELETE'});
         return response.status === 200;
     }
 
 
     public async scrap(channel: string, folderId: string): Promise<boolean> {
-        const response = await fetch(this.apiUrlPrefix + "/scrap",{
+        const response = await fetch(apiUrlPrefix + "/scrap",{
             method: 'POST',
             headers: {"content-type": 'application/json'},
             body: JSON.stringify({

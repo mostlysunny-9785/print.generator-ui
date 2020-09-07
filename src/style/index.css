@@ -55,6 +55,11 @@ button:disabled {
 	color: #C4C4C4;
 }
 
+button:focus {
+	/*box-shadow: 0 0 1pt 1pt black;*/
+	outline-style: none;
+}
+
 .disabled {
 	color: #C4C4C4;
 }
@@ -75,7 +80,7 @@ button:disabled {
 
 pre {
 	display: block;
-	white-space: normal;
+	/*white-space: normal;*/
 }
 
 

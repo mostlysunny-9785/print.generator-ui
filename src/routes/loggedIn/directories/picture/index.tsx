@@ -1,6 +1,6 @@
 import {Component, h} from "preact";
 import PictureFolderMenu from "./menu";
-import {ChanelModel, ImageModel, ImagesService} from "../../../../components/utils/images.service";
+import {ChanelModel, ImageModel, ImagesService} from "../../../../services/images.service";
 import {ScrapperChanel} from "../../scrapper/chanel";
 import {Image} from "./image";
 import * as style from "./style.css";

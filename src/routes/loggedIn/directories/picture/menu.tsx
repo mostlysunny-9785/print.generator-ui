@@ -3,7 +3,7 @@ import * as style from "../../../../components/menu/menuStyle.css";
 import {route} from "preact-router";
 import DropdownMenu from "../../../../components/dropdown";
 import {useRef} from "preact/hooks";
-import {ImageModel, ImagesService} from "../../../../components/utils/images.service";
+import {ImageModel, ImagesService} from "../../../../services/images.service";
 
 
 

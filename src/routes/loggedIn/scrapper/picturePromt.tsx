@@ -1,6 +1,6 @@
 import {FunctionalComponent, h} from "preact";
 import * as style from "./style.css";
-import {ImagesService} from "../../../components/utils/images.service";
+import {ImagesService} from "../../../services/images.service";
 
 interface Props {
     onSubmit: (channelId: string) => void;

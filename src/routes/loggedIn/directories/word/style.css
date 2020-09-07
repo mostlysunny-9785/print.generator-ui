@@ -1,0 +1,20 @@
+
+.container {
+    display: flex;
+    flex-flow: column;
+    width: 100% !important;
+    height: 70vh;
+}
+
+
+.text {
+    border: 0;
+    box-sizing: border-box;
+    flex: 1 1 auto;
+}
+
+textarea {
+    width: 100%;
+
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}

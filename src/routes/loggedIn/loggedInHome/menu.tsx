@@ -28,7 +28,7 @@ export default class HomeMenu extends Component<any, any> {
                             <DropdownMenu label='Add' buttons={this.addMenu} horizontalPosition='CENTER' buttonStyling={style.menuButton}></DropdownMenu>
                             {/*<button type="submit" class={style.menuButton + " wireButton"}>Add</button>*/}
                             <button type="submit" class={style.menuButton + " wireButton"}>Delete</button>
-                            <button type="submit" class={style.menuButton + " wireButton"} disabled>Send</button>
+                            <button type="submit" class={style.menuButton + " wireButton"} onClick={()=>{route('/send')}}>Send</button>
                         </div>
                 </div>
             );

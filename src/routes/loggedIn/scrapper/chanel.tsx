@@ -2,7 +2,7 @@ import { Component, h } from "preact";
 import {
     ChanelModel,
     ImageModel, ImagesService
-} from "../../../components/utils/images.service";
+} from "../../../services/images.service";
 import * as style from "./style.css";
 import {ScapperImage} from "./image";
 
