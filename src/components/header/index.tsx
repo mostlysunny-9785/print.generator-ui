@@ -2,7 +2,7 @@ import {Component, h} from "preact";
 import * as style from "./style.css";
 import {AuthorizationService} from "../../services/authorization.service";
 import {route} from "preact-router";
-import {hasTheirOwnHeader} from "../utils/global";
+import {hasGotTheirOwnMenu, hasTheirOwnHeader} from "../utils/global";
 import {store} from "../../model/store";
 
 export interface HeaderProps {
@@ -27,6 +27,16 @@ export default class Header extends Component<HeaderProps, any> {
         if (hasTheirOwnHeader.includes(this.props.routeChange)){
             return ;
         }
+
+
+        for (var i = 0; i < hasTheirOwnHeader.length; i++) {
+            if (this.props.routeChange.includes(hasTheirOwnHeader[i])) {
+                return ;
+            }
+        }
+
+        console.log({routechange: this.props.routeChange, hasTheirOwnHeader});
+
 
         var user = store.getState();
 

@@ -5,9 +5,15 @@ import {ImageModel} from "../../../../components/utils/images.service";
 export interface Props {
     image: ImageModel;
     canDelete: boolean;
+    onRemoval: (img: ImageModel) => void;
 }
 
 export class Image extends Component<Props, any> {
+
+    deletePic = () => {
+        this.props.onRemoval(this.props.image);
+    }
+
     render() {
         return (
             <span class={style.imageBox}
@@ -15,7 +21,7 @@ export class Image extends Component<Props, any> {
             >
 
                 {this.props.canDelete ?
-                    <button class={style.deleteButton + " grayButton"}>
+                    <button class={style.deleteButton + " grayButton"} onClick={this.deletePic}>
                         X
                     </button> : ""}
             </span>

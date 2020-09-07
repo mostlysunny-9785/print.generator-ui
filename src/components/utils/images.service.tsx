@@ -60,7 +60,7 @@ export class ImagesServiceClass {
         return response.status === 200;
     }
 
-    public async uploadImages(files: FileList, folderId: string): Promise<ImageModel> {
+    public async uploadImages(files: FileList, folderId: string): Promise<ImageModel[]> {
         const uploadData = new FormData();
         for (let i = 0; i < files.length; i++) {
             uploadData.append('data', files[i], files[i].name);

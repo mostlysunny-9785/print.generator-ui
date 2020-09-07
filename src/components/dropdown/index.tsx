@@ -55,7 +55,10 @@ export default class DropdownMenu extends Component<Props, any> {
         });
     }
 
-
+    actionClicked = (action: () => void) => {
+        this.setState({showMenu: false}); // hide menu
+        action();
+    }
 
     render() {
 
@@ -63,11 +66,11 @@ export default class DropdownMenu extends Component<Props, any> {
         this.props.buttons.forEach((button, index) => {
             let buttonElem;
             if (index == 0) { // first elemtn => round corners
-                buttonElem = <button class={style.dropdownItem + ' ' + style.topItem} onClick={button.action}>{button.label}</button>;
+                buttonElem = <button class={style.dropdownItem + ' ' + style.topItem} onClick={() => this.actionClicked(button.action)}>{button.label}</button>;
             }  else if (index == this.props.buttons.length-1) { // last elem
-                buttonElem = <button class={style.dropdownItem + ' ' + style.bottomItem} onClick={button.action}>{button.label}</button>;
+                buttonElem = <button class={style.dropdownItem + ' ' + style.bottomItem} onClick={() => this.actionClicked(button.action)}>{button.label}</button>;
             } else {
-                buttonElem = <button class={style.dropdownItem} onClick={button.action}>{button.label}</button>;
+                buttonElem = <button class={style.dropdownItem} onClick={() => this.actionClicked(button.action)}>{button.label}</button>;
             }
             buttons.push(buttonElem);
         })

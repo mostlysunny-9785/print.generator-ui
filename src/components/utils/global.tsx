@@ -1,7 +1,7 @@
 
 
 
-export var hasTheirOwnHeader = ['/instructions'];
+export var hasTheirOwnHeader = ['/instructions', '/picture'];
 
 export var hasGotTheirOwnMenu = [];
 export var publicRoutes = ["/login"];

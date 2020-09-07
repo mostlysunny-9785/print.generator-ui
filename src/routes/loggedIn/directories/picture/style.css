@@ -39,3 +39,14 @@
     /*padding: 3px;*/
 }
 
+
+@media only screen and (max-width: 600px) {
+    .imageBox {
+        width: 146px;
+        height: 146px;
+        margin: 2px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+}

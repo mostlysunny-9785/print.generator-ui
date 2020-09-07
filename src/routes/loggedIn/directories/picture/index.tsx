@@ -4,10 +4,12 @@ import {ChanelModel, ImageModel, ImagesService} from "../../../../components/uti
 import {ScrapperChanel} from "../../scrapper/chanel";
 import {Image} from "./image";
 import * as style from "./style.css";
+import PictureFolderHeader from "./header";
 
 interface State {
     channels: ChanelModel[],
     images: ImageModel[],
+    imagesComponents: any[],
     deleteEnabled: boolean
 }
 
@@ -18,52 +20,64 @@ interface Props {
 export default class PictureFolder extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = { channels: [], images: [], deleteEnabled: false };
+        this.state = { channels: [], images: [], deleteEnabled: false, imagesComponents: [] };
     }
 
     componentDidMount(): void {
-        // ImagesService.loadChannels().then(channels => {
-        //     this.setState({ channels: channels }, () => {
-        //         this.lazyLoadImages();
-        //     });
-        //
-        // });
-
         ImagesService.loadFolder(this.props.id).then((images: ImageModel[]) => {
             this.setState({images});
+
         });
-
-        // TODO: load user picures
-    }
-
-    lazyLoadImages(): void {
-        this.state.channels.forEach((channel) => {
-            ImagesService.loadChannelImages(channel._id).then(value => {
-                this.setState({ images: this.state.images.concat(value) });
-            });
-        })
     }
 
     toggleDelete = () => {
         this.setState({ deleteEnabled: !this.state.deleteEnabled});
     }
 
+    onRemoval = (imageToDelete: ImageModel) => {
+        ImagesService.removeImage(imageToDelete._id, this.props.id).then(value => {
+            console.log({value});
+            if (value) {
+                const findIndex = this.state.images.findIndex(imageToFind => imageToFind._id === imageToDelete._id);
+                const images = this.state.images;
+                images.splice(findIndex, 1);
+                this.setState({images});
+            }
+        })
+    }
+
+    newPictureUploaded = (uploadedPictures: ImageModel[]) => {
+        console.log({uploadedPictures});
+        this.setState({images: [...uploadedPictures, ...this.state.images]});
+    }
+
+
 
     render () {
         const images: any = [];
         this.state.images.forEach(image => {
-            images.push(<Image image={image} canDelete={this.state.deleteEnabled}></Image>)
+            images.push(<Image
+                key={image._id}
+                image={image}
+                canDelete={this.state.deleteEnabled}
+                onRemoval={() => {this.onRemoval(image)}}></Image>)
         });
-
 
         return (
             <div>
+
+                <PictureFolderHeader folderId={this.props.id} pictures={this.state.images.length}></PictureFolderHeader>
+
                 <div class={style.imageContainer}>
                     {images}
                 </div>
 
 
-                <PictureFolderMenu pictureFolderId={this.props.id} toggleDelete={this.toggleDelete} deleteEnabled={this.state.deleteEnabled}></PictureFolderMenu>
+                <PictureFolderMenu
+                    pictureFolderId={this.props.id}
+                    toggleDelete={this.toggleDelete}
+                    deleteEnabled={this.state.deleteEnabled}
+                newPictureUploaded={this.newPictureUploaded}></PictureFolderMenu>
             </div>
         );
     }
