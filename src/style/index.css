@@ -30,6 +30,12 @@ input[type=text], input[type=password], select {
 	min-width: 200px;
 }
 
+select {
+	text-align: center;
+	text-align-last: center;
+	-moz-text-align-last: center;
+}
+
 ::placeholder {
 	color: #C4C4C4;
 }
