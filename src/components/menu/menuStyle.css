@@ -53,6 +53,7 @@
 	width: 100%;
 	/*overflow-x: scroll; THIS BREAKS HORIZONTAL SCROLLING ON MENU*/
 	white-space: nowrap;
+	background-color: white;
 	/*overflow-y: visible;*/
 }
 

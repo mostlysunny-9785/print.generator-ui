@@ -2,28 +2,95 @@ import {Component, h} from "preact";
 import * as style from "./style.css";
 import {route} from "preact-router";
 import HomeMenu from "./menu";
-import DropdownMenu from "../../../components/dropdown";
 import Navigation from "../../../components/navigation";
 import {AuthorizationService} from "../../../services/authorization.service";
+import {FolderModel, FoldersService, FolderType} from "../../../services/folders.service";
+import DeleteButton from "../../../components/deleteButton/deleteButton";
 
-export default class LoggedInHome extends Component<any, any> {
+
+interface State {
+    folders: FolderModel[],
+    canDelete: boolean
+}
+
+export default class LoggedInHome extends Component<any, State> {
     constructor() {
         super();
-        this.state = { value: "" };
+        this.state = { canDelete: false, folders: [] };
     }
 
-    onSubmit = (e: any) => {
-        alert("Submitted a todo");
-        e.preventDefault();
-    };
+    componentDidMount() {
+        FoldersService.get().then((folders: FolderModel[]) => {
+            this.setState({folders});
+            console.log({folders});
+        });
+    }
 
-    onInput = (e: any) => {
-        const { value } = e.target;
-        this.setState({ value });
-    };
+    onDelete = () => {
+        this.setState({canDelete: !this.state.canDelete});
+    }
+
+    onAdd = (type: FolderType) => {
+        let highestNumber = 0;
+        this.state.folders?.forEach((folder: FolderModel) => {
+            if (folder.type === type) { // is the right type
+                if (highestNumber < folder.id) {
+                    highestNumber = folder.id;
+                }
+            }
+        });
+
+        highestNumber++; // make it by one bigger
+        FoldersService.add(highestNumber.toString(), type).then((newFolder: any) => {
+            if (newFolder.type === "0") {
+                newFolder.type = FolderType.WORD
+            } else if (newFolder.type === "1") {
+                newFolder.type = FolderType.IMAGE;
+            }
+            this.setState({folders: [...this.state.folders, newFolder]});
+        })
+
+    }
+
+    routeTo = (path: string) => {
+        if (!this.state.canDelete) { // only route if delete is not enabled
+            route(path);
+        }
+    }
+
+    onDeleteClick = (id: string) => {
+        console.log({id});
+        FoldersService.delete(id).then(result => {
+            if (result) {
+                const findIndex = this.state.folders.findIndex(folderToFind => folderToFind._id === id);
+                const folders = this.state.folders;
+                folders.splice(findIndex, 1);
+                this.setState({folders});
+            }
+        });
+    }
 
     render () {
 
+        let folders: any = [];
+        this.state.folders?.forEach((folder: FolderModel) => {
+            let folderElm: any;
+            if (folder.type === FolderType.WORD) {
+                folderElm = <div class={style.box} onClick={()=>{this.routeTo("/word/" + folder.id)}}>
+                    {this.state.canDelete ? <DeleteButton delete={()=>{this.onDeleteClick(folder._id)}} />: "" }
+                    Word {folder.id}
+                </div>
+            } else if (folder.type === FolderType.IMAGE) {
+                folderElm = <div class={style.box} onClick={()=>{this.routeTo("/picture/" + folder.id)}}>
+                    {this.state.canDelete ? <DeleteButton delete={()=>{this.onDeleteClick(folder._id)}} />: "" }
+                    Picture {folder.id}
+                </div>
+            } else {
+                folderElm = <div class={style.box}>ERROR</div>
+            }
+            folders.push(folderElm);
+
+        });
 
         return (
             <div>
@@ -33,18 +100,12 @@ export default class LoggedInHome extends Component<any, any> {
 
 
                 <div  class={style.home}>
-                    <div class={style.box} onClick={()=>{route("/word/0")}}>
-                        Word
-                    </div>
-                    <div class={style.box} onClick={()=>{route("/picture/0")}}>
-                        Picture
-                    </div>
-
+                    {folders}
                 </div>
 
                 <a onClick={() => {AuthorizationService.signout().then(value => {route("/login")})}}>Logout</a>
 
-                <HomeMenu></HomeMenu>
+                <HomeMenu onAdd={this.onAdd} onDelete={this.onDelete} canDelete={this.state.canDelete}> </HomeMenu>
             </div>
             </div>
         );
