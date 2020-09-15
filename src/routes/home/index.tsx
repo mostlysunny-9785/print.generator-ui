@@ -11,12 +11,7 @@ export default class Home extends Component<any, any> {
     render () {
         return (
             <div  class={style.home}>
-                <div class={style.box}>
-                    Word
-                </div>
-                <div class={style.box}>
-                    Picture
-                </div>
+                ✈
             </div>
         );
     }

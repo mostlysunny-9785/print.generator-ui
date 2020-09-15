@@ -5,3 +5,6 @@ export const b: string;
 export const c: string;
 export const active: string;
 export const deactivated: string;
+export const grayBack: string;
+export const sideMenu: string;
+export const centerMenu: string;

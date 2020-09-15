@@ -1,7 +1,7 @@
 import {Component, h} from "preact";
 
 
-export var hasTheirOwnHeader = ['/instructions', '/picture', '/home', '/settings', '/instructions', '/word'];
+export var hasTheirOwnHeader = ['/instructions', '/picture', '/home', '/settings', '/instructions', '/word', '/', '/login'];
 
 export var hasGotTheirOwnMenu = [];
 export var publicRoutes = ["/login"];

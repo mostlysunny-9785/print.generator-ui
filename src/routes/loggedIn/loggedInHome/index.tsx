@@ -97,13 +97,9 @@ export default class LoggedInHome extends Component<any, State> {
             <Navigation> </Navigation>
 
             <div>
-
-
                 <div  class={style.home}>
                     {folders}
                 </div>
-
-                <a onClick={() => {AuthorizationService.signout().then(value => {route("/login")})}}>Logout</a>
 
                 <HomeMenu onAdd={this.onAdd} onDelete={this.onDelete} canDelete={this.state.canDelete}> </HomeMenu>
             </div>

@@ -1,34 +1,55 @@
 .main {
-	justify-content: space-between;
+	justify-content: center;
 	padding-top: 10px;
 	margin-bottom: 10px;
-	margin-left: 20px;
-	margin-right: 20px;
 	display: flex;
 	font-size: 27px;
-
 }
 .a, .b, .c {
 	/*background: #efefef; border: 1px solid #999; */
 }
 
 .b {
-	line-height: 75px;
+	/*line-height: 75px;*/
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
 .active {
-	height: 60px;
-	line-height: 15px;
+	/*height: 60px;*/
+	/*line-height: 15px;*/
+	background-color: black;
+	padding: 15px 0;
+	border-radius: 30px;
 }
 
 .deactivated {
-	background-color: #F0F0F0;
 	color: black;
-	height: 50px;
-	line-height: 0px;
+}
+
+.grayBack {
+	background-color: #F0F0F0;
+	color: white;
+	padding: 22px 0px;
+	/*margin: 8px 0;*/
+	border: none;
+	cursor: pointer;
+	border-radius: 30px;
+	font-size: 24px;
+	height: 30px;
+
+	width: 540px;
+}
+
+.sideMenu {
+	width: 180px;
+	text-align: center;
+}
+
+.centerMenu {
+	width: 180px;
+	text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
@@ -46,6 +67,28 @@
 	.a {
 		display: none;
 	}
+
+	.grayBack {
+		padding: 22px 0px;
+		font-size: 18px;
+		height: 30px;
+		width: 340px;
+	}
+
+	.sideMenu {
+		width: 120px;
+		text-align: center;
+	}
+
+	.centerMenu {
+		width: 120px;
+		text-align: center;
+	}
+
+	.active {
+		padding: 12px 0;
+	}
+
 }
 
 a {

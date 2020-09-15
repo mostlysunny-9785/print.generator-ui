@@ -4,6 +4,8 @@ import { AuthorizationService } from "../../services/authorization.service";
 import { route } from "preact-router";
 import * as menuStyle from "../../components/menu/menuStyle.css";
 import {store} from "../../model/store";
+import {isMobile} from "../../components/utils/screen";
+import LoginHeader from "./header";
 
 interface LoginState {
     username?: string;
@@ -66,26 +68,30 @@ export default class Login extends Component<any, LoginState> {
     render() {
         return (
             <div>
+                <LoginHeader />
                 <form onSubmit={this.onSubmit}>
                     <div class={style.loginForm}>
                         <input
+                            class={style.loginInput}
                             type="text"
                             placeholder="username"
                             value={this.state.username}
                             onInput={this.onNameChange}
                         />
                         <input
+                            class={style.loginInput}
                             type="password"
                             placeholder={this.state.passwordHint}
                             value={this.state.password}
                             onInput={this.onPasswordChange}
                         />
+
                         {/*<input type="text" value={this.state.password} onInput={this.onPasswordChange} />*/}
                     </div>
 
                     <div class={menuStyle.main}>
                         <button type="submit" class={style.loginButton}>
-                            Continue to beta
+                            {isMobile() ? 'Continue' : 'Continue to beta'}
                         </button>
                     </div>
                 </form>

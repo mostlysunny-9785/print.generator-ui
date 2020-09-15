@@ -7,13 +7,26 @@
 .headline {
     font-size: 35px;
     margin-bottom: 20px;
+    display: flex;
 }
 
 .icon {
     margin-right: 7px;
+    width: 35px;
+    height: 52px;
 }
 
 .content {
     padding-left: 20px;
     padding-right: 20px;
+    font-size: 24px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .content {
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 20px;
+    }
 }

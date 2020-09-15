@@ -28,10 +28,11 @@ export default class Hider extends Component<Props, State> {
     render() {
         return (
             <div class={style.container}>
-                <div class={style.headline} onClick={this.toggleVisible}>
-                    <span class={style.icon}>{this.state.visible ? "▼" : "▶"}</span>
-                    {this.props.headline}</div>
-                {this.state.visible ? <div class={style.content}>
+                    <div class={style.headline} onClick={this.toggleVisible}>
+                        <div class={style.icon}>{this.state.visible ? "▼" : "▶"} </div>
+                        {this.props.headline}
+                    </div>
+                    {this.state.visible ? <div class={style.content}>
                     {this.props.children}
                 </div> : ""}
             </div>

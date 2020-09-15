@@ -5,7 +5,7 @@
 	margin-left: 20px;
 	margin-right: 20px;
 	display: flex;
-	font-size: 27px;
+	font-size: 24px;
 
 }
 .a, .b, .c {
@@ -15,14 +15,16 @@
 .b {
 	text-align: center;
 	line-height: 75px;
+	align-content: center;
 
 }
 
 @media only screen and (max-width: 600px) {
 	.b {
-		font-size: 20px;
-		line-height: 30px;
+		font-size: 18px;
+		/*line-height: 30px;*/
 		text-align: left;
+		align-content: center;
 	}
 
 	.main {

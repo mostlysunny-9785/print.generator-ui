@@ -1,8 +1,9 @@
 import { Component, h } from "preact";
 import * as style from "./style.css";
 import { GenerationModel, TShirtColors, TShirtTypes } from "../generationModel";
-import { LoadedChanelModel } from "../../../../services/images.service";
+import {ImageModel, LoadedChanelModel} from "../../../../services/images.service";
 import ImagePlacer from "./imagePlacer";
+import {WordModel} from "../../../../services/words.service";
 
 export interface DrawArea {
     x: number;
@@ -18,7 +19,8 @@ interface State {
 
 export interface ToolCoreProps {
     model: GenerationModel;
-    channels: LoadedChanelModel[];
+    images: ImageModel[];
+    words: WordModel[];
 }
 
 export default class TheToolCore extends Component<ToolCoreProps, State> {
@@ -172,7 +174,8 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
                     </text>
                     <ImagePlacer
                         model={this.props.model}
-                        channels={this.props.channels}
+                        words={this.props.words}
+                        images={this.props.images}
                         drawArea={this.state.drawArea}
                     />
                 </svg>

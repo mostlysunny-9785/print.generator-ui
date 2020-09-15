@@ -72,7 +72,7 @@ export default class App extends Component<any, any> {
             <div id="app">
                 <Header routeChange={this.state.currentUrl} />
                 <Router onChange={this.handleRoute}>
-                    <Route path="/" component={Login} />
+                    <Route path="/" component={LoggedInHome} />
                     <Route path="/instructions" component={Instructions} />
                     <Route path="/login" component={Login} />
 

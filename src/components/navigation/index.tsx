@@ -2,6 +2,7 @@ import {Component, h} from "preact";
 import * as style from "./menuStyle.css";
 import {route} from "preact-router";
 import {store} from "../../model/store";
+import {isMobile} from "../utils/screen";
 
 export interface Props {
     routeChange: string
@@ -28,10 +29,12 @@ export default class Navigation extends Component<any, any> {
             <div class={style.main}>
                 <div class={style.a}> </div>
 
-                <div class={style.b}>
-                    <button class={settingsStyle} onClick={() => {route("/settings")}}>Settings</button>
-                    <button class={foldersStyle} onClick={() => {route("/home")}}>Folders</button>
-                    <button class={informationsStyle} onClick={() => {route("/instructions")}}>Informations</button>
+                <div class={style.b + ' ' + style.grayBack}>
+                    <div class={settingsStyle + ' ' + style.sideMenu} onClick={() => {route("/settings")}}>Settings</div>
+                    <div class={foldersStyle + ' ' + style.centerMenu} onClick={() => {route("/home")}}>Folders</div>
+                    <div class={informationsStyle + ' ' + style.sideMenu} onClick={() => {route("/instructions")}}>
+                        { isMobile() ? 'Info' : 'Informations' }
+                    </div>
                 </div>
 
                 <div class={style.c}>

@@ -76,8 +76,14 @@ export class ImagesServiceClass {
         return await response.json();
     }
 
+
     public async loadFolder(folderId: string): Promise<ImageModel[]> {
         const response = await fetch(apiUrlPrefix + "/images/" + folderId,{method: 'GET'});
+        return  await response.json();
+    }
+
+    public async getAllImages(): Promise<ImageModel[]> {
+        const response = await fetch(apiUrlPrefix + "/images",{method: 'GET'});
         return  await response.json();
     }
 

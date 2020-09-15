@@ -47,7 +47,7 @@ textarea {
 }
 
 textarea:focus {
-	border: 2px solid #0094FF;
+	/*border: 2px solid #0094FF;*/
 }
 
 .addActive {

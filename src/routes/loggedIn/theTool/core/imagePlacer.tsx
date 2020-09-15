@@ -1,37 +1,29 @@
 import {Component, FunctionalComponent, h} from "preact";
 import * as style from "./style.css";
 import {GenerationModel, TShirtColors, TShirtTypes} from "../generationModel";
-import {LoadedChanelModel} from "../../../../services/images.service";
+import {ImageModel, LoadedChanelModel} from "../../../../services/images.service";
 import {DrawArea} from "./toolCore";
 import {apiUrlPrefix} from "../../../../components/utils/global";
+import {WordModel} from "../../../../services/words.service";
 
 
 
 
 export interface Props {
     model: GenerationModel;
-    channels: LoadedChanelModel[];
-    drawArea: DrawArea
+    images: ImageModel[];
+    words: WordModel[];
+    drawArea: DrawArea;
 }
 
 const ImagePlacer: FunctionalComponent<Props> = (props: Props) => {
 
     const randomlyChoosePic = () => {
-        if (props && props.channels) {
-            let channel = 1;
-            if (props.channels[channel] && props.channels[channel].pictures) {
-                let picture = Math.floor(Math.random() * Math.floor(props.channels[channel].pictures.length));
-                return props.channels[channel].pictures[picture];
-            }
-
+        if (props && props.words) {
+            const chosenPicture = Math.floor(Math.random() * Math.floor(props.images.length));
+            return props.images[chosenPicture];
         }
-
-
     }
-
-    console.log(props);
-
-
 
     let chosenPic1: any = randomlyChoosePic();
     let chosenPic2: any = randomlyChoosePic();

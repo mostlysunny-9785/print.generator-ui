@@ -61,7 +61,7 @@ export default class Instructions extends Component<any, any> {
         return (
 
             <div>
-                <Navigation> </Navigation>
+                <Navigation />
                 <div>
 
 
@@ -84,7 +84,7 @@ export default class Instructions extends Component<any, any> {
                     </Hider>
 
 
-                    <InstructionsMenu></InstructionsMenu>
+                    <InstructionsMenu />
                 </div>
             </div>
         );

@@ -52,6 +52,14 @@ export class WordsServiceClass {
         return await response.json();
     }
 
+    public async getAll(): Promise<WordModel[]> {
+        const response = await fetch(apiUrlPrefix + "/words",{method: 'GET'});
+        if (response.status !== 200) {
+            throw new Error(await response.text());
+        }
+        return await response.json();
+    }
+
 }
 
 export var WordsService = new WordsServiceClass();
