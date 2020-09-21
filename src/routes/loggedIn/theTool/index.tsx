@@ -11,9 +11,6 @@ import {FolderModel, FoldersService} from "../../../services/folders.service";
 import {WordModel, WordsService} from "../../../services/words.service";
 
 interface State {
-    folders: FolderModel[],
-    words: WordModel[],
-    images: ImageModel[],
     generationModel: GenerationModel
 
 }
@@ -22,26 +19,13 @@ export default class TheTool extends Component<any, State> {
     constructor() {
         super();
         this.state = {
-            folders: [],
-            words: [],
-            images: [],
             generationModel: JSON.parse(JSON.stringify(DefaultGenerationModel))
         };
     }
 
 
     componentDidMount() {
-        FoldersService.get().then(folders => {
-            this.setState({folders});
-        });
 
-        ImagesService.getAllImages().then(images => {
-            this.setState({images});
-        });
-
-        WordsService.getAll().then(words => {
-            this.setState({words});
-        });
     }
 
     componentWillUnmount() {
@@ -64,7 +48,7 @@ export default class TheTool extends Component<any, State> {
             <div>
                 <h2>The Tool</h2>
                 <GenerationModelPicker model={this.state.generationModel} modelChange={this.onModelChange} />
-                <TheToolCore model={this.state.generationModel} images={this.state.images} words={this.state.words} />
+                <TheToolCore model={this.state.generationModel} />
                 {/*<TheToolMenu />*/}
             </div>
         );

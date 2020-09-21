@@ -49,7 +49,7 @@ button {
 	border: none;
 	cursor: pointer;
 	border-radius: 30px;
-	font-size: 20px;
+	font-size: 24px;
 }
 
 /*button:hover:enabled {*/
@@ -64,6 +64,9 @@ button:disabled {
 button:focus, input:focus, textarea:focus {
 	/*box-shadow: 0 0 1pt 1pt black;*/
 	outline-style: none;
+}
+
+textarea:focus {
 	border: 0;
 }
 
@@ -82,7 +85,7 @@ button:focus, input:focus, textarea:focus {
 
 .wireButton {
 	background-color: white;
-	border: 1px solid black;
+	border: 2px solid black;
 	color: black;
 }
 

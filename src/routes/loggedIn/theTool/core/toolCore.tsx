@@ -19,8 +19,6 @@ interface State {
 
 export interface ToolCoreProps {
     model: GenerationModel;
-    images: ImageModel[];
-    words: WordModel[];
 }
 
 export default class TheToolCore extends Component<ToolCoreProps, State> {
@@ -70,7 +68,7 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
     }
 
     getDrawArea() {
-        if (this.state.drawArea.ratio && this.props.model.drawAreaVisible) {
+        if (this.state.drawArea && this.state.drawArea.ratio && this.props.model.drawAreaVisible) {
             const style: any = {
                 fill: "white",
                 stroke: "black",
@@ -170,12 +168,10 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
                     {this.getDrawArea()}
                     {this.getLotNumbers()}
                     <text x="20" y="20" style={{ fontSize: "20px" }}>
-                        Ratio: {this.state.drawArea.ratio}
+                        Ratio: {this.state.drawArea ? this.state.drawArea.ratio : " "}
                     </text>
                     <ImagePlacer
                         model={this.props.model}
-                        words={this.props.words}
-                        images={this.props.images}
                         drawArea={this.state.drawArea}
                     />
                 </svg>

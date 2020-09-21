@@ -1,51 +1,121 @@
 import {Component, FunctionalComponent, h} from "preact";
 import * as style from "./style.css";
-import {GenerationModel, TShirtColors, TShirtTypes} from "../generationModel";
-import {ImageModel, LoadedChanelModel} from "../../../../services/images.service";
-import {DrawArea} from "./toolCore";
+import {GenerationModel, ImageProps, TShirtColors, TShirtTypes, WordProps} from "../generationModel";
+import {ImageModel, ImagesService, LoadedChanelModel} from "../../../../services/images.service";
+import {DrawArea, ToolCoreProps} from "./toolCore";
 import {apiUrlPrefix} from "../../../../components/utils/global";
-import {WordModel} from "../../../../services/words.service";
-
-
-
+import {WordModel, WordsService} from "../../../../services/words.service";
+import {correctOverlap, fillImageObj, getImage, getWord, revertImageDimensionsToOriginal} from "./helpers";
+import {FolderModel, FoldersService} from "../../../../services/folders.service";
+import Word from "../../word";
+import {RandomComposition} from "./compositions/random";
 
 export interface Props {
     model: GenerationModel;
-    images: ImageModel[];
-    words: WordModel[];
     drawArea: DrawArea;
 }
 
-const ImagePlacer: FunctionalComponent<Props> = (props: Props) => {
+export interface State {
+    images: ImageModel[];
+    loadedImages: ImageProps[];
+    words: WordModel[];
+    loadedWords: WordProps[];
+    folders: FolderModel[];
 
-    const randomlyChoosePic = () => {
-        if (props && props.words) {
-            const chosenPicture = Math.floor(Math.random() * Math.floor(props.images.length));
-            return props.images[chosenPicture];
-        }
-    }
-
-    let chosenPic1: any = randomlyChoosePic();
-    let chosenPic2: any = randomlyChoosePic();
-
-    if (chosenPic1) {
-        chosenPic1 = <image x={props.drawArea.x} y={props.drawArea.y} href={apiUrlPrefix + 'imagefiles/' + chosenPic1.filename} width="250"/>;
-    }
-
-    if (chosenPic2) {
-        chosenPic2 = <image x={props.drawArea.x} y={props.drawArea.y + 250} href={apiUrlPrefix + 'imagefiles/' + chosenPic2.filename} width="250"/>;
-    }
-
-
-    return (
-        <g>
-            {chosenPic1}
-            {chosenPic2}
-        </g>
-    );
-
+    loadingDone: boolean,
+    objectsToDraw: any[]
 }
 
-export default ImagePlacer;
+
+export default class ImagePlacer extends Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            loadingDone: false, 
+            objectsToDraw: [],
+            images: [],
+            loadedImages: [],
+            words: [],
+            loadedWords: [],
+            folders: []
+        };
+        
+    }
+
+    componentDidMount() {
+        FoldersService.get().then(folders => {
+            this.setState({folders});
+        });
+
+        ImagesService.getAllImages().then(images => {
+            // also load image properties
+            const loadedImages: Promise<ImageProps>[] = [];
+            images.forEach((image: ImageModel) => {
+                loadedImages.push(getImage(image.filename));
+            });
+
+            Promise.all(loadedImages).then((loadedImages: ImageProps[]) => {
+                // when we have downloaded and loaded all images and their properties
+                this.setState({images, loadedImages});
+            });
+
+        });
+
+        WordsService.getAll().then(words => {
+            const loadedWords: WordProps[] = [];
+            if (words && words.length) {
+                words.forEach(word => {
+                    loadedWords.push(getWord(word)); // fillup visible object
+                })
+            }
+            this.setState({words, loadedWords});
+
+        });
+    }
+
+    render() {
+        const p = this.props;
+        const s = this.state;
+
+        const imagesNum = p.model.picturesCount === 0 ? s.images.length : p.model.picturesCount; // if user setted max pictures overwrite
+        const wordsNum = p.model.wordsCount === 0 ? s.words.length : p.model.wordsCount;
+
+
+        const imagesToDraw: ImageProps[] = [];
+        const wordsToDraw: WordProps[] = [];
+
+        if (this.state.loadedImages && this.state.loadedImages.length > 0) {
+            for (let i = 0;i < imagesNum; i++) {
+                let image = this.state.loadedImages[i];
+                if (image) {
+                    // prepare composition to draw
+                    image = revertImageDimensionsToOriginal(image);
+                    imagesToDraw.push(image);
+                }
+            }
+        }
+
+        if (this.state.loadedWords && this.state.loadedWords.length > 0) {
+            for (let i = 0; i < wordsNum; i++) {
+                let word = this.state.loadedWords[i];
+                if (word) {
+                    wordsToDraw.push(word);
+                }
+            }
+        }
+
+        const toDraw: any[] = RandomComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
+
+
+        return (
+            <svg x={p.drawArea.x} y={p.drawArea.y} id='drawArea'>
+                {toDraw}
+            </svg>
+        );
+    }
+
+
+
+}
 
 

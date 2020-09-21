@@ -107,7 +107,7 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
 
                     <div style={{display: 'flex'}}>
                         <div class={style.caption} style={{fontSize: '20px'}}>textCount:</div>
-                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.textCount} onChange={(event: any) => {this.props.modelChange('textCount', event.target.value)}} />
+                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.wordsCount} onChange={(event: any) => {this.props.modelChange('textCount', event.target.value)}} />
                     </div>
 
                     <div style={{display: 'flex'}}>

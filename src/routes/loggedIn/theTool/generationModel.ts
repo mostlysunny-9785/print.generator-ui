@@ -11,7 +11,7 @@ export interface GenerationModel {
     drawAreaVisible: boolean;
     lotNumbers: boolean;
     picturesCount: number;
-    textCount: number;
+    wordsCount: number;
     columnsCount: number;
     qrCode: boolean;
     compositionStrategy: CompositionStrategies;
@@ -50,9 +50,29 @@ export const DefaultGenerationModel: GenerationModel = {
 
     drawAreaVisible: true,
     lotNumbers: false,
-    picturesCount: 1,
-    textCount: 1,
-    columnsCount: 1,
+    picturesCount: 2,
+    wordsCount: 2,
+    columnsCount: 2,
     qrCode: false,
     compositionStrategy: CompositionStrategies.DEFAULT
+}
+
+export interface ImageProps {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    originalWidth: number,
+    originalHeight: number,
+    ratio: number,
+    path: string
+}
+
+export interface WordProps {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    size: number,
+    text: string
 }

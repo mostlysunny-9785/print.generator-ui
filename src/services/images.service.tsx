@@ -76,6 +76,10 @@ export class ImagesServiceClass {
         return await response.json();
     }
 
+    public async downloadImage(path: string): Promise<any> {
+        const response = await fetch(apiUrlPrefix + 'imagefiles/' + path,{method: 'GET'});
+        return await response.blob();
+    }
 
     public async loadFolder(folderId: string): Promise<ImageModel[]> {
         const response = await fetch(apiUrlPrefix + "/images/" + folderId,{method: 'GET'});
@@ -121,6 +125,7 @@ export class ImagesServiceClass {
         });
         return response.status === 200;
     }
+
 
 
 
