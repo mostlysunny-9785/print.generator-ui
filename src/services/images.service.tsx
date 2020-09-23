@@ -73,6 +73,11 @@ export class ImagesServiceClass {
                 body: uploadData
             }
         )
+
+        if (response.status !== 201) {
+            throw new Error(await response.text());
+        }
+
         return await response.json();
     }
 

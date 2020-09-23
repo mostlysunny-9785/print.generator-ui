@@ -57,22 +57,21 @@ export const DefaultGenerationModel: GenerationModel = {
     compositionStrategy: CompositionStrategies.DEFAULT
 }
 
-export interface ImageProps {
+export interface Area {
     x: number,
     y: number,
     width: number,
     height: number,
+}
+
+export interface ImageProps extends Area {
     originalWidth: number,
     originalHeight: number,
     ratio: number,
     path: string
 }
 
-export interface WordProps {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
+export interface WordProps extends Area  {
     size: number,
     text: string
 }

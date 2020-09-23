@@ -1,21 +1,22 @@
 import {Composition} from "./composition";
 import {ImageProps, WordProps} from "../../generationModel";
 import {DrawArea} from "../toolCore";
-import {computeHeight, correctOverlap, fillImageObj, getRandom, overlaps} from "../helpers";
-import {ImagesServiceClass} from "../../../../../services/images.service";
+import {computeHeight, getRandom} from "../helpers";
 import {Constrains} from "../constrains";
+import {correctOverlap, overlaps} from "../functions/area";
+import {fillImageObj} from "../functions/drawing";
 
 
 class RandomCompositionClass implements Composition {
     compose(images: ImageProps[], words: WordProps[], area: DrawArea): any[] {
         const toDraw: any = [];
 
-        let overlapingImages = 0;
+        let overlappingImages = 0;
 
         // draw images
         images.forEach((image) => {
 
-            for (let i = 0; i < 100; i++){ // try to i times randomize position and dimension to put to area
+            for (let i = 0; i < 1000; i++){ // try to i times randomize position and dimension to put to area
                 this.randomisePosition(image, area);
                 this.randomizeDimensions(image);
 
@@ -23,7 +24,7 @@ class RandomCompositionClass implements Composition {
                     break;
                 } else {
                     if (i === 99) {
-                        overlapingImages++;
+                        overlappingImages++;
                     }
 
                 }
@@ -33,7 +34,7 @@ class RandomCompositionClass implements Composition {
             correctOverlap(area, image);
             toDraw.push(image);
         })
-        console.log({overlapingImages});
+        console.log({overlapingImages: overlappingImages});
 
         return toDraw.map(fillImageObj);
     }

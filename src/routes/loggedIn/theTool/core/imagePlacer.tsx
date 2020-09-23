@@ -5,10 +5,16 @@ import {ImageModel, ImagesService, LoadedChanelModel} from "../../../../services
 import {DrawArea, ToolCoreProps} from "./toolCore";
 import {apiUrlPrefix} from "../../../../components/utils/global";
 import {WordModel, WordsService} from "../../../../services/words.service";
-import {correctOverlap, fillImageObj, getImage, getWord, revertImageDimensionsToOriginal} from "./helpers";
 import {FolderModel, FoldersService} from "../../../../services/folders.service";
 import Word from "../../word";
 import {RandomComposition} from "./compositions/random";
+import {getImage, getWord, revertImageDimensionsToOriginal} from "./functions/content";
+import {mm2pix} from "./helpers";
+import { saveAs } from 'file-saver';
+import {ToolService} from "../../../../services/tool.service";
+
+var pngLib = require("save-svg-as-png")
+
 
 export interface Props {
     model: GenerationModel;
@@ -73,6 +79,38 @@ export default class ImagePlacer extends Component<Props, State> {
         });
     }
 
+    download = () => {
+
+        const svgElement: any = document.getElementById("drawArea");
+        const serializedSvg = new XMLSerializer().serializeToString(svgElement);
+        const base64 = window.btoa(serializedSvg);
+
+        ToolService.add(base64).then(value => {
+            console.log({value});
+        });
+
+        // pngLib.saveSvgAsPng(document.getElementById("drawArea"), "diagram.png", options);
+        // pngLib.svgAsPngUri(document.getElementById("drawArea"), options).then((uri: any) => {
+        //     console.log({uri});
+        //
+        //     fetch(uri)
+        //         .then(res => res.blob())
+        //         .then(blob => {
+        //             saveAs(blob, "result.png");
+        //         });
+        //
+        //     // const blob = new Blob([uri], {type: 'image/png'});
+        //
+        //     // const url = window.URL.createObjectURL(new Blob([uri]));
+        //     // const link = document.createElement('a');
+        //     // link.href = url;
+        //     // link.setAttribute('download', 'image.png')
+        //     // document.body.appendChild(link);
+        //     // link.click();
+        // })
+
+    }
+
     render() {
         const p = this.props;
         const s = this.state;
@@ -108,9 +146,9 @@ export default class ImagePlacer extends Component<Props, State> {
 
 
         return (
-            <svg x={p.drawArea.x} y={p.drawArea.y} id='drawArea'>
-                {toDraw}
-            </svg>
+                <svg x={p.drawArea.x} y={p.drawArea.y} height={p.drawArea.height} width={p.drawArea.width} id='drawArea' onClick={this.download}>
+                    {toDraw}
+                </svg>
         );
     }
 

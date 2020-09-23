@@ -27,6 +27,7 @@
   ],
   "dependencies": {
     "are.na": "^0.1.4",
+    "file-saver": "^2.0.2",
     "jimp": "^0.12.1",
     "preact": "^10.3.1",
     "preact-jsx-chai": "^3.0.0",
@@ -34,9 +35,11 @@
     "preact-redux": "^2.1.0",
     "preact-render-to-string": "^5.1.8",
     "preact-router": "^3.2.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "save-svg-as-png": "^1.4.17"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.1",
     "@types/jest": "^25.2.1",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
