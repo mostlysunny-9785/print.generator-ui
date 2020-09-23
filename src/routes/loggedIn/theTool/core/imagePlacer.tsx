@@ -74,6 +74,7 @@ export default class ImagePlacer extends Component<Props, State> {
                     loadedWords.push(getWord(word)); // fillup visible object
                 })
             }
+            console.log({words, loadedWords});
             this.setState({words, loadedWords});
 
         });

@@ -29,3 +29,5 @@ export const pix2mm = (pixels: number, dpi: number): number => {
 export const mm2pix = (mm: number, dpi: number): number => {
     return mm * (dpi/25.4);
 }
+
+

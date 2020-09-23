@@ -34,8 +34,10 @@ export const getWord = (word: WordModel): WordProps => {
     return {
         x: 0,
         y: 0,
-        size: 60,
+        fontSize: "24px",
+        fontFamily: 'Arial',
         text: word.content,
-        height: 0
+        height: 0,
+        width: 0
     } as WordProps;
 }

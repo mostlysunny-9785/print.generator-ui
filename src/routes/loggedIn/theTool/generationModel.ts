@@ -50,7 +50,7 @@ export const DefaultGenerationModel: GenerationModel = {
 
     drawAreaVisible: true,
     lotNumbers: false,
-    picturesCount: 2,
+    picturesCount: 5,
     wordsCount: 2,
     columnsCount: 2,
     qrCode: false,
@@ -72,6 +72,7 @@ export interface ImageProps extends Area {
 }
 
 export interface WordProps extends Area  {
-    size: number,
+    fontSize: string,
+    fontFamily: string,
     text: string
 }
