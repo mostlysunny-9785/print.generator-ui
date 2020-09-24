@@ -58,8 +58,8 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
 
         this.setState({
             drawArea: {
-                x: 440,
-                y: 150,
+                x: 0,
+                y: 0,
                 height: he,
                 width: w,
                 ratio
@@ -82,8 +82,8 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
 
             return (
                 <rect
-                    x={this.state.drawArea.x}
-                    y={this.state.drawArea.y}
+                    x={440}
+                    y={150}
                     width={this.state.drawArea.width}
                     height={this.state.drawArea.height}
                     style={style}

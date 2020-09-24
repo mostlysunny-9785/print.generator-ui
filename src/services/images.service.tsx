@@ -19,6 +19,7 @@ export interface ImageModel {
     filename: string;
     fileSize: number;
     chanelId: string;
+    folderId: string;
     ownerId: string;
 }
 

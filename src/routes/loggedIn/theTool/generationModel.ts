@@ -50,11 +50,16 @@ export const DefaultGenerationModel: GenerationModel = {
 
     drawAreaVisible: true,
     lotNumbers: false,
-    picturesCount: 5,
+    picturesCount: 3,
     wordsCount: 2,
     columnsCount: 2,
     qrCode: false,
     compositionStrategy: CompositionStrategies.DEFAULT
+}
+
+export interface Loc {
+    x: number,
+    y: number
 }
 
 export interface Area {
@@ -62,6 +67,7 @@ export interface Area {
     y: number,
     width: number,
     height: number,
+    folder: string
 }
 
 export interface ImageProps extends Area {

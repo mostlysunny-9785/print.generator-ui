@@ -1,7 +1,10 @@
 // does image overlaps with different image?
-import {Area, ImageProps} from "../../generationModel";
+import {Area, ImageProps, WordProps} from "../../generationModel";
 import {DrawArea} from "../toolCore";
 import {computeHeight, computeWidth} from "../helpers";
+import {apiUrlPrefix} from "../../../../../components/utils/global";
+import {h} from "preact";
+import {Constrains} from "../constrains";
 
 export const overlaps = (image: ImageProps, imagesToOverlapWith: ImageProps[]): boolean => {
     const imageEndX = image.x + image.width;
@@ -35,22 +38,42 @@ export const findBlankArea = (images: ImageProps): Area => {
 
 
 
-export const correctOverlap = (drawArea: DrawArea, imageProps: ImageProps) => {
-    const x2 = imageProps.width + imageProps.x;
+export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
+    // start from 0:0
+    const relativeObjX = obj.x - drawArea.x;
+    const relativeObjY = obj.y - drawArea.y;
+
+    if (relativeObjX > drawArea.width || relativeObjY >= drawArea.height) {
+        // throw new Error('So you wanna start your print outside of draw area? U crazy? {W:'+drawArea.width+', H:'+drawArea.height+', x:'+imageProps.x+', y:'+imageProps.y+', }');
+        return false;
+    }
+
+    const x2 = obj.width + relativeObjX;
     let widthEdited = false;
 
     // X overlaps?
     if (x2 > drawArea.width) {
-        imageProps.width = drawArea.width - imageProps.x;
-        imageProps.height = computeHeight(imageProps.width, imageProps.ratio);
+        obj.width = drawArea.width - relativeObjX;
+        obj.height = computeHeight(obj.width, obj.ratio);
         widthEdited = true;
     }
 
-    let y2 = imageProps.height + imageProps.y;
+    let y2 = obj.height + relativeObjY;
 
     // Y still overlaps?
     if (y2 > drawArea.height) {
-        imageProps.height = drawArea.height - imageProps.y;
-        imageProps.width = computeWidth(imageProps.height, imageProps.ratio);
+        obj.height = drawArea.height - relativeObjY;
+        obj.width = computeWidth(obj.height, obj.ratio);
     }
+
+
+    return true;
+}
+
+export const isWord = (elm: Area): boolean => {
+    if ((obj as WordProps).text) {
+        return true;
+    }
+
+    return false;
 }

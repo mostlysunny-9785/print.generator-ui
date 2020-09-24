@@ -12,6 +12,7 @@ import {getImage, getWord, revertImageDimensionsToOriginal} from "./functions/co
 import {mm2pix} from "./helpers";
 import { saveAs } from 'file-saver';
 import {ToolService} from "../../../../services/tool.service";
+import {GridComposition} from "./compositions/grid";
 
 var pngLib = require("save-svg-as-png")
 
@@ -57,7 +58,7 @@ export default class ImagePlacer extends Component<Props, State> {
             // also load image properties
             const loadedImages: Promise<ImageProps>[] = [];
             images.forEach((image: ImageModel) => {
-                loadedImages.push(getImage(image.filename));
+                loadedImages.push(getImage(image));
             });
 
             Promise.all(loadedImages).then((loadedImages: ImageProps[]) => {
@@ -143,11 +144,12 @@ export default class ImagePlacer extends Component<Props, State> {
             }
         }
 
-        const toDraw: any[] = RandomComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
+        // const toDraw: any[] = RandomComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
+        const toDraw: any[] = GridComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
 
 
         return (
-                <svg x={p.drawArea.x} y={p.drawArea.y} height={p.drawArea.height} width={p.drawArea.width} id='drawArea' onClick={this.download}>
+                <svg x={440} y={150} height={p.drawArea.height} width={p.drawArea.width} id='drawArea' onClick={this.download}>
                     {toDraw}
                 </svg>
         );
