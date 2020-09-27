@@ -9,6 +9,7 @@ import GenerationModelPicker from "./generationModelPicker/generationModelPicker
 import {DefaultGenerationModel, GenerationModel} from "./generationModel";
 import {FolderModel, FoldersService} from "../../../services/folders.service";
 import {WordModel, WordsService} from "../../../services/words.service";
+import UserModelPicker from "./generationModelPicker/userModelPicker";
 
 interface State {
     generationModel: GenerationModel
@@ -46,11 +47,20 @@ export default class TheTool extends Component<any, State> {
 
         return (
             <div>
-                <h2>The Tool</h2>
-                <GenerationModelPicker model={this.state.generationModel} modelChange={this.onModelChange} />
+                {/*<h2>The Tool</h2>*/}
+                <div class={style.generationPanel}>
+                    <GenerationModelPicker model={this.state.generationModel} modelChange={this.onModelChange} />
+                </div>
+
                 <TheToolCore model={this.state.generationModel} />
-                {/*<TheToolMenu />*/}
+
+                <div className={style.userPanel}>
+                    <UserModelPicker model={this.state.generationModel} modelChange={this.onModelChange}/>
+                </div>
+
+                <TheToolMenu />
             </div>
+
         );
     }
 }

@@ -14,11 +14,6 @@ export default class TheToolMenu extends Component<any, any> {
                     <div class={style.a}>
                         <button type="submit" class={style.menuButton} onClick={()=> {route("/home")}}>Back to home</button>
                     </div>
-
-                    <div class={style.c}>
-                        <button type="submit" class={style.menuButton + " grayButton"}>Shortcuts</button>
-                        <button type="submit" class={style.menuButton + " wireButton"}>Picture</button>
-                    </div>
                 </div>
             );
     }

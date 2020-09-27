@@ -11,10 +11,10 @@ export interface GenerationModel {
     drawAreaVisible: boolean;
     lotNumbers: boolean;
     picturesCount: number;
-    wordsCount: number;
-    columnsCount: number;
+    // wordsCount: number;
+    // columnsCount: number;
     qrCode: boolean;
-    compositionStrategy: CompositionStrategies;
+    // compositionStrategy: CompositionStrategies;
 }
 
 export enum CompositionTypes {

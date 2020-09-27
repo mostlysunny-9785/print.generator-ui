@@ -1,6 +1,7 @@
 import {Component, h} from "preact";
 import * as style from "./style.css";
 import {CompositionStrategies, CompositionTypes, GenerationModel, TShirtColors, TShirtTypes} from "../generationModel";
+import Hider from "../../../../components/hider";
 
 interface GenerationModelPickerProps {
     model: GenerationModel,
@@ -65,55 +66,42 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
         })
 
         const compositionTypes = this.generateOptionsFromEnum(Object.keys(CompositionTypes).filter(k => typeof CompositionTypes[k as any] === "number"), "composition");
-        const tShirtTypes = this.generateOptionsFromEnum(Object.keys(TShirtTypes).filter(k => typeof TShirtTypes[k as any] === "number"), "tShirtType");
-        const tShirtColor = this.generateOptionsFromEnum(Object.keys(TShirtColors).filter(k => typeof TShirtColors[k as any] === "number"), "tShirtColor");
-        const compositionStrategy = this.generateOptionsFromEnum(Object.keys(CompositionStrategies).filter(k => typeof CompositionStrategies[k as any] === "number"), "compositionStrategy");
+        // const tShirtTypes = this.generateOptionsFromEnum(Object.keys(TShirtTypes).filter(k => typeof TShirtTypes[k as any] === "number"), "tShirtType");
+        // const tShirtColor = this.generateOptionsFromEnum(Object.keys(TShirtColors).filter(k => typeof TShirtColors[k as any] === "number"), "tShirtColor");
+        // const compositionStrategy = this.generateOptionsFromEnum(Object.keys(CompositionStrategies).filter(k => typeof CompositionStrategies[k as any] === "number"), "compositionStrategy");
 
         return (
-            <div class={style.container}>
-
-                <div style={{marginRight: '20px'}}>
-                    NORMAL:
-
-                    <div class={style.caption}>TShirtTypes:</div> {tShirtTypes}
-                    <div class={style.caption}>tShirtColor:</div> {tShirtColor}
-                    <div style={{display: 'flex'}}>
-                        <div class={style.caption} style={{fontSize: '20px'}}>WxH:</div>
-                        <input style={{fontSize: '20px', width: '50px', padding: 0}} type="text" value={this.props.model.canvasWidth} onChange={(event: any) => {this.props.modelChange('canvasWidth', event.target.value)}} />
-                        x
-                        <input style={{fontSize: '20px', width: '50px', padding: 0}} type="text" value={this.props.model.canvasHeight} onChange={(event: any) => {this.props.modelChange('canvasHeight', event.target.value)}} />
-                    </div>
-
-                </div>
-                <div>
+            <div>
+                <Hider headline="DEBUG" visible={true}>
                     DEBUG:
                     {debugCheckboxes}
                     <div class={style.caption}>Composition:</div>
                     <div class={style.option}>
                         {compositionTypes}
                     </div>
-                    <div class={style.caption}>Composition strategy:</div>
-                    <div class={style.option}>
-                        {compositionStrategy}
-                    </div>
-                </div>
+                    {/*<div class={style.caption}>Composition strategy:</div>*/}
+                    {/*<div class={style.option}>*/}
+                    {/*    {compositionStrategy}*/}
+                    {/*</div>*/}
+                </Hider>
 
-                <div>
+                <Hider headline="Composition" visible={true}>
                     Composition:
-                    <div style={{display: 'flex'}}>
+                    <div>
                         <div class={style.caption} style={{fontSize: '20px'}}>picturesCount:</div>
                         <input style={{fontSize: '20px'}} type="text" value={this.props.model.picturesCount} onChange={(event: any) => {this.props.modelChange('picturesCount', event.target.value)}} />
                     </div>
 
-                    <div style={{display: 'flex'}}>
-                        <div class={style.caption} style={{fontSize: '20px'}}>textCount:</div>
-                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.wordsCount} onChange={(event: any) => {this.props.modelChange('textCount', event.target.value)}} />
-                    </div>
+                    {/*<div style={{display: 'flex'}}>*/}
+                    {/*    <div class={style.caption} style={{fontSize: '20px'}}>textCount:</div>*/}
+                    {/*    <input style={{fontSize: '20px'}} type="text" value={this.props.model.wordsCount} onChange={(event: any) => {this.props.modelChange('textCount', event.target.value)}} />*/}
+                    {/*</div>*/}
 
-                    <div style={{display: 'flex'}}>
-                        <div class={style.caption} style={{fontSize: '20px'}}>columnsCount:</div>
-                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.columnsCount} onChange={(event: any) => {this.props.modelChange('columnsCount', event.target.value)}} />
-                    </div>                </div>
+                    {/*<div style={{display: 'flex'}}>*/}
+                    {/*    <div class={style.caption} style={{fontSize: '20px'}}>columnsCount:</div>*/}
+                    {/*    <input style={{fontSize: '20px'}} type="text" value={this.props.model.columnsCount} onChange={(event: any) => {this.props.modelChange('columnsCount', event.target.value)}} />*/}
+                    {/*</div>                */}
+                </Hider>
 
             </div>
         );

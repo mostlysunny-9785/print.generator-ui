@@ -1,3 +1,24 @@
 .editor {
 	padding: 10px;
 }
+
+
+.generationPanel {
+	position: absolute;
+	top: 0px;
+	left: 5px;
+	height: 100%;
+	width: 300px;
+	background-color: white;
+	padding: 10px;
+}
+
+.userPanel {
+	position: absolute;
+	top: 20px;
+	right: 5px;
+	height: 100%;
+	width: 300px;
+	background-color: white;
+	padding: 10px;
+}

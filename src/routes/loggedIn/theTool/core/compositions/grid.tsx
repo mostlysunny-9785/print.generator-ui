@@ -19,7 +19,7 @@ class GridCompositionClass implements Composition {
         sortedElements.sort((a, b) => a.folder - b.folder);
 
 
-        this.place(images,  1, area);
+        this.placeRecursive(images,  1, area);
         toDraw = toDraw.concat(images);
         console.log({toDraw});
         // draw images
@@ -33,7 +33,16 @@ class GridCompositionClass implements Composition {
         return map;
     }
 
-    private place(images: ImageProps[], columnCount: number, area: DrawArea) {
+    private placeRecursive(images: ImageProps[], columnCount: number, area: DrawArea) {
+        for (let column = 1; column < 100; column++) {
+            const result = this.place(images, column, area);
+            if (result) {
+                break;
+            }
+        }
+    }
+
+    private place(images: ImageProps[], columnCount: number, area: DrawArea): boolean {
         let actualPlace: Loc = {x: 0, y: 0};
         const columns: Column[] = this.createColumns(area, columnCount);
         // console.log({columnCount});
@@ -60,7 +69,8 @@ class GridCompositionClass implements Composition {
                 // suuucks this doesent fit!
                 // if (actualColumn + 1 === columnCount) { // does we have another column?
                     // noo we dont have another column - reset, increase columnCount and start again
-                    this.place(images, columnCount + 1, area);
+                    return false;
+
                 //     break;
                 // } else {
                 //     // this is fine, just break this placing and continue with next column
@@ -70,6 +80,8 @@ class GridCompositionClass implements Composition {
 
 
         }
+
+        return true;
 
         // columns.forEach((column, actualColumn) => { // for every column try to fit file
         //     actualPlace.x = column.x;

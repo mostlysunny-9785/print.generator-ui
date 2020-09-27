@@ -1,18 +1,13 @@
-import {Component, FunctionalComponent, h} from "preact";
-import * as style from "./style.css";
-import {GenerationModel, ImageProps, TShirtColors, TShirtTypes, WordProps} from "../generationModel";
-import {ImageModel, ImagesService, LoadedChanelModel} from "../../../../services/images.service";
-import {DrawArea, ToolCoreProps} from "./toolCore";
-import {apiUrlPrefix} from "../../../../components/utils/global";
+import {Component, h} from "preact";
+import {CompositionTypes, GenerationModel, ImageProps, WordProps} from "../generationModel";
+import {ImageModel, ImagesService} from "../../../../services/images.service";
+import {DrawArea} from "./toolCore";
 import {WordModel, WordsService} from "../../../../services/words.service";
 import {FolderModel, FoldersService} from "../../../../services/folders.service";
-import Word from "../../word";
-import {RandomComposition} from "./compositions/random";
 import {getImage, getWord, revertImageDimensionsToOriginal} from "./functions/content";
-import {mm2pix} from "./helpers";
-import { saveAs } from 'file-saver';
 import {ToolService} from "../../../../services/tool.service";
 import {GridComposition} from "./compositions/grid";
+import {RandomComposition} from "./compositions/random";
 
 var pngLib = require("save-svg-as-png")
 
@@ -143,9 +138,13 @@ export default class ImagePlacer extends Component<Props, State> {
                 }
             }
         }
+        let toDraw: any[];
+        if (this.props.model.composition === CompositionTypes.RANDOM) {
+             toDraw = RandomComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
+        } else if (this.props.model.composition === CompositionTypes.GRID) {
+            toDraw  = GridComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
+        }
 
-        // const toDraw: any[] = RandomComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
-        const toDraw: any[] = GridComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
 
 
         return (
