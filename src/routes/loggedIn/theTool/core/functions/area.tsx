@@ -5,6 +5,7 @@ import {computeHeight, computeWidth, getRatio} from "../helpers";
 import {apiUrlPrefix} from "../../../../../components/utils/global";
 import {h} from "preact";
 import {Constrains} from "../constrains";
+import {Image} from "../../../directories/picture/image";
 
 export const overlaps = (image: ImageProps, imagesToOverlapWith: ImageProps[]): boolean => {
     const imageEndX = image.x + image.width;
@@ -39,7 +40,7 @@ export const findBlankArea = (images: ImageProps): Area => {
 
 
 
-export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
+export const correctOverlap = (drawArea: DrawArea, obj: ImageProps): boolean => {
     // start from 0:0
     const relativeObjX = obj.x - drawArea.x;
     const relativeObjY = obj.y - drawArea.y;
@@ -55,7 +56,7 @@ export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
     // X overlaps?
     if (x2 > drawArea.width) {
         obj.width = drawArea.width - relativeObjX;
-        obj.height = computeHeight(obj.width, getRatio(obj.width, obj.height));
+        obj.height = computeHeight(obj.width, obj.ratio);
         widthEdited = true;
     }
 
@@ -64,7 +65,7 @@ export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
     // Y still overlaps?
     if (y2 > drawArea.height) {
         obj.height = drawArea.height - relativeObjY;
-        obj.width = computeWidth(obj.height, getRatio(obj.width, obj.height));
+        obj.width = computeWidth(obj.height, obj.ratio);
     }
 
 

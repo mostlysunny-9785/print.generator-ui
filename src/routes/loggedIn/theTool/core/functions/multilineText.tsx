@@ -1,6 +1,7 @@
 import {FunctionalComponent, h} from 'preact';
-import {WordProps} from "../../generationModel";
+import {GenerationModel, TShirtColors, WordProps} from "../../generationModel";
 import {getTextWidth, wrapLine} from "./drawing";
+import {glob_generationModel} from "../imagePlacer";
 
 
 interface Props {
@@ -21,8 +22,15 @@ const MultilineText: FunctionalComponent<Props> = (props: Props) => {
     })
 
     const toDraw: any[] = [];
+
+    let color = "black";
+    if (glob_generationModel && glob_generationModel.tShirtColor === TShirtColors.DARK) {
+        color = "white";
+    }
+    console.log(glob_generationModel.tShirtColor);
+
     resultLines.forEach(line => {
-        toDraw.push(<tspan x="0" dy="1.2em">{line}</tspan>);
+        toDraw.push(<tspan x={props.w.x} dy="1.2em" fill={color}>{line}</tspan>);
     })
 
     return (

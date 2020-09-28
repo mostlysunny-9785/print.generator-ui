@@ -8,9 +8,12 @@ import {getImage, getWord, revertImageDimensionsToOriginal} from "./functions/co
 import {ToolService} from "../../../../services/tool.service";
 import {GridComposition} from "./compositions/grid";
 import {RandomComposition} from "./compositions/random";
+import generationModelPicker from "../generationModelPicker/generationModelPicker";
 
 var pngLib = require("save-svg-as-png")
 
+// TODO: move this to store
+export let glob_generationModel: GenerationModel;
 
 export interface Props {
     model: GenerationModel;
@@ -32,6 +35,7 @@ export interface State {
 export default class ImagePlacer extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
+
         this.state = {
             loadingDone: false, 
             objectsToDraw: [],
@@ -111,6 +115,7 @@ export default class ImagePlacer extends Component<Props, State> {
     render() {
         const p = this.props;
         const s = this.state;
+        glob_generationModel = p.model;
 
         const imagesNum = p.model.picturesCount === 0 ? s.images.length : p.model.picturesCount; // if user setted max pictures overwrite
         const wordsNum = p.model.wordsCount === 0 ? s.words.length : p.model.wordsCount;

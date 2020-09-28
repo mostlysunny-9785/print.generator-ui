@@ -17,7 +17,9 @@ class RandomCompositionClass implements Composition {
         // draw images
         this.drawImages(toDraw, images, area);
         this.drawWords(toDraw, words, area)
+        console.log({toDraw});
         const map = toDraw.map(drawObj);
+
 
         return map;
     }

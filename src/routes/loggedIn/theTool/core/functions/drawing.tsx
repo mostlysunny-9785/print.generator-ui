@@ -1,7 +1,8 @@
-import {Area, ImageProps, WordProps} from "../../generationModel";
+import {Area, ImageProps, TShirtColors, WordProps} from "../../generationModel";
 import {apiUrlPrefix} from "../../../../../components/utils/global";
 import {h} from "preact";
 import MultilineText from "./multilineText";
+import {glob_generationModel} from "../imagePlacer";
 
 export const drawObj = (obj: Area) => {
     if ((obj as ImageProps).path) {
@@ -15,6 +16,8 @@ export const drawObj = (obj: Area) => {
         // }}>{t.text}</text>;
 
         // getTextWidth("Hello thereee", "12px arial");
+
+
 
         return  <MultilineText w={t} />
 
