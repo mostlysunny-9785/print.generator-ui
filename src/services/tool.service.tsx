@@ -8,7 +8,11 @@ export interface GeneratedModel {
     _id: string;
     id: string;
     title: string;
+    previewFilename: string;
     filename: string;
+    svgFilename: string;
+    width: number;
+    height: number;
     fileSize: number;
     generationTime: number;
     ownerId: string;

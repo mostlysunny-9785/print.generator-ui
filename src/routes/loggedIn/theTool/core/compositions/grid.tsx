@@ -1,7 +1,7 @@
 import {Composition} from "./composition";
 import {Area, ImageProps, Loc, WordProps} from "../../generationModel";
 import {DrawArea} from "../toolCore";
-import {correctOverlap, overlaps} from "../functions/area";
+import {correctOverlap, isWord, overlaps} from "../functions/area";
 import {drawObj} from "../functions/drawing";
 import {Constrains} from "../constrains";
 
@@ -15,12 +15,12 @@ class GridCompositionClass implements Composition {
         console.time('Grid sort')
         // sort images and words
         // const sortedElements: Area[] = [...images, ...words];
-        const sortedElements: Area[] = [...images]; // just images so far
+        const sortedElements: Area[] = [ ...words, ...images]; // just images so far
         sortedElements.sort((a, b) => parseInt(a.folder) - parseInt(b.folder));
 
 
-        this.placeRecursive(images,  1, area);
-        toDraw = toDraw.concat(images);
+        this.placeRecursive(sortedElements,  1, area);
+        toDraw = toDraw.concat(sortedElements);
         console.log({toDraw});
         // draw images
         // sort images and words between each other
@@ -33,25 +33,23 @@ class GridCompositionClass implements Composition {
         return map;
     }
 
-    private placeRecursive(images: ImageProps[], columnCount: number, area: DrawArea) {
+    private placeRecursive(objects: Area[], columnCount: number, area: DrawArea) {
         for (let column = 1; column < 100; column++) {
-            const result = this.place(images, column, area);
+            const result = this.place(objects, column, area);
             if (result) {
                 break;
             }
         }
     }
 
-    private place(images: ImageProps[], columnCount: number, area: DrawArea): boolean {
-        let actualPlace: Loc = {x: 0, y: 0};
+    private place(images: Area[], columnCount: number, area: DrawArea): boolean {
         const columns: Column[] = this.createColumns(area, columnCount);
-        // console.log({columnCount});
 
         for (let imagePointer = 0; imagePointer < images.length; imagePointer++){
             const image = images[imagePointer];
             const actualColumn = imagePointer % columnCount;
             const column = columns[actualColumn];
-            this.resetImageToDefaultDimensions(image);
+            this.resetToDefaultDimensions(image);
 
             // set position
             image.x = column.x;
@@ -67,39 +65,13 @@ class GridCompositionClass implements Composition {
                 column.actualY += (image.height + 10); // add some overlap too :)
             } else {
                 // suuucks this doesent fit!
-                // if (actualColumn + 1 === columnCount) { // does we have another column?
-                    // noo we dont have another column - reset, increase columnCount and start again
-                    return false;
-
-                //     break;
-                // } else {
-                //     // this is fine, just break this placing and continue with next column
-                //     break;
-                // }
+                // noo we dont have another column - reset, increase columnCount and start again
+                return false;
             }
-
-
         }
 
         return true;
 
-        // columns.forEach((column, actualColumn) => { // for every column try to fit file
-        //     actualPlace.x = column.x;
-        //     actualPlace.y = column.y;
-        //
-        //     for (; imagePointer < images.length; imagePointer++){
-        //         // prepare image to draw
-        //         const image = images[imagePointer];
-        //         this.resetImageToDefaultDimensions(image);
-        //
-        //
-        //         image.x = actualPlace.x;
-        //         image.y = actualPlace.y;
-        //
-        //         const overlapSuccessfull = correctOverlap(columnArea, image); // correct width to maximize column
-        //
-        //     }
-        // });
     }
 
     private doesItFitHorizontally(area: DrawArea, toPlace: Area): boolean {
@@ -111,9 +83,18 @@ class GridCompositionClass implements Composition {
         }
     }
 
-    private resetImageToDefaultDimensions(image: ImageProps) {
-        image.width = image.originalWidth;
-        image.height = image.originalHeight;
+    private resetToDefaultDimensions(obj: Area) {
+        if (isWord(obj)) {
+            const word = obj as WordProps;
+            word.fontSize = Constrains.maximumTextSize;
+            word.width = 0;
+            word.height = 0;
+        } else {
+            const img = obj as ImageProps;
+            img.width = img.originalWidth;
+            img.height = img.originalHeight;
+        }
+
     }
 
     private createColumns(area: DrawArea, columnCount: number): Column[] {

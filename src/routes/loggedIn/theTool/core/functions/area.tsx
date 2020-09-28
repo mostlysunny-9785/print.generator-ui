@@ -6,6 +6,8 @@ import {apiUrlPrefix} from "../../../../../components/utils/global";
 import {h} from "preact";
 import {Constrains} from "../constrains";
 import {Image} from "../../../directories/picture/image";
+import {determineMultilineTextDimensions} from "./text/helpers";
+import Word from "../../../word";
 
 export const overlaps = (image: ImageProps, imagesToOverlapWith: ImageProps[]): boolean => {
     const imageEndX = image.x + image.width;
@@ -40,7 +42,7 @@ export const findBlankArea = (images: ImageProps): Area => {
 
 
 
-export const correctOverlap = (drawArea: DrawArea, obj: ImageProps): boolean => {
+export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
     // start from 0:0
     const relativeObjX = obj.x - drawArea.x;
     const relativeObjY = obj.y - drawArea.y;
@@ -50,23 +52,32 @@ export const correctOverlap = (drawArea: DrawArea, obj: ImageProps): boolean => 
         return false;
     }
 
-    const x2 = obj.width + relativeObjX;
-    let widthEdited = false;
+    if (isWord(obj)){
+        const word = obj as WordProps;
+        word.width = drawArea.width;
+        determineMultilineTextDimensions(word);
+        // TODO: correctingOverlap for Word
+    } else {
+        const img = obj as ImageProps;
+        const x2 = img.width + relativeObjX;
+        let widthEdited = false;
 
-    // X overlaps?
-    if (x2 > drawArea.width) {
-        obj.width = drawArea.width - relativeObjX;
-        obj.height = computeHeight(obj.width, obj.ratio);
-        widthEdited = true;
+        // X overlaps?
+        if (x2 > drawArea.width) {
+            img.width = drawArea.width - relativeObjX;
+            img.height = computeHeight(img.width, img.ratio);
+            widthEdited = true;
+        }
+
+        let y2 = img.height + relativeObjY;
+
+        // Y still overlaps?
+        if (y2 > drawArea.height) {
+            img.height = drawArea.height - relativeObjY;
+            img.width = computeWidth(img.height, img.ratio);
+        }
     }
 
-    let y2 = obj.height + relativeObjY;
-
-    // Y still overlaps?
-    if (y2 > drawArea.height) {
-        obj.height = drawArea.height - relativeObjY;
-        obj.width = computeWidth(obj.height, obj.ratio);
-    }
 
 
     return true;

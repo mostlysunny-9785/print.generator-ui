@@ -42,7 +42,7 @@ export enum TShirtColors {
 }
 
 export const DefaultGenerationModel: GenerationModel = {
-    composition: CompositionTypes.GRID,
+    composition: CompositionTypes.RANDOM,
     tShirtType: TShirtTypes.LONGSLEEVE,
     tShirtColor: TShirtColors.LIGHT,
     canvasWidth: 420,
@@ -78,7 +78,9 @@ export interface ImageProps extends Area {
 }
 
 export interface WordProps extends Area  {
-    fontSize: string,
+    fontSize: number,
     fontFamily: string,
-    text: string
+    text: string,
+    lines: string[],
+    smallerFontRecommended: boolean
 }

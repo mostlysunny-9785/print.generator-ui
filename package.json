@@ -59,7 +59,7 @@
     "sirv-cli": "^1.0.0-next.4",
     "ts-jest": "^25.5.0",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.7.5",
+    "typescript": "^3.9.7",
     "typings-for-css-modules-loader": "^1.7.0"
   }
 }

@@ -6,6 +6,7 @@ import {Constrains} from "../constrains";
 import {correctOverlap, overlaps} from "../functions/area";
 import {drawObj} from "../functions/drawing";
 import Word from "../../../word";
+import {determineMultilineTextDimensions} from "../functions/text/helpers";
 
 
 class RandomCompositionClass implements Composition {
@@ -29,6 +30,7 @@ class RandomCompositionClass implements Composition {
         words.forEach((word: WordProps) => {
             this.randomisePosition(word, area);
             this.randomizeWordDimensions(word, area);
+            determineMultilineTextDimensions(word);
             toDraw.push(word);
         })
     }

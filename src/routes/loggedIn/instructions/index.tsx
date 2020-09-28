@@ -3,6 +3,7 @@ import * as style from "./style.css";
 import InstructionsMenu from "./menu";
 import Navigation from "../../../components/navigation";
 import Hider from "../../../components/hider";
+import Archive from "../archive";
 
 export default class Instructions extends Component<any, any> {
     constructor() {
@@ -81,6 +82,7 @@ export default class Instructions extends Component<any, any> {
                     </Hider>
 
                     <Hider headline='Archive'>
+                        <Archive />
                     </Hider>
 
 

@@ -10,7 +10,6 @@ import {GridComposition} from "./compositions/grid";
 import {RandomComposition} from "./compositions/random";
 import generationModelPicker from "../generationModelPicker/generationModelPicker";
 
-var pngLib = require("save-svg-as-png")
 
 // TODO: move this to store
 export let glob_generationModel: GenerationModel;
@@ -84,7 +83,7 @@ export default class ImagePlacer extends Component<Props, State> {
 
         const svgElement: any = document.getElementById("drawArea");
         const serializedSvg = new XMLSerializer().serializeToString(svgElement);
-        const base64 = window.btoa(serializedSvg);
+        const base64 = window.btoa(unescape(encodeURIComponent(serializedSvg)));
 
         ToolService.add(base64).then(value => {
             console.log({value});

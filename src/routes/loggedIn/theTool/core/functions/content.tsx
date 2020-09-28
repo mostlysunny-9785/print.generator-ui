@@ -36,11 +36,13 @@ export const getWord = (word: WordModel): WordProps => {
     return {
         x: 0,
         y: 0,
-        fontSize: "24px",
+        fontSize: 24,
         fontFamily: 'Arial',
         text: word.content,
         height: 0,
         width: 0,
-        folder: word.folderId
+        folder: word.folderId,
+        lines: word.content.split('\n'),
+        smallerFontRecommended: false
     } as WordProps;
 }

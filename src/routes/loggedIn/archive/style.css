@@ -1,0 +1,17 @@
+.line {
+	display: flex;
+	width: 100%;
+}
+
+.img {
+	height: 50px;
+	width: 50px;
+	padding: 2px;
+	background-size: cover;
+}
+
+.text {
+	padding: 5px;
+	margin-left: 10px;
+	vertical-align: middle;
+}

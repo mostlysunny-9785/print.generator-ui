@@ -10,7 +10,7 @@ import Login from "../routes/login/login";
 import { AuthorizationService } from "../services/authorization.service";
 import LoggedInHome from "../routes/loggedIn/loggedInHome";
 import Menu from "./menu";
-import Instructions from "../routes/public/instructions";
+import Instructions from "../routes/loggedIn/instructions";
 import Word from "../routes/loggedIn/word";
 import Settings from "../routes/loggedIn/settings";
 import {store} from "../model/store";
