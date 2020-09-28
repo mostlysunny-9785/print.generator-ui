@@ -1,7 +1,7 @@
 // does image overlaps with different image?
 import {Area, ImageProps, WordProps} from "../../generationModel";
 import {DrawArea} from "../toolCore";
-import {computeHeight, computeWidth} from "../helpers";
+import {computeHeight, computeWidth, getRatio} from "../helpers";
 import {apiUrlPrefix} from "../../../../../components/utils/global";
 import {h} from "preact";
 import {Constrains} from "../constrains";
@@ -25,8 +25,9 @@ export const findBlankArea = (images: ImageProps): Area => {
         x: 0,
         y: 0,
         width: 0,
-        height: 0
-    }
+        height: 0,
+        folder: "0"
+    } as Area;
 
     // first randomly find some empty spot
     // tehn go --y and find nearest obj
@@ -54,7 +55,7 @@ export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
     // X overlaps?
     if (x2 > drawArea.width) {
         obj.width = drawArea.width - relativeObjX;
-        obj.height = computeHeight(obj.width, obj.ratio);
+        obj.height = computeHeight(obj.width, getRatio(obj.width, obj.height));
         widthEdited = true;
     }
 
@@ -63,7 +64,7 @@ export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
     // Y still overlaps?
     if (y2 > drawArea.height) {
         obj.height = drawArea.height - relativeObjY;
-        obj.width = computeWidth(obj.height, obj.ratio);
+        obj.width = computeWidth(obj.height, getRatio(obj.width, obj.height));
     }
 
 
@@ -71,7 +72,7 @@ export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
 }
 
 export const isWord = (elm: Area): boolean => {
-    if ((obj as WordProps).text) {
+    if ((elm as WordProps).text) {
         return true;
     }
 

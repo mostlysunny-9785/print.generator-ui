@@ -10,7 +10,7 @@ export interface DrawArea {
     y: number;
     height: number;
     width: number;
-    ratio: number;
+    ratio?: number;
 }
 
 interface State {

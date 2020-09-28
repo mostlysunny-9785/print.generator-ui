@@ -138,7 +138,7 @@ export default class ImagePlacer extends Component<Props, State> {
                 }
             }
         }
-        let toDraw: any[];
+        let toDraw: any[] = [];
         if (this.props.model.composition === CompositionTypes.RANDOM) {
              toDraw = RandomComposition.compose(imagesToDraw, wordsToDraw, p.drawArea);
         } else if (this.props.model.composition === CompositionTypes.GRID) {

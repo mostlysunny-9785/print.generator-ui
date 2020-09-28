@@ -8,10 +8,10 @@ interface Props {
     modelChange: (key: string, value: any) => void
 }
 
-// const booleans = ['drawAreaVisible',  'lotNumbers', 'qrCode']
+const booleans = ['drawAreaVisible',  'lotNumbers', 'qrCode']
 
-export default class UserModelPicker extends Component<Props, Prosp> {
-    constructor(props: GenerationModelPickerProps) {
+export default class UserModelPicker extends Component<Props, Props> {
+    constructor(props: Props) {
         super(props);
         this.state = props;
     }
@@ -22,7 +22,7 @@ export default class UserModelPicker extends Component<Props, Prosp> {
         const name = target.name;
 
         const value = booleans.includes(target.name) ? target.checked : target.value;
-
+        //
         console.log({value});
         this.props.modelChange(name, value);
 

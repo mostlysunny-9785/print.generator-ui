@@ -10,7 +10,7 @@ interface Props {
 const MultilineText: FunctionalComponent<Props> = (props: Props) => {
     const fontStr = props.w.fontSize + " " + props.w.fontFamily;
     const lines = props.w.text.split('\n');
-    let resultLines = [];
+    let resultLines: any[] = [];
 
     // for each line determine if longer than height and if is create new line and put things under that
     lines.forEach((line: string) => {
@@ -20,7 +20,7 @@ const MultilineText: FunctionalComponent<Props> = (props: Props) => {
 
     })
 
-    const toDraw = [];
+    const toDraw: any[] = [];
     resultLines.forEach(line => {
         toDraw.push(<tspan x="0" dy="1.2em">{line}</tspan>);
     })

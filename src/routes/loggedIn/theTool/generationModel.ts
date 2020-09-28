@@ -11,7 +11,7 @@ export interface GenerationModel {
     drawAreaVisible: boolean;
     lotNumbers: boolean;
     picturesCount: number;
-    // wordsCount: number;
+    wordsCount: number;
     // columnsCount: number;
     qrCode: boolean;
     // compositionStrategy: CompositionStrategies;
@@ -50,11 +50,11 @@ export const DefaultGenerationModel: GenerationModel = {
 
     drawAreaVisible: true,
     lotNumbers: false,
-    picturesCount: 3,
+    picturesCount: 5,
     wordsCount: 2,
-    columnsCount: 2,
+    // columnsCount: 2,
     qrCode: false,
-    compositionStrategy: CompositionStrategies.DEFAULT
+    // compositionStrategy: CompositionStrategies.DEFAULT
 }
 
 export interface Loc {

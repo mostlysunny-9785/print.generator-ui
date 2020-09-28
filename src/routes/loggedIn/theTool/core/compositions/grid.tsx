@@ -1,5 +1,5 @@
 import {Composition} from "./composition";
-import {Area, ImageProps, WordProps} from "../../generationModel";
+import {Area, ImageProps, Loc, WordProps} from "../../generationModel";
 import {DrawArea} from "../toolCore";
 import {correctOverlap, overlaps} from "../functions/area";
 import {drawObj} from "../functions/drawing";
@@ -16,7 +16,7 @@ class GridCompositionClass implements Composition {
         // sort images and words
         // const sortedElements: Area[] = [...images, ...words];
         const sortedElements: Area[] = [...images]; // just images so far
-        sortedElements.sort((a, b) => a.folder - b.folder);
+        sortedElements.sort((a, b) => parseInt(a.folder) - parseInt(b.folder));
 
 
         this.placeRecursive(images,  1, area);
@@ -62,7 +62,7 @@ class GridCompositionClass implements Composition {
             const constrains = this.checkConstrains(image);
 
             // check if we can still fit it into current column
-            if (this.doesItFitHorizontally(column, image, actualPlace) && overlapSuccessful && constrains) {
+            if (this.doesItFitHorizontally(column, image) && overlapSuccessful && constrains) {
                 // yes we can place it, so just make it that it counts
                 column.actualY += (image.height + 10); // add some overlap too :)
             } else {
@@ -125,7 +125,7 @@ class GridCompositionClass implements Composition {
                 y: 0,
                 width: columnWidth,
                 height: area.height,
-                actualY: 0
+                actualY: 0,
             });
         }
         return columns;

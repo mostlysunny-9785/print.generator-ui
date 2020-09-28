@@ -52,9 +52,10 @@ if (!Array.prototype.hasOwnProperty("last")) {
  * @param maxWidth
  * @param font
  */
-export const wrapLine = (lines: string[], actualLineNum: number, maxWidth: number, font: string) => {
+export const wrapLine = (lines: string[], actualLineNum: number, maxWidth: number, font: string): void => {
     const textWidth = getTextWidth(lines[actualLineNum], font);
     const wordsOfLine = lines[actualLineNum].split(' ');
+    // @ts-ignore
     const lastWord = wordsOfLine.last;
     const weCanWrap = wordsOfLine.length !== 1;
 
@@ -69,11 +70,11 @@ export const wrapLine = (lines: string[], actualLineNum: number, maxWidth: numbe
         }
         // check this line again
 
-        return wrapLine(lines, actualLineNum, maxWidth);
+        return wrapLine(lines, actualLineNum, maxWidth, font);
     } else {
         // check if next line exists
         if (lines.length - 1 === actualLineNum + 1) {
-            return wrapLine(lines, actualLineNum + 1, maxWidth); // move to next line
+            return wrapLine(lines, actualLineNum + 1, maxWidth, font); // move to next line
         } else { // there is no new line and actual one is already at the end
             return;
         }
