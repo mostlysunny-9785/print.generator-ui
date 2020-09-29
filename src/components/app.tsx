@@ -40,7 +40,7 @@ export default class App extends Component<any, any> {
 
         // listen on store change to catch if user is autenticated
         store.subscribe(() => {
-            if (store.getState().authenticated && this.state.currentUrl === '/login'){
+            if (store.getState().userReducer.authenticated && this.state.currentUrl === '/login'){
                 route(this.state.urlBeforeRedirect, true);
             }
         })
@@ -49,7 +49,7 @@ export default class App extends Component<any, any> {
     private handleRoute = (e: any) => {
         if (!publicRoutes.includes(e.url)) {
             // you need to be logged in to see different than allowedRoutes
-            const isAuthed = store.getState().authenticated;
+            const isAuthed = store.getState().userReducer.authenticated;
             if (!isAuthed) {
                 this.setState({urlBeforeRedirect: e.url});
                 console.log("redirecting to login");

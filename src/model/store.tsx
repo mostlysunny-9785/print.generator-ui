@@ -1,9 +1,16 @@
-import { createStore } from 'redux';
+import {combineReducers, createStore} from 'redux';
 import {userReducer} from "./user_reducer";
+import {generationReducer} from "./generation_reducer";
+import {folderReducer} from "./folders_reducer";
 
 
 
-export const store = createStore(userReducer);
+// export const store = createStore(userReducer);
+export const store = createStore(combineReducers({
+    userReducer,
+    generationReducer,
+    folderReducer
+}));
 
 
 
@@ -15,7 +22,7 @@ export const store = createStore(userReducer);
 
 
 store.subscribe(() => {
-    // console.log("User updated!", store.getState());
+    console.log("User updated!", store.getState());
 })
 
 // store.dispatch({

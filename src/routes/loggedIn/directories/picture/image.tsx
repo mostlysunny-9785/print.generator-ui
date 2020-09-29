@@ -17,7 +17,7 @@ export class Image extends Component<Props, any> {
     render() {
         return (
             <span class={style.imageBox}
-                style={{backgroundImage: "url("+"/api/imagefiles/" + this.props.image.filename+")"}}
+                style={{backgroundImage: "url("+"/api/imagefiles/thumb/" + this.props.image.filename+")"}}
             >
 
                 {this.props.canDelete ?

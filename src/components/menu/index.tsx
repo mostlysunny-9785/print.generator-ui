@@ -23,7 +23,7 @@ export default class Menu extends Component<MenuProps, any> {
         // if (!hasntGotTheirOwnMenu.includes(this.props.routeChange)){
         //     return ;
         // }
-        if (store.getState().authenticated) {
+        if (store.getState().userReducer.authenticated) {
             return (
                 <div class={style.main}>
                     <div class={style.a}>

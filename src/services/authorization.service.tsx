@@ -10,7 +10,7 @@ class AuthorizationServiceClass {
     }
 
     public async authenticate(email: string, password: string): Promise<UserDocument | undefined> {
-        if (store.getState().authenticated) { // we already have a state
+        if (store.getState().userReducer.authenticated) { // we already have a state
 
         } else {
             const response = await fetch(
@@ -35,7 +35,7 @@ class AuthorizationServiceClass {
     }
 
     public async getSession(): Promise<UserDocument | undefined> {
-        if (store.getState().authenticated) { // we already have a state
+        if (store.getState().userReducer.authenticated) { // we already have a state
 
         } else { // try to ask backend for it
             const response = await fetch(

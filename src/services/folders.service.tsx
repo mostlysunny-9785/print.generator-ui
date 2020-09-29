@@ -1,5 +1,7 @@
 import { h } from "preact";
 import {apiUrlPrefix} from "../components/utils/global";
+import {store} from "../model/store";
+import {setFolders} from "../model/folders_reducer_actions";
 
 export enum FolderType {
     WORD,
@@ -11,7 +13,8 @@ export interface FolderModel {
     _id: string;
     id: number;
     type: FolderType
-    ownerId: string
+    ownerId: string,
+    createdAt: Date
 }
 
 
@@ -29,7 +32,11 @@ export class FoldersServiceClass {
             } else if (oneFolder.type === "1") {
                 oneFolder.type = FolderType.IMAGE;
             }
+
+            oneFolder.createdAt = new Date(oneFolder.createdAt);
         })
+
+        store.dispatch(setFolders(folder));
 
         return folder;
     }

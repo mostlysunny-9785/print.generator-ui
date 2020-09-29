@@ -1,9 +1,11 @@
 import {Composition} from "./composition";
 import {Area, ImageProps, Loc, WordProps} from "../../generationModel";
 import {DrawArea} from "../toolCore";
-import {correctOverlap, isWord, overlaps} from "../functions/area";
+import {correctOverlap, isWord, overlaps, resetToDefaultDimensions} from "../functions/area";
 import {drawObj} from "../functions/drawing";
 import {Constrains} from "../constrains";
+import {FolderModel} from "../../../../../services/folders.service";
+import {store} from "../../../../../model/store";
 
 export interface Column extends DrawArea {
     actualY: number;
@@ -15,9 +17,12 @@ class GridCompositionClass implements Composition {
         console.time('Grid sort')
         // sort images and words
         // const sortedElements: Area[] = [...images, ...words];
-        const sortedElements: Area[] = [ ...words, ...images]; // just images so far
-        sortedElements.sort((a, b) => parseInt(a.folder) - parseInt(b.folder));
 
+        const sortedElements: Area[] = [ ...words, ...images]; // just images so far
+        sortedElements.sort((a, b) => {
+            return a.folder.createdAt.valueOf() - b.folder.createdAt.valueOf();
+        });
+        console.log(sortedElements[0].created.valueOf() / Math.pow(10, 13));
 
         this.placeRecursive(sortedElements,  1, area);
         toDraw = toDraw.concat(sortedElements);
@@ -44,13 +49,18 @@ class GridCompositionClass implements Composition {
 
     private place(images: Area[], columnCount: number, area: DrawArea): boolean {
         const columns: Column[] = this.createColumns(area, columnCount);
+        if (columnCount >= 6) {
+            console.log({columns});
+        }
 
         for (let imagePointer = 0; imagePointer < images.length; imagePointer++){
             const image = images[imagePointer];
             const actualColumn = imagePointer % columnCount;
             const column = columns[actualColumn];
-            this.resetToDefaultDimensions(image);
-
+            resetToDefaultDimensions(image);
+            if (imagePointer > 37 && columnCount >= 5) {
+                console.log("bigger");
+            }
             // set position
             image.x = column.x;
             image.y = column.actualY;
@@ -62,7 +72,7 @@ class GridCompositionClass implements Composition {
             // check if we can still fit it into current column
             if (this.doesItFitHorizontally(column, image) && overlapSuccessful && constrains) {
                 // yes we can place it, so just make it that it counts
-                column.actualY += (image.height + 10); // add some overlap too :)
+                column.actualY += (image.height + 2.5); // add some overlap too :)
             } else {
                 // suuucks this doesent fit!
                 // noo we dont have another column - reset, increase columnCount and start again
@@ -83,31 +93,32 @@ class GridCompositionClass implements Composition {
         }
     }
 
-    private resetToDefaultDimensions(obj: Area) {
-        if (isWord(obj)) {
-            const word = obj as WordProps;
-            word.fontSize = Constrains.maximumTextSize;
-            word.width = 0;
-            word.height = 0;
-        } else {
-            const img = obj as ImageProps;
-            img.width = img.originalWidth;
-            img.height = img.originalHeight;
-        }
 
-    }
 
     private createColumns(area: DrawArea, columnCount: number): Column[] {
         const columnWidth = area.width / columnCount;
         const columns: Column[] = [];
+        const gap = 5; // :D
+
         for (let i = 0; i < columnCount; i++) {
-            columns.push({
+            const columnToAdd: Column = {
                 x: i * columnWidth,
-                y: 0,
+                    y: 0,
                 width: columnWidth,
                 height: area.height,
                 actualY: 0,
-            });
+            };
+
+            if (i === 0) { // first column
+                // columnToAdd.width -= gap / 2;
+            } else if (i+1 === columnCount) { // last column
+                columnToAdd.x += gap / 2;
+            } else { // rest of columns
+                columnToAdd.x += gap / 2;
+                columnToAdd.width -= gap / 2;
+            }
+
+            columns.push(columnToAdd);
         }
         return columns;
 

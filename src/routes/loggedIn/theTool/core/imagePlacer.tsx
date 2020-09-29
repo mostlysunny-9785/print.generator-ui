@@ -54,15 +54,7 @@ export default class ImagePlacer extends Component<Props, State> {
 
         ImagesService.getAllImages().then(images => {
             // also load image properties
-            const loadedImages: Promise<ImageProps>[] = [];
-            images.forEach((image: ImageModel) => {
-                loadedImages.push(getImage(image));
-            });
-
-            Promise.all(loadedImages).then((loadedImages: ImageProps[]) => {
-                // when we have downloaded and loaded all images and their properties
-                this.setState({images, loadedImages});
-            });
+            this.setState({images});
 
         });
 
@@ -79,36 +71,25 @@ export default class ImagePlacer extends Component<Props, State> {
         });
     }
 
-    download = () => {
+    loadImages(count: number) {
+        const loadedImages: Promise<ImageProps>[] = [];
+        if (count > this.state.images.length) {
+            count = this.state.images.length;
+        }
+        for (let i = this.state.loadedImages.length; i < count; i++){
+            const image = this.state.images[i];
+            if (!this.state.loadedImages[i] && image) { // only if its not yet loaded
+                loadedImages.push(getImage(image));
+            }
+        }
 
-        const svgElement: any = document.getElementById("drawArea");
-        const serializedSvg = new XMLSerializer().serializeToString(svgElement);
-        const base64 = window.btoa(unescape(encodeURIComponent(serializedSvg)));
-
-        ToolService.add(base64).then(value => {
-            console.log({value});
-        });
-
-        // pngLib.saveSvgAsPng(document.getElementById("drawArea"), "diagram.png", options);
-        // pngLib.svgAsPngUri(document.getElementById("drawArea"), options).then((uri: any) => {
-        //     console.log({uri});
-        //
-        //     fetch(uri)
-        //         .then(res => res.blob())
-        //         .then(blob => {
-        //             saveAs(blob, "result.png");
-        //         });
-        //
-        //     // const blob = new Blob([uri], {type: 'image/png'});
-        //
-        //     // const url = window.URL.createObjectURL(new Blob([uri]));
-        //     // const link = document.createElement('a');
-        //     // link.href = url;
-        //     // link.setAttribute('download', 'image.png')
-        //     // document.body.appendChild(link);
-        //     // link.click();
-        // })
-
+        // wait for all to download
+        if (loadedImages.length > 0) {
+            Promise.all(loadedImages).then((loadedImages: ImageProps[]) => {
+                // when we have downloaded and loaded all images and their properties
+                this.setState({loadedImages: [...this.state.loadedImages, ...loadedImages]});
+            });
+        }
     }
 
     render() {
@@ -118,7 +99,7 @@ export default class ImagePlacer extends Component<Props, State> {
 
         const imagesNum = p.model.picturesCount === 0 ? s.images.length : p.model.picturesCount; // if user setted max pictures overwrite
         const wordsNum = p.model.wordsCount === 0 ? s.words.length : p.model.wordsCount;
-
+        this.loadImages(imagesNum);
 
         const imagesToDraw: ImageProps[] = [];
         const wordsToDraw: WordProps[] = [];
@@ -152,7 +133,7 @@ export default class ImagePlacer extends Component<Props, State> {
 
 
         return (
-                <svg x={440} y={150} height={p.drawArea.height} width={p.drawArea.width} id='drawArea' onClick={this.download}>
+                <svg x={440} y={150} height={p.drawArea.height} width={p.drawArea.width} id='drawArea'>
                     {toDraw}
                 </svg>
         );

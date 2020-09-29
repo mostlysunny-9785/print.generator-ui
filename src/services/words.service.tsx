@@ -8,8 +8,9 @@ export interface WordModel {
     _id: string;
     content: string;
     created: Date;
-    folderId: string;
+    folderId: string,
     ownerId: string,
+    createdAt: Date,
 }
 
 

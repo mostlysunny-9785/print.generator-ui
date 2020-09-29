@@ -36,9 +36,9 @@ export default class Header extends Component<HeaderProps, any> {
         }
 
 
-        var user = store.getState();
+        var user = store.getState().userReducer;
 
-        if (store.getState().authenticated) {
+        if (store.getState().userReducer.authenticated) {
             return (
                 <div class={style.main}>
                     <div class={style.a}> </div>

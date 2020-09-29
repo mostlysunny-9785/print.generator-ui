@@ -29,7 +29,7 @@ export default class Login extends Component<any, LoginState> {
     onSubmit = (e: any) => {
         e.preventDefault();
         // console.log(this.state);
-        if (store.getState().authenticated) {
+        if (store.getState().userReducer.authenticated) {
             route("/home", true);
         }
         var pass = this.state.password;

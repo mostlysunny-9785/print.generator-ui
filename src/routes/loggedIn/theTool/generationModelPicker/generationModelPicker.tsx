@@ -2,6 +2,8 @@ import {Component, h} from "preact";
 import * as style from "./style.css";
 import {CompositionStrategies, CompositionTypes, GenerationModel, TShirtColors, TShirtTypes} from "../generationModel";
 import Hider from "../../../../components/hider";
+import {store} from "../../../../model/store";
+import {setGenerationAction} from "../../../../model/generation_reducer_actions";
 
 interface GenerationModelPickerProps {
     model: GenerationModel,
@@ -25,6 +27,9 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
 
         console.log({value});
         this.props.modelChange(name, value);
+        // const generationReducer = store.getState().generationReducer;
+        //
+        // store.dispatch(setGenerationAction());
 
         // this.props.model[name]
         // this.setState({
@@ -47,6 +52,11 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
                 </label>)
         ])
         return enumResult;
+    }
+
+
+    generate = () => {
+        this.props.modelChange('generate', true);
     }
 
 
@@ -94,7 +104,7 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
 
                     <div style={{display: 'flex'}}>
                         <div class={style.caption} style={{fontSize: '20px'}}>textCount:</div>
-                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.wordsCount} onChange={(event: any) => {this.props.modelChange('textCount', event.target.value)}} />
+                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.wordsCount} onChange={(event: any) => {this.props.modelChange('wordsCount', event.target.value)}} />
                     </div>
 
                     {/*<div style={{display: 'flex'}}>*/}
@@ -103,6 +113,9 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
                     {/*</div>                */}
                 </Hider>
 
+                <button onClick={this.generate}>
+                    GENERATE!
+                </button>
             </div>
         );
     }

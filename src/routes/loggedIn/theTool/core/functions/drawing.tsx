@@ -7,7 +7,7 @@ import {glob_generationModel} from "../imagePlacer";
 export const drawObj = (obj: Area) => {
     if ((obj as ImageProps).path) {
         const i = obj as ImageProps;
-        return <image x={i.x} y={i.y} href={apiUrlPrefix + 'imagefiles/' + i.path} width={i.width} height={i.height} />;
+        return <image x={i.x} y={i.y} href={apiUrlPrefix + 'imagefiles/thumb/' + i.path} width={i.width} height={i.height} />;
     } else if ((obj as WordProps).text) {
 
         const t = obj as WordProps;

@@ -21,6 +21,7 @@ export interface ImageModel {
     chanelId: string;
     folderId: string;
     ownerId: string;
+    createdAt: Date;
 }
 
 export interface ChanelModel {

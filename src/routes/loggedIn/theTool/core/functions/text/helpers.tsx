@@ -17,7 +17,7 @@ export const determineMultilineTextDimensions = (word: WordProps): void => {
     })
 
     word.lines = resultLines;
-    word.height = word.lines.length * 1.2 * word.fontSize;
+    word.height = word.lines.length * 1.0 * word.fontSize;
 
     // check if we are not over width
     if (word.smallerFontRecommended) {

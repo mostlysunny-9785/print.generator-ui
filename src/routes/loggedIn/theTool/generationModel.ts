@@ -1,3 +1,5 @@
+import {FolderModel} from "../../../services/folders.service";
+
 export interface GenerationModel {
     // mandatory
     composition: CompositionTypes;
@@ -67,7 +69,8 @@ export interface Area {
     y: number,
     width: number,
     height: number,
-    folder: string
+    folder: FolderModel,
+    created: Date
 }
 
 export interface ImageProps extends Area {

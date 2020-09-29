@@ -29,7 +29,7 @@ export const findBlankArea = (images: ImageProps): Area => {
         y: 0,
         width: 0,
         height: 0,
-        folder: "0"
+        folder: {}
     } as Area;
 
     // first randomly find some empty spot
@@ -89,4 +89,18 @@ export const isWord = (elm: Area): boolean => {
     }
 
     return false;
+}
+
+export const resetToDefaultDimensions = (obj: Area) => {
+    if (isWord(obj)) {
+        const word = obj as WordProps;
+        word.fontSize = Constrains.maximumTextSize;
+        word.width = 0;
+        word.height = 0;
+    } else {
+        const img = obj as ImageProps;
+        img.width = img.originalWidth;
+        img.height = img.originalHeight;
+    }
+
 }

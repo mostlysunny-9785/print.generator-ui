@@ -33,7 +33,7 @@ export default class Archive extends Component<any, State> {
                     <div class={style.text}>
                         ({filesize} MB)
                         <a href={apiUrlPrefix + image.filename} download={filename} target="_blank">{filename}</a>
-                        (gen time {image.generationTime} ms)
+                        (gen time {Math.round(image.generationTime * 100) / 100} s)
                     </div>
                 </div>)
         });

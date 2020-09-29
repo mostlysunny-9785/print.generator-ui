@@ -20,7 +20,7 @@ export default class Settings extends Component<any, State> {
     constructor() {
         super();
         this.state = {};
-        const state = store.getState();
+        const state = store.getState().userReducer;
         this.state = { userSession: state };
     }
 
