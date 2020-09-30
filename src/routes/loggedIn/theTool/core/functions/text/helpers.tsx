@@ -21,7 +21,16 @@ export const determineMultilineTextDimensions = (word: WordProps): void => {
 
     // check if we are not over width
     if (word.smallerFontRecommended) {
-        word.fontSize--; // lower font size
+        // first try to determine for how much it should be smaller to save time
+        // TODO: try to minimize this...
+        const lowerByOne = word.fontSize - 1;
+        if (word.proposedFontSize && lowerByOne > word.proposedFontSize) {
+            word.fontSize = word.proposedFontSize;
+        } else {
+            word.fontSize = lowerByOne;
+        }
+        // console.log(lowerByOne + " " + word.proposedFontSize);
+        // lets try it again
         determineMultilineTextDimensions(word); // try it again
     }
 }
@@ -63,6 +72,8 @@ export const wrapLine = (lines: string[], actualLineNum: number, maxWidth: numbe
 
     if (textWidth > maxWidth && !weCanWrap) { // last word in line but still bigger, we should make text smaller
         wordInfo.smallerFontRecommended = true;
+        wordInfo.proposedFontSize = Math.floor(wordInfo.fontSize * (maxWidth / textWidth));
+        // console.log({proposed: (maxWidth / textWidth)});
     }
 
     if (textWidth > maxWidth && weCanWrap) {

@@ -85,5 +85,6 @@ export interface WordProps extends Area  {
     fontFamily: string,
     text: string,
     lines: string[],
-    smallerFontRecommended: boolean
+    smallerFontRecommended: boolean,
+    proposedFontSize?: number
 }

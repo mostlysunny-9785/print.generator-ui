@@ -78,9 +78,9 @@ export default class UserModelPicker extends Component<Props, Props> {
                     <div class={style.caption}>tShirtColor:</div> {tShirtColor}
                     <div>
                         <div class={style.caption} style={{fontSize: '20px'}}>WxH:</div>
-                        <input style={{fontSize: '20px', width: '15px !important', padding: 0}} type="text" value={this.props.model.canvasWidth} onChange={(event: any) => {this.props.modelChange('canvasWidth', event.target.value)}} />
+                        <input style={{fontSize: '20px', width: '15px !important', padding: 0}} type="text" value={this.props.model.canvasWidth} onChange={(event: any) => {this.props.modelChange('canvasWidth', parseInt(event.target.value))}} />
                         x
-                        <input style={{fontSize: '20px', width: '15px !important', padding: 0}} type="text" value={this.props.model.canvasHeight} onChange={(event: any) => {this.props.modelChange('canvasHeight', event.target.value)}} />
+                        <input style={{fontSize: '20px', width: '15px !important', padding: 0}} type="text" value={this.props.model.canvasHeight} onChange={(event: any) => {this.props.modelChange('canvasHeight', parseInt(event.target.value))}} />
                     </div>
                 </Hider>
             </div>

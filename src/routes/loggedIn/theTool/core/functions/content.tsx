@@ -5,6 +5,7 @@ import {getRatio} from "../helpers";
 import {ImageModel} from "../../../../../services/images.service";
 import {FolderModel, FolderType} from "../../../../../services/folders.service";
 import {store} from "../../../../../model/store";
+import {Constrains} from "../constrains";
 
 export const getImage = (image: ImageModel): Promise<ImageProps> => {
 
@@ -41,7 +42,7 @@ export const getWord = (word: WordModel): WordProps => {
     return {
         x: 0,
         y: 0,
-        fontSize: 24,
+        fontSize: Constrains.maximumTextSize,
         fontFamily: 'Arial',
         text: word.content,
         height: 0,

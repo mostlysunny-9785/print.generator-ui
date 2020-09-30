@@ -48,27 +48,52 @@ export default class ImagePlacer extends Component<Props, State> {
     }
 
     componentDidMount() {
-        FoldersService.get().then(folders => {
-            this.setState({folders});
+
+        let state: any = {};
+        let sync: Promise<any>[] = [];
+
+        sync.push(new Promise((resolve, reject) => {
+            FoldersService.get().then(folders => {
+                state.folders = folders;
+                resolve();
+            });
+        }));
+
+
+        sync.push(new Promise((resolve, reject) => {
+            ImagesService.getAllImages().then(images => {
+                // also load image properties
+                // this.setState({images});
+                state.images = images;
+                resolve();
+            });
+        }));
+
+        sync.push(new Promise((resolve, reject) => {
+            WordsService.getAll().then(words => {
+                const loadedWords: WordProps[] = [];
+                if (words && words.length) {
+                    words.forEach(word => {
+                        loadedWords.push(getWord(word)); // fillup visible object
+                    })
+                }
+                // console.log({words, loadedWords});
+                state.words = words;
+                state.loadedWords = loadedWords;
+                resolve();
+                // this.setState({words, loadedWords});
+
+            });
+        }));
+
+        Promise.all(sync).then(() => {
+            this.setState({
+                ...this.state,
+                ...state
+            });
         });
 
-        ImagesService.getAllImages().then(images => {
-            // also load image properties
-            this.setState({images});
 
-        });
-
-        WordsService.getAll().then(words => {
-            const loadedWords: WordProps[] = [];
-            if (words && words.length) {
-                words.forEach(word => {
-                    loadedWords.push(getWord(word)); // fillup visible object
-                })
-            }
-            console.log({words, loadedWords});
-            this.setState({words, loadedWords});
-
-        });
     }
 
     loadImages(count: number) {
@@ -76,7 +101,8 @@ export default class ImagePlacer extends Component<Props, State> {
         if (count > this.state.images.length) {
             count = this.state.images.length;
         }
-        for (let i = this.state.loadedImages.length; i < count; i++){
+        console.log({loading: [this.state.loadedImages.length-1, count]});
+        for (let i = this.state.loadedImages.length-1; i < count; i++){ // start to load images from where we stopped
             const image = this.state.images[i];
             if (!this.state.loadedImages[i] && image) { // only if its not yet loaded
                 loadedImages.push(getImage(image));
@@ -97,8 +123,10 @@ export default class ImagePlacer extends Component<Props, State> {
         const s = this.state;
         glob_generationModel = p.model;
 
-        const imagesNum = p.model.picturesCount === 0 ? s.images.length : p.model.picturesCount; // if user setted max pictures overwrite
-        const wordsNum = p.model.wordsCount === 0 ? s.words.length : p.model.wordsCount;
+        // const imagesNum = p.model.picturesCount === 0 ? s.images.length : p.model.picturesCount; // if user setted max pictures overwrite
+        // const wordsNum = p.model.wordsCount === 0 ? s.words.length : p.model.wordsCount;
+        const imagesNum = p.model.picturesCount; // if user setted max pictures overwrite
+        const wordsNum = p.model.wordsCount;
         this.loadImages(imagesNum);
 
         const imagesToDraw: ImageProps[] = [];

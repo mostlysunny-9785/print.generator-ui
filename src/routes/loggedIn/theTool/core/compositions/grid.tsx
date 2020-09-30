@@ -22,7 +22,6 @@ class GridCompositionClass implements Composition {
         sortedElements.sort((a, b) => {
             return a.folder.createdAt.valueOf() - b.folder.createdAt.valueOf();
         });
-        console.log(sortedElements[0].created.valueOf() / Math.pow(10, 13));
 
         this.placeRecursive(sortedElements,  1, area);
         toDraw = toDraw.concat(sortedElements);
@@ -58,9 +57,7 @@ class GridCompositionClass implements Composition {
             const actualColumn = imagePointer % columnCount;
             const column = columns[actualColumn];
             resetToDefaultDimensions(image);
-            if (imagePointer > 37 && columnCount >= 5) {
-                console.log("bigger");
-            }
+
             // set position
             image.x = column.x;
             image.y = column.actualY;

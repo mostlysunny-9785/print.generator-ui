@@ -97,6 +97,7 @@ export const resetToDefaultDimensions = (obj: Area) => {
         word.fontSize = Constrains.maximumTextSize;
         word.width = 0;
         word.height = 0;
+        word.lines = word.text.split('\n');
     } else {
         const img = obj as ImageProps;
         img.width = img.originalWidth;

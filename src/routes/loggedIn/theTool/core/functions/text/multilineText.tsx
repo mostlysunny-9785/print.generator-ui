@@ -21,13 +21,17 @@ const MultilineText: FunctionalComponent<Props> = (props: Props) => {
 
 
     props.w.lines.forEach(line => {
-        toDraw.push(<tspan x={props.w.x} dy="1.0em" fill={color}>{line}</tspan>);
+        toDraw.push(<tspan x={props.w.x} dy="1.0em">{line}</tspan>);
     })
+
+    const style = "fill: " + color + ";" +
+        "font-size: " + props.w.fontSize + "px;" +
+        "font-family: " + props.w.fontFamily + ";";
 
     return (
         <g>
             {/*<rect x={props.w.x} y={props.w.y} width={props.w.width} height={props.w.height} style="stroke: red; fill-opacity: 0" />*/}
-            <text x={props.w.x} y={props.w.y} font-size={props.w.fontSize + "px"} style={{fontFamily: props.w.fontFamily}}>
+            <text x={props.w.x} y={props.w.y} style={style}>
                 {toDraw}
             </text>
 
