@@ -110,6 +110,7 @@ class GridCompositionClass implements Composition {
                 // columnToAdd.width -= gap / 2;
             } else if (i+1 === columnCount) { // last column
                 columnToAdd.x += gap / 2;
+                columnToAdd.width -= gap / 2;
             } else { // rest of columns
                 columnToAdd.x += gap / 2;
                 columnToAdd.width -= gap / 2;
