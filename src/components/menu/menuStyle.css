@@ -67,10 +67,11 @@
 @media only screen and (max-width: 600px) {
 	.newMain {
 		width: 100%;
-		padding-top: 5px;
+		padding-top: 25px;
 		padding-bottom: 5px;
 		/*padding-left: 20px;*/
 		padding-right: 5px;
+		height: 100px;
 	}
 
 	.restButtons {

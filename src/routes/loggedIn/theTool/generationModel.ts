@@ -5,6 +5,7 @@ export interface GenerationModel {
     composition: CompositionTypes;
     tShirtType: TShirtTypes;
     tShirtColor: TShirtColors;
+    printColor: PrintColors;
     canvasWidth: number;
     canvasHeight: number;
 
@@ -43,10 +44,16 @@ export enum TShirtColors {
     DARK
 }
 
+export enum PrintColors {
+    BW,
+    COLORFULL
+}
+
 export const DefaultGenerationModel: GenerationModel = {
     composition: CompositionTypes.RANDOM,
     tShirtType: TShirtTypes.LONGSLEEVE,
     tShirtColor: TShirtColors.LIGHT,
+    printColor: PrintColors.COLORFULL,
     canvasWidth: 420,
     canvasHeight: 297,
 

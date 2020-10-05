@@ -1,3 +1,5 @@
+import {GenerationModel} from "../routes/loggedIn/theTool/generationModel";
+
 export type UserDocument = {
     email: string;
     password: string;
@@ -6,6 +8,8 @@ export type UserDocument = {
 
     facebook: string;
     tokens: AuthToken[];
+
+    settings: GenerationModel;
 
     profile: {
         name: string;

@@ -1,4 +1,4 @@
-import {LOAD, LOGIN, LOGOUT} from "./user_reducer_actions";
+import {LOAD, LOGIN, LOGOUT, UPDATE_SETTINGS} from "./user_reducer_actions";
 
 export const userReducer = (state: any = { authenticated: false }, action: any) => {
     switch (action.type) {
@@ -17,6 +17,12 @@ export const userReducer = (state: any = { authenticated: false }, action: any) 
             state = {
                 ...state,
                 authenticated: false
+            };
+            break;
+        case UPDATE_SETTINGS:
+            state = {
+                ...state,
+                settings: action.settings
             };
             break;
     }

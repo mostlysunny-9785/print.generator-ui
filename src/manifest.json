@@ -1,6 +1,6 @@
 {
-  "name": "yacyag-ui",
-  "short_name": "yacyag-ui",
+  "name": "print-generator",
+  "short_name": "print-generator",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

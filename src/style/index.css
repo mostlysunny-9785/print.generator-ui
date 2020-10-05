@@ -25,7 +25,7 @@ input[type=text], input[type=password], select {
 	border: 0;
 	border-radius: 50px;
 	box-sizing: border-box;
-	font-size: 28px;
+	font-size: 24px;
 	background-color: #F8F8F8;
 	min-width: 200px;
 }
@@ -62,7 +62,7 @@ button:disabled {
 	color: #C4C4C4;
 }
 
-button:focus, input:focus, textarea:focus {
+button:focus, input:focus, textarea:focus, select:focus {
 	/*box-shadow: 0 0 1pt 1pt black;*/
 	outline-style: none;
 }
@@ -129,7 +129,18 @@ a:active {
 		padding: 22px 25px;
 	}
 
+	.wireButton {
+		border-width: 1.5px;
+	}
+
 	.footerSpacer {
 		height: 95px;
+	}
+
+	input[type=text], input[type=password], select {
+		width: 100%;
+		margin-left: 0px;
+		margin-right: 0px;
+		font-size: 18px;
 	}
 }
