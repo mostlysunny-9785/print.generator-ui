@@ -188,7 +188,7 @@ export default class Settings extends Component<any, State> {
 
                     <div style={{height: '150px'}}> </div>
                 </div>
-
+                <div class="footerSpacer"> </div>
                 <SettingsMenu> </SettingsMenu>
             </div>
         );

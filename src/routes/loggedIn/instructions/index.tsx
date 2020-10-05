@@ -189,7 +189,7 @@ export default class Instructions extends Component<any, any> {
                     <Hider headline='Archive'>
                         <Archive />
                     </Hider>
-
+                    <div class="footerSpacer"> </div>
 
                     <InstructionsMenu />
                 </div>
