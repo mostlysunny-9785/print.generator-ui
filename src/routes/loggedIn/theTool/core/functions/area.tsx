@@ -55,7 +55,7 @@ export const correctOverlap = (drawArea: DrawArea, obj: Area): boolean => {
     if (isWord(obj)){
         const word = obj as WordProps;
         word.width = drawArea.width;
-        determineMultilineTextDimensions(word);
+        determineMultilineTextDimensions(word, drawArea);
         // TODO: correctingOverlap for Word
     } else {
         const img = obj as ImageProps;

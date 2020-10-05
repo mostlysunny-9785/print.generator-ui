@@ -4,9 +4,15 @@
 .imageContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 100%;
+    justify-content: center;
+    /*width: 100%;*/
 }
+
+.imageContainerWrapper {
+    display: flex;
+    justify-content: center;
+}
+
 
 .image {
     /*width: 400px;*/

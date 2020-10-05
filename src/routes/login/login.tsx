@@ -89,7 +89,7 @@ export default class Login extends Component<any, LoginState> {
                         {/*<input type="text" value={this.state.password} onInput={this.onPasswordChange} />*/}
                     </div>
 
-                    <div class={menuStyle.main}>
+                    <div class={menuStyle.newMain}>
                         <button type="submit" class={style.loginButton}>
                             {isMobile() ? 'Continue' : 'Continue to beta'}
                         </button>

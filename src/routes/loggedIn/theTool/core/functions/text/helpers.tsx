@@ -1,10 +1,11 @@
-import {WordProps} from "../../../generationModel";
+import {Area, WordProps} from "../../../generationModel";
+import {DrawArea} from "../../toolCore";
 
 const canvas = document.createElement("canvas");
 
 
 
-export const determineMultilineTextDimensions = (word: WordProps): void => {
+export const determineMultilineTextDimensions = (word: WordProps, areaToFit: DrawArea): void => {
 
     let resultLines: any[] = [];
     word.smallerFontRecommended = false; // reset recommendations
@@ -31,7 +32,7 @@ export const determineMultilineTextDimensions = (word: WordProps): void => {
         }
         // console.log(lowerByOne + " " + word.proposedFontSize);
         // lets try it again
-        determineMultilineTextDimensions(word); // try it again
+        determineMultilineTextDimensions(word, areaToFit); // try it again
     }
 }
 
@@ -51,7 +52,7 @@ export const getTextWidth = (text: string, font: string): number => {
 
 
 
-/*** this is serious shit :D Just made word wrapping by myself?!
+/*** This is serious shit :D Just made SVG word wrapping... ?!
  *  measure active line
  is text bigger?
  yes - remove last word and put it to start of next line
@@ -64,7 +65,7 @@ export const getTextWidth = (text: string, font: string): number => {
  */
 export const wrapLine = (lines: string[], actualLineNum: number, maxWidth: number, wordInfo: WordProps): void => {
     const font = wordInfo.fontSize + "px " + wordInfo.fontFamily;
-    const textWidth = getTextWidth(lines[actualLineNum], font);
+    const textWidth = getTextWidth(lines[actualLineNum], font); // determine actual line width in DOM
     const wordsOfLine = lines[actualLineNum].split(' ');
     // @ts-ignore
     const lastWord = wordsOfLine.last;
@@ -73,7 +74,6 @@ export const wrapLine = (lines: string[], actualLineNum: number, maxWidth: numbe
     if (textWidth > maxWidth && !weCanWrap) { // last word in line but still bigger, we should make text smaller
         wordInfo.smallerFontRecommended = true;
         wordInfo.proposedFontSize = Math.floor(wordInfo.fontSize * (maxWidth / textWidth));
-        // console.log({proposed: (maxWidth / textWidth)});
     }
 
     if (textWidth > maxWidth && weCanWrap) {
@@ -96,9 +96,12 @@ export const wrapLine = (lines: string[], actualLineNum: number, maxWidth: numbe
             return;
         }
     }
+}
 
 
-
-
+export const guessFontSize = (word: WordProps, areaToFit: DrawArea) => {
+    const aimForLinesCount = Math.ceil(areaToFit.height / word.fontSize);
+    const totalWidth = getTextWidth(word.text, word.fontSize + "px " + word.fontFamily);
+    const totalHeight = word.text.split('\n').length * word.fontSize;
 }
 

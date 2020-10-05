@@ -22,7 +22,7 @@
 @media only screen and (max-width: 600px) {
 	.b {
 		font-size: 18px;
-		/*line-height: 30px;*/
+		line-height: 30px;
 		text-align: left;
 		align-content: center;
 	}

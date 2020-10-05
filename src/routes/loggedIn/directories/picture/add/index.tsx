@@ -92,7 +92,7 @@ export default class PictureAdd extends Component<Props, State> {
                 </div>
                 <div class={menuStyle.newMain}>
                     <div class={menuStyle.restButtons}>
-                        <button type="submit" class={menuStyle.menuButton + " grayButton"} onClick={this.onSubmit}>Send</button>
+                        <button type="submit" class={menuStyle.menuButton + " wireButton"} onClick={this.onSubmit}>Add</button>
                     </div>
                 </div>
             </div>

@@ -81,7 +81,7 @@ export default class LoggedInHome extends Component<any, State> {
     };
 
     render() {
-        const folders: any = [];
+        let folders: any = [];
         if (this.state.folders) {
             this.state.folders.forEach((folder: FolderModel) => {
                 let folderElm: any;
@@ -102,7 +102,7 @@ export default class LoggedInHome extends Component<any, State> {
                             ) : (
                                 ""
                             )}
-                            Word {folder.id}
+                            Word {folder.id !== 1 ? folder.id : ""}
                         </div>
                     );
                 } else if (folder.type === FolderType.IMAGE) {
@@ -122,7 +122,7 @@ export default class LoggedInHome extends Component<any, State> {
                             ) : (
                                 ""
                             )}
-                            Picture {folder.id}
+                            Picture {folder.id !== 1 ? folder.id : ""}
                         </div>
                     );
                 } else {
@@ -131,6 +131,10 @@ export default class LoggedInHome extends Component<any, State> {
                 folders.push(folderElm);
             });
         }
+
+        // wrap every folder with wrapper for propper 50%
+        folders = folders.map((folder: any) => <div class={style.boxWrapper}>{folder}</div>)
+
 
         return (
             <div>
@@ -147,6 +151,7 @@ export default class LoggedInHome extends Component<any, State> {
                         {" "}
                     </HomeMenu>
                 </div>
+                <div class="footerSpacer"> </div>
             </div>
         );
     }

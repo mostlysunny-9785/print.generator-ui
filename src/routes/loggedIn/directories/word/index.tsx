@@ -59,7 +59,7 @@ export default class WordFolder extends Component<Props, State> {
     render () {
 
         return (
-            <div>
+            <div style={{height: "100%"}}>
                 <WordFolderHeader onRouterChange={this.onRoute}> </WordFolderHeader>
 
                 <div class={style.container}>

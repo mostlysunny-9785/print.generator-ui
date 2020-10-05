@@ -68,8 +68,10 @@ export default class PictureFolder extends Component<Props, State> {
 
                 <PictureFolderHeader folderId={this.props.id} pictures={this.state.images.length}></PictureFolderHeader>
 
-                <div class={style.imageContainer}>
-                    {images}
+                <div class={style.imageContainerWrapper}>
+                    <div class={style.imageContainer}>
+                        {images}
+                    </div>
                 </div>
 
 

@@ -31,7 +31,7 @@ class RandomCompositionClass implements Composition {
             resetToDefaultDimensions(word);
             this.randomisePosition(word, area);
             this.randomizeWordDimensions(word, area, words.length);
-            determineMultilineTextDimensions(word);
+            determineMultilineTextDimensions(word, area);
             toDraw.push(word);
         })
     }

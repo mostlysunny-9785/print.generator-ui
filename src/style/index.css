@@ -76,7 +76,9 @@ textarea:focus {
 	color: #C4C4C4;
 }
 
-
+.footerSpacer {
+	height: 120px;
+}
 
 .grayButton {
 	background-color: #A6A6A6;
@@ -88,6 +90,7 @@ textarea:focus {
 	background-color: white;
 	border: 2px solid black;
 	color: black;
+	padding: 22px 22px;
 }
 
 pre {
@@ -124,5 +127,9 @@ a:active {
 	button {
 		font-size: 20px;
 		padding: 22px 25px;
+	}
+
+	.footerSpacer {
+		height: 95px;
 	}
 }
