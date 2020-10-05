@@ -11,7 +11,7 @@ const LoginHeader: FunctionalComponent<Props> = (props: Props) => {
         <div class={style.main}>
             <div class={style.a}> </div>
             <div class={style.b}>
-                Hello, for early access just continue to beta as Anonymous #3
+                Hello, for early access, continue to beta as Anonymous #3
             </div>
             <div class={style.c}> </div>
         </div>

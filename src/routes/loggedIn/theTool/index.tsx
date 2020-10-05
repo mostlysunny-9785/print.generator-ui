@@ -1,17 +1,14 @@
 import {Component, h} from "preact";
 import * as style from "./style.css";
-import {route} from "preact-router";
-import WordMenu from "./menu";
 import TheToolMenu from "./menu";
-import {ChanelModel, ImageModel, ImagesService, LoadedChanelModel} from "../../../services/images.service";
 import TheToolCore from "./core/toolCore";
 import GenerationModelPicker from "./generationModelPicker/generationModelPicker";
-import {DefaultGenerationModel, GenerationModel} from "./generationModel";
-import {FolderModel, FoldersService} from "../../../services/folders.service";
-import {WordModel, WordsService} from "../../../services/words.service";
+import {CompositionTypes, GenerationModel, PrintColors, TShirtColors} from "./generationModel";
 import UserModelPicker from "./generationModelPicker/userModelPicker";
 import {store} from "../../../model/store";
 import {setGenerationAction} from "../../../model/generation_reducer_actions";
+import {UserDocument} from "../../../model/user.model";
+import SendHeader from "./header";
 
 interface State {
     regenerate: boolean
@@ -35,13 +32,6 @@ export default class TheTool extends Component<any, State> {
     }
 
     onModelChange = (key: string, value: any) => {
-        console.log({key, value});
-        // this.setState({
-        //     ...this.state,
-        //     generationModel: {...this.state.generationModel, [key]: value} as GenerationModel,
-        //     }, () => {
-        //
-        // });
         if (key !== 'generate') {
             let activeGenModel: any = store.getState().generationReducer;
             activeGenModel[key] = value;
@@ -51,9 +41,10 @@ export default class TheTool extends Component<any, State> {
                 regenerate: !state.regenerate
             }));
         }
+    }
 
-
-
+    regenerate = () => {
+        this.onModelChange('generate', '');
     }
 
     render () {
@@ -61,24 +52,49 @@ export default class TheTool extends Component<any, State> {
         // console.log({state: this.state.generationModel.drawAreaVisible, stejt: this.state.generationModel});
 
         const genModel: GenerationModel = store.getState().generationReducer;
+        const userModel: UserDocument = store.getState().userReducer;
 
-        return (
-            <div>
-                {/*<h2>The Tool</h2>*/}
+        let amIAdmin: boolean = ['kuba', 'honza'].includes(userModel.email);
+        const grayscale = userModel.settings.printColor === PrintColors.BW ? "grayscale(1)" : "";
+
+        if (amIAdmin) {
+            return <div>
                 <div class={style.generationPanel}>
-                    <GenerationModelPicker model={genModel} modelChange={this.onModelChange} />
+                        <GenerationModelPicker model={genModel} modelChange={this.onModelChange} />
+                    </div>
+
+                <div style={{filter: grayscale}}>
+                    <TheToolCore model={genModel} admin={true} />
                 </div>
 
-                <TheToolCore model={genModel} />
 
-                <div className={style.userPanel}>
-                    <UserModelPicker model={genModel} modelChange={this.onModelChange}/>
-                </div>
+                    <div className={style.userPanel}>
+                        <UserModelPicker model={genModel} modelChange={this.onModelChange}/>
+                    </div>
 
-                <TheToolMenu />
+                <TheToolMenu isRandom={false} regenerate={this.regenerate}  />
             </div>
+        } else {
+            if (userModel && userModel.settings && genModel) { // adjust generatio model based on settings
+                genModel.tShirtColor = userModel.settings.tShirtColor;
+                genModel.composition = userModel.settings.composition;
+                genModel.printColor = userModel.settings.printColor;
+            }
+            const isRandom = genModel.composition === CompositionTypes.RANDOM;
 
-        );
+            const backgroundColor = genModel.tShirtColor === TShirtColors.LIGHT ? 'url(\'/assets/shirt.svg\')' : 'url(\'/assets/shirt_dark.svg\')';
+
+            return <div>
+                <SendHeader />
+                <div class={style.scaled}>
+                    <div class={style.resultCentering} style={{backgroundImage: backgroundColor, filter: grayscale}}>
+                        <TheToolCore model={genModel} admin={false} />
+                    </div>
+                </div>
+                <TheToolMenu isRandom={isRandom} regenerate={this.regenerate} />
+            </div>
+        }
+
     }
 }
 

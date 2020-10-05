@@ -5,9 +5,20 @@ import {route} from "preact-router";
 import {GeneratedModel, ToolService} from "../../../services/tool.service";
 import {apiUrlPrefix} from "../../../components/utils/global";
 import { saveAs } from 'file-saver';
+import DropdownMenu from "../../../components/dropdown";
 
 
-export default class TheToolMenu extends Component<any, any> {
+interface Props {
+    isRandom: boolean;
+    regenerate: () => void;
+}
+
+export default class TheToolMenu extends Component<Props, any> {
+
+    constructor(props: Props) {
+        super(props);
+    }
+
 
     download = () => {
         const svgElement: any = document.getElementById("drawArea");
@@ -30,15 +41,24 @@ export default class TheToolMenu extends Component<any, any> {
 
     }
 
+    regenerate = () => {
+        this.props.regenerate();
+    }
+
+
     render(props?: preact.RenderableProps<any>, state?: Readonly<any>, context?: any): preact.ComponentChild {
-            return (
-                <div class={style.main}>
-                    <div class={style.a}>
-                        <button type="submit" class={style.menuButton} onClick={()=> {route("/home")}}>Back to home</button>
-                        <button type="submit" class={style.menuButton + " wireButton"} onClick={this.download}>Save & download</button>
-                    </div>
+        return (
+            <div class={style.newMain} style={{overflowX: "scroll"}}>
+                <div class={style.a}>
+                    <button type="submit" class={style.menuButton} onClick={()=> {route("/home")}}>Start again</button>
+
+                    {this.props.isRandom ? <button type="submit" class={style.menuButton + " wireButton"} onClick={this.regenerate}>Generate</button> : ""}
+
+
+                    <button type="submit" class={style.menuButton + " wireButton"} onClick={this.download}>Download PNG</button>
                 </div>
-            );
+            </div>
+        );
     }
 
 

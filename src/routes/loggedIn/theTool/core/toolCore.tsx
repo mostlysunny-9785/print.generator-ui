@@ -19,6 +19,7 @@ interface State {
 
 export interface ToolCoreProps {
     model: GenerationModel;
+    admin: boolean;
 }
 
 export default class TheToolCore extends Component<ToolCoreProps, State> {
@@ -68,6 +69,9 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
     }
 
     getDrawArea() {
+        if (!this.props.admin) {
+            return;
+        }
         if (this.state.drawArea && this.state.drawArea.ratio && this.props.model.drawAreaVisible) {
             const style: any = {
                 fill: "white",
@@ -93,6 +97,9 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
     }
 
     getLotNumbers() {
+        if (!this.props.admin) {
+            return;
+        }
         if (this.props.model.lotNumbers) {
             return (
                 <g>
@@ -155,27 +162,38 @@ export default class TheToolCore extends Component<ToolCoreProps, State> {
     }
 
     render() {
-        return (
-            <div class={style.container}>
-                <svg width="1200" height="1000">
-                    <image
-                        x={0}
-                        y={0}
-                        href={this.getTShirtFile()}
-                        height="700"
-                        width="1200"
-                    />
-                    {this.getDrawArea()}
-                    {this.getLotNumbers()}
-                    <text x="20" y="20" style={{ fontSize: "20px" }}>
-                        Ratio: {this.state.drawArea ? this.state.drawArea.ratio : " "}
-                    </text>
-                    <ImagePlacer
-                        model={this.props.model}
-                        drawArea={this.state.drawArea}
-                    />
-                </svg>
-            </div>
-        );
+
+        if (!this.props.admin) {
+            return <ImagePlacer
+                model={this.props.model}
+                drawArea={this.state.drawArea}
+            />;
+        } else {
+            return (
+                <div class={style.container}>
+                    <svg width="1200" height="1000">
+                        <image
+                            x={0}
+                            y={0}
+                            href={this.getTShirtFile()}
+                            height="700"
+                            width="1200"
+                        />
+                        {this.getDrawArea()}
+                        {this.getLotNumbers()}
+                        {/*<text x="20" y="20" style={{ fontSize: "20px" }}>*/}
+                        {/*    Ratio: {this.state.drawArea ? this.state.drawArea.ratio : " "}*/}
+                        {/*</text>*/}
+                        <ImagePlacer
+                            model={this.props.model}
+                            drawArea={this.state.drawArea}
+                        />
+                    </svg>
+                </div>
+            );
+        }
+
+
+
     }
 }

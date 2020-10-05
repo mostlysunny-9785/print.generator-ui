@@ -1,6 +1,7 @@
 import { Component, h } from "preact";
 import * as style from "./style.css";
 import {ImageModel} from "../../../../services/images.service";
+import DeleteButton from "../../../../components/deleteButton/deleteButton";
 
 export interface Props {
     image: ImageModel;
@@ -21,9 +22,9 @@ export class Image extends Component<Props, any> {
             >
 
                 {this.props.canDelete ?
-                    <button class={style.deleteButton + " grayButton"} onClick={this.deletePic}>
-                        X
-                    </button> : ""}
+                    <DeleteButton
+                        delete={this.deletePic}
+                    /> : ""}
             </span>
         );
     }

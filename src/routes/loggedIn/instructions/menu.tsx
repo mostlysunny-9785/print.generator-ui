@@ -34,7 +34,7 @@ export default class InstructionsMenu extends Component<any, any> {
     render(props?: preact.RenderableProps<any>, state?: Readonly<any>, context?: any): preact.ComponentChild {
             return (
                 <div class={style.newMain}>
-                    <div class={style.a} style={{fontSize: '15px', textDecoration: 'underline', flexDirection: 'column'}}>
+                    <div class={style.a} style={{fontSize: '15px', textDecoration: 'underline', flexDirection: 'column-reverse'}}>
                         <a href={this.mailto}>Email us (ask me anything)</a>
                         <span onClick={this.logOut} style={{cursor: 'pointer'}}>Log out (see you soon)</span>
                     </div>

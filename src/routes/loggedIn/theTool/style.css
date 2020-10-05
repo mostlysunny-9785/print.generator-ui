@@ -22,3 +22,37 @@
 	background-color: white;
 	padding: 10px;
 }
+
+.resultCentering {
+	background-image: url('/assets/shirt_dark.svg');
+	background-size: 1200px;
+	background-repeat: no-repeat;
+	background-position: center;
+	object-fit: contain;
+	display: flex;
+	justify-content: center;
+	height: 600px;
+	padding-top: 90px;
+}
+
+.scaled {
+	transform: scale(1);
+}
+
+
+@media only screen and (max-width: 600px) {
+
+	.scaled {
+		transform: scale(0.6);
+		/*width: 130%;*/
+	}
+
+	.resultCentering {
+		width: 180%;
+		margin-left: -40%;
+		margin-top: -100px;
+
+	}
+
+}
+

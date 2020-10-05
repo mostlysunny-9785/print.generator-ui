@@ -74,6 +74,11 @@
 		height: 100px;
 	}
 
+	.menuButton {
+		margin-right: 2px;
+	}
+
+
 	.restButtons {
 		max-width: 50%;
 	}

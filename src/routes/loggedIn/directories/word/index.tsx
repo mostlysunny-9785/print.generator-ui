@@ -7,7 +7,8 @@ import {WordModel, WordsService} from "../../../../services/words.service";
 import Word from "../../word";
 
 interface State {
-    word?: WordModel
+    word?: WordModel,
+    wordsCount: number;
 }
 
 interface Props {
@@ -21,14 +22,15 @@ export default class WordFolder extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.state = {};
+        this.state = { wordsCount: 0};
     }
 
 
 
     componentDidMount(): void {
         WordsService.getByFolder(this.props.wordFolderId).then(word => {
-            this.setState({word});
+            const wordsCount = word.content !== "" ? word.content.split(' ').length : 0;
+            this.setState({word, wordsCount});
             this.input = word.content;
         }).catch(reason => {
             WordsService.add(this.props.wordFolderId, '').then(word => {
@@ -44,6 +46,11 @@ export default class WordFolder extends Component<Props, State> {
     onInput = (e: any) => {
         const {value} = e.target;
         this.input = value;
+        const wordsCount = this.input !== "" ? this.input.split(' ').length : 0;
+        if (this.state.wordsCount !== wordsCount) {
+            this.setState({wordsCount});
+        }
+
     }
 
     onRoute = () => {
@@ -54,13 +61,17 @@ export default class WordFolder extends Component<Props, State> {
         }
     }
 
+    newWords = () => {
+
+    }
+
 
 
     render () {
 
         return (
             <div style={{height: "100%"}}>
-                <WordFolderHeader onRouterChange={this.onRoute}> </WordFolderHeader>
+                <WordFolderHeader onRouterChange={this.onRoute} wordCount={this.state.wordsCount}> </WordFolderHeader>
 
                 <div class={style.container}>
                     <textarea

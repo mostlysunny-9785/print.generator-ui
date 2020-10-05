@@ -2,3 +2,5 @@
 export const editor: string;
 export const generationPanel: string;
 export const userPanel: string;
+export const resultCentering: string;
+export const scaled: string;

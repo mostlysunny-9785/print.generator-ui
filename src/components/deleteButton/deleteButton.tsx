@@ -7,8 +7,8 @@ interface Props {
 
 const DeleteButton: FunctionalComponent<Props> = (props: Props) => {
     return (
-        <button class={style.deleteButton + " grayButton"} onClick={props.delete}>
-            X
+        <button class={style.deleteButton} onClick={props.delete}>
+
         </button>
     )
 }

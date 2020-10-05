@@ -30,10 +30,25 @@ input[type=text], input[type=password], select {
 	min-width: 200px;
 }
 
-select {
-	text-align: center;
-	text-align-last: center;
-	-moz-text-align-last: center;
+
+
+textarea {
+
+	padding: 12px 20px 10px 10px;
+	/*margin: 8px 0;*/
+
+	border: 2px solid #000000;
+	border-radius: 4px;
+
+	box-sizing: border-box;
+	font-size: 32px;
+	resize: none;
+	font-family: Arial, serif;
+
+}
+
+textarea:focus {
+	/*border: 2px solid #0094FF;*/
 }
 
 ::placeholder {
@@ -78,12 +93,14 @@ textarea:focus {
 
 .footerSpacer {
 	height: 120px;
+	width: 100%;
 }
 
 .grayButton {
 	background-color: #A6A6A6;
 	border: 1px solid #A6A6A6;
 	color: white;
+	padding: 22px 22px;
 }
 
 .wireButton {
@@ -125,7 +142,7 @@ a:active {
 
 @media only screen and (max-width: 600px) {
 	button {
-		font-size: 20px;
+		font-size: 18px;
 		padding: 22px 25px;
 	}
 

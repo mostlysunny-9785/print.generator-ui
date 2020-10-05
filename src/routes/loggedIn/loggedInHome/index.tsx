@@ -87,12 +87,7 @@ export default class LoggedInHome extends Component<any, State> {
                 let folderElm: any;
                 if (folder.type === FolderType.WORD) {
                     folderElm = (
-                        <div
-                            class={style.box}
-                            onClick={() => {
-                                this.routeTo("/word/" + folder.id);
-                            }}
-                        >
+                        <div>
                             {this.state.canDelete ? (
                                 <DeleteButton
                                     delete={() => {
@@ -102,17 +97,20 @@ export default class LoggedInHome extends Component<any, State> {
                             ) : (
                                 ""
                             )}
-                            Word {folder.id !== 1 ? folder.id : ""}
+                            <div
+                                class={style.box}
+                                onClick={() => {
+                                    this.routeTo("/word/" + folder.id);
+                                }}
+                            >
+
+                                Word {folder.id !== 1 ? folder.id : ""}
+                            </div>
                         </div>
                     );
                 } else if (folder.type === FolderType.IMAGE) {
                     folderElm = (
-                        <div
-                            class={style.box}
-                            onClick={() => {
-                                this.routeTo("/picture/" + folder.id);
-                            }}
-                        >
+                        <div>
                             {this.state.canDelete ? (
                                 <DeleteButton
                                     delete={() => {
@@ -122,8 +120,17 @@ export default class LoggedInHome extends Component<any, State> {
                             ) : (
                                 ""
                             )}
-                            Picture {folder.id !== 1 ? folder.id : ""}
+                            <div
+                                class={style.box}
+                                onClick={() => {
+                                    this.routeTo("/picture/" + folder.id);
+                                }}
+                            >
+
+                                Picture {folder.id !== 1 ? folder.id : ""}
+                            </div>
                         </div>
+
                     );
                 } else {
                     folderElm = <div class={style.box}>ERROR</div>;

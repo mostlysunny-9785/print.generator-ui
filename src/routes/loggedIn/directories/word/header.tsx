@@ -6,7 +6,8 @@ import {route} from "preact-router";
 
 
 interface Props {
-    onRouterChange: () => void
+    onRouterChange: () => void,
+    wordCount: number
 }
 
 const WordFolderHeader: FunctionalComponent<Props> = (props: Props) => {
@@ -15,7 +16,7 @@ const WordFolderHeader: FunctionalComponent<Props> = (props: Props) => {
             <div class={style.main}>
                 <div class={style.a}></div>
                 <div class={style.b} onClick={()=>{route("/home")}}>
-                    Word folder, 21 words, 0 emoji
+                    Word folder, {props.wordCount} words, 0 emoji
                 </div>
                 <div class={style.c}>
                     <button type="submit" class={menuStyle.menuButton} onClick={()=>{

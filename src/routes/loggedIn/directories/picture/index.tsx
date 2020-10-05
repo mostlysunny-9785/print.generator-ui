@@ -71,7 +71,10 @@ export default class PictureFolder extends Component<Props, State> {
                 <div class={style.imageContainerWrapper}>
                     <div class={style.imageContainer}>
                         {images}
+                        <div class="footerSpacer"> </div>
                     </div>
+
+
                 </div>
 
 
@@ -80,6 +83,8 @@ export default class PictureFolder extends Component<Props, State> {
                     toggleDelete={this.toggleDelete}
                     deleteEnabled={this.state.deleteEnabled}
                 newPictureUploaded={this.newPictureUploaded}></PictureFolderMenu>
+
+
             </div>
         );
     }

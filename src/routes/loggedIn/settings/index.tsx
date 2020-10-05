@@ -87,13 +87,15 @@ export default class Settings extends Component<any, State> {
                 <Navigation> </Navigation>
                 <div class={style.editor}>
 
-                    <Hider headline={'Medium'} visible={true}>
+                    <Hider headline={'Medium'} visible={false}>
                         <div class={style.settingsLine}>
                             <div class={style.settingsElem}> Type: </div>
                             <input
                                 type="text"
                                 placeholder="Tshirt"
                                 class={style.input + " " + style.settingsElem}
+                                value="Tshirt"
+                                style={{color: "#A6A6A6"}}
                                 disabled
                             />
                             <div class={style.settingsElemBig} style={{color: '#A6A6A6'}}>* Just one medium is operational</div>
@@ -127,17 +129,20 @@ export default class Settings extends Component<any, State> {
                         {/*</div>*/}
                     </Hider>
 
-                    <Hider headline={'Print'} visible={true}>
+                    <Hider headline={'Print'} visible={false}>
                         <div class={style.settingsLine}>
                             <div class={style.settingsElem}> Color: </div>
-                            <select class={style.input + " " + style.settingsElem} onChange={this.changePrintColor}>
-                                <option value={PrintColors.COLORFULL} selected={this.state.printColor === PrintColors.COLORFULL}>Colorful picture</option>
-                                <option value={PrintColors.BW} selected={this.state.printColor === PrintColors.BW}>Black and white picture</option>
-                            </select>
+
+                                <select class={style.input + " " + style.settingsElem} onChange={this.changePrintColor}>
+                                    <option value={PrintColors.COLORFULL} selected={this.state.printColor === PrintColors.COLORFULL}>Colorful picture</option>
+                                    <option value={PrintColors.BW} selected={this.state.printColor === PrintColors.BW}>Black and white picture</option>
+                                </select>
+
                             <input
                                 type="text"
-                                placeholder={this.state.tshirtColor === TShirtColors.DARK ? "White text" : "Dark text"}
+                                value={this.state.tshirtColor === TShirtColors.DARK ? "White text" : "Dark text"}
                                 class={style.input + " " + style.settingsElem}
+                                style={{color: "#A6A6A6"}}
                                 disabled
                             />
                             <div class={style.settingsElem}> </div>

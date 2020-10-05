@@ -29,26 +29,7 @@ form {
 
 }
 
-textarea {
-	width: 200px;
-	height: 200px;
 
-	padding: 12px 20px 10px 10px;
-	/*margin: 8px 0;*/
-
-	border: 2px solid #000000;
-	border-radius: 4px;
-
-	box-sizing: border-box;
-	font-size: 20px;
-	resize: none;
-	font-family: Arial, serif;
-
-}
-
-textarea:focus {
-	/*border: 2px solid #0094FF;*/
-}
 
 .addActive {
 	top: -50px;
