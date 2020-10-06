@@ -1,6 +1,10 @@
 .line {
 	display: flex;
 	width: 100%;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	/*vertical-align: center;*/
+	margin-bottom: 5px;
 }
 
 .img {
@@ -14,4 +18,28 @@
 	padding: 5px;
 	margin-left: 10px;
 	vertical-align: middle;
+}
+
+.link {
+	color: #2E76F6 !important;
+}
+
+.full {}
+.half {}
+
+
+
+@media only screen and (max-width: 600px) {
+	.line {
+		margin-bottom: 20px;
+		justify-content: end;
+	}
+
+	.full {
+		width: 100%;
+	}
+
+	.half {
+		width: 50%;
+	}
 }

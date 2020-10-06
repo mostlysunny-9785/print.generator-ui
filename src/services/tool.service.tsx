@@ -16,6 +16,7 @@ export interface GeneratedModel {
     fileSize: number;
     generationTime: number;
     ownerId: string;
+    createdAt: Date;
 }
 
 

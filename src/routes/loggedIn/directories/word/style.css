@@ -30,5 +30,9 @@ textarea {
         padding-bottom: 90px;
     }
 
+    textarea {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 }
 

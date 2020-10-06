@@ -17,3 +17,48 @@
 .smallerTextInput {
     font-size: 20px;
 }
+
+
+
+/*from settingz*/
+.editor {
+    padding: 10px;
+}
+
+.settingsLine {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    min-height: 75px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-size: 18px;
+    margin-bottom: 30px;
+
+}
+
+.settingsElem {
+    width: 100% !important;
+
+    /*align-self: center;*/
+}
+
+.settingsElemBig {
+    width: 100%;
+}
+
+.settingsElemMega {
+    width: 100%;
+}
+
+.input {
+    border-radius: 5px !important;
+    text-align: center;
+}
+
+.radio {
+    margin-right: 25px;
+    display: inline;
+    width: 100% !important;
+}
+

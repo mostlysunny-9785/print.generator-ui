@@ -5,20 +5,20 @@
 
 .generationPanel {
 	position: absolute;
-	top: 0px;
+	top: 120px;
 	left: 5px;
 	height: 100%;
-	width: 300px;
+	width: 500px;
 	background-color: white;
 	padding: 10px;
 }
 
 .userPanel {
 	position: absolute;
-	top: 20px;
+	top: 100px;
 	right: 5px;
 	height: 100%;
-	width: 300px;
+	width: 500px;
 	background-color: white;
 	padding: 10px;
 }

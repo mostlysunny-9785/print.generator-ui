@@ -35,6 +35,7 @@ export default class TheTool extends Component<any, State> {
         if (key !== 'generate') {
             let activeGenModel: any = store.getState().generationReducer;
             activeGenModel[key] = value;
+            console.log({key, value});
             store.dispatch(setGenerationAction(activeGenModel));
         } else {
             this.setState((state: State) => ({ // just trigger render
@@ -55,31 +56,40 @@ export default class TheTool extends Component<any, State> {
         const userModel: UserDocument = store.getState().userReducer;
 
         let amIAdmin: boolean = ['kuba', 'honza'].includes(userModel.email);
-        const grayscale = userModel.settings.printColor === PrintColors.BW ? "grayscale(1)" : "";
+
 
         if (amIAdmin) {
+            const grayscale = genModel.printColor === PrintColors.BW ? "grayscale(1)" : "";
+
             return <div>
-                <div class={style.generationPanel}>
-                        <GenerationModelPicker model={genModel} modelChange={this.onModelChange} />
-                    </div>
+                <SendHeader />
 
                 <div style={{filter: grayscale}}>
                     <TheToolCore model={genModel} admin={true} />
                 </div>
 
+                <div class={style.generationPanel}>
+                    <GenerationModelPicker model={genModel} modelChange={this.onModelChange} />
+                </div>
 
-                    <div className={style.userPanel}>
-                        <UserModelPicker model={genModel} modelChange={this.onModelChange}/>
-                    </div>
+                <div className={style.userPanel}>
+                    <UserModelPicker model={genModel} modelChange={this.onModelChange}/>
+                </div>
 
                 <TheToolMenu isRandom={false} regenerate={this.regenerate}  />
             </div>
         } else {
+            const grayscale = userModel.settings.printColor === PrintColors.BW ? "grayscale(1)" : "";
             if (userModel && userModel.settings && genModel) { // adjust generatio model based on settings
                 genModel.tShirtColor = userModel.settings.tShirtColor;
                 genModel.composition = userModel.settings.composition;
                 genModel.printColor = userModel.settings.printColor;
+                genModel.picturesCount = 100;
+                genModel.wordsCount = 100;
+
+                store.dispatch(setGenerationAction(genModel));
             }
+
             const isRandom = genModel.composition === CompositionTypes.RANDOM;
 
             const backgroundColor = genModel.tShirtColor === TShirtColors.LIGHT ? 'url(\'/assets/shirt.svg\')' : 'url(\'/assets/shirt_dark.svg\')';

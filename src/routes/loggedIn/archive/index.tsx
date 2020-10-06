@@ -6,6 +6,9 @@ import {apiUrlPrefix} from "../../../components/utils/global";
 interface State {
     images: GeneratedModel[];
 }
+const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
 
 export default class Archive extends Component<any, State> {
     constructor() {
@@ -15,6 +18,19 @@ export default class Archive extends Component<any, State> {
 
     componentDidMount() {
         ToolService.list().then((images: GeneratedModel[]) => {
+            // parse dates
+            images.forEach(image => {
+                image.createdAt = new Date(image.createdAt);
+            })
+
+            // sort by date
+            const tst = images.sort((a, b) => {
+                return a.createdAt.valueOf() - b.createdAt.valueOf();
+            });
+            console.log({tst});
+
+
+
             this.setState({images});
         });
     }
@@ -22,24 +38,29 @@ export default class Archive extends Component<any, State> {
     render () {
 
         const toRender: any[] = [];
-        this.state.images.forEach((image: GeneratedModel) => {
+        this.state.images.forEach((image: GeneratedModel, index: number) => {
             const url = apiUrlPrefix + image.previewFilename;
-            const filename = image.id + ".png";
+            const filename = "tshirt_#" + index + ".png";
             const filesize = Math.round((image.fileSize / 1024 / 1024) * 100) / 100 ;
             toRender.push(
 
                 <div class={style.line}>
-                    <div class={style.img} style={{backgroundImage: "url('" + url + "')"}}> </div>
-                    <div class={style.text}>
+                    <div class={style.full}>Tshirt #{index}</div>
+                    <div class={style.half}>{image.createdAt.getDate()} {monthNames[image.createdAt.getMonth()]}</div>
+                    <div class={style.half}>{image.createdAt.getFullYear()}</div>
+                    <div class={style.link}>
+                        <a href={apiUrlPrefix + image.filename} download={filename} target="_blank" style={{color: "#2E76F6"}}>download</a>
+                        &nbsp;
                         ({filesize} MB)
-                        <a href={apiUrlPrefix + image.filename} download={filename} target="_blank">{filename}</a>
-                        (gen time {Math.round(image.generationTime * 100) / 100} s)
                     </div>
+                    <div></div>
+                        {/*<div>(gen time {Math.round(image.generationTime * 100) / 100} s)</div>*/}
+
                 </div>)
         });
 
         return (
-            <div>
+            <div style={{paddingBottom: "10px"}}>
                 {toRender}
             </div>
         );

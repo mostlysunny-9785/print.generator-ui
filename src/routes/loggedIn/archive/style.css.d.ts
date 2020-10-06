@@ -2,3 +2,6 @@
 export const line: string;
 export const img: string;
 export const text: string;
+export const link: string;
+export const full: string;
+export const half: string;

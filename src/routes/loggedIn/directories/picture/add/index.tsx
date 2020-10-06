@@ -2,12 +2,13 @@ import {Component, h} from "preact";
 import * as menuStyle from "../../../../../components/menu/menuStyle.css";
 import * as style from "./style.css";
 import {UrlCheck, UrlTypes} from "../../../../../components/utils/urlCheck";
-import {ImagesService} from "../../../../../services/images.service";
+import {ImageModel, ImagesService} from "../../../../../services/images.service";
 import {route} from "preact-router";
 import PictureFolderHeader from "../header";
 
 interface State {
     errMsg: string;
+    imagesNum: number;
 }
 
 interface Props {
@@ -17,11 +18,17 @@ interface Props {
 export default class PictureAdd extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = {errMsg: "URL"};
+        this.state = {errMsg: "URL", imagesNum: 0};
     }
 
     private input = "";
 
+
+    componentDidMount() {
+        ImagesService.loadFolder(this.props.pictureFolderId).then((images: ImageModel[]) => {
+            this.setState({imagesNum: images.length});
+        });
+    }
 
     onSubmit = (e: Event) => {
 
@@ -74,7 +81,7 @@ export default class PictureAdd extends Component<Props, State> {
 
         return (
             <div>
-                <PictureFolderHeader folderId={this.props.pictureFolderId} pictures={90} returnToFolder={true}> </PictureFolderHeader>
+                <PictureFolderHeader folderId={this.props.pictureFolderId} pictures={this.state.imagesNum} returnToFolder={true}> </PictureFolderHeader>
 
                 <div class={style.container}>
                     <div class={style.url}>

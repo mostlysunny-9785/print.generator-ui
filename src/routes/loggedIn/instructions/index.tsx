@@ -119,8 +119,8 @@ export default class Instructions extends Component<any, any> {
                             <p>
                             Picture module:
                                 <ol>
-                                    <li>in the Picture folder, you can upload JPEG, PNG and GIF files</li>
-                                    <li>maximum file size is ??? MB</li>
+                                    <li>in the Picture folder, you can upload JPEG or PNG files</li>
+                                    <li>maximum file size is 10 MB</li>
                                     <li>the recommended image resolution is 300 dpi</li>
                                     <li>if the resolution is lower, the Tool will automatically use the program to improve the image resolution</li>
                                 </ol>
@@ -129,19 +129,14 @@ export default class Instructions extends Component<any, any> {
                             <p>
                             Curator mode:
                                 <ol>
-                                    <li>the maximum number of characters in the Word folder is ??? characters</li>
-                                    <li>the maximum number of files in the Picture folder is ??? files</li>
+                                    <li>the maximum number of characters in the Word folder is ~280 characters</li>
+                                    <li>the maximum number of files in the Picture folder is 50 files</li>
                                     <li>after exceeding these limits, the Tool automatically starts the Curator mode, which randomly selects as many words/files as possible from the uploaded content, which it can edit respects</li>
                                 </ol>
                             </p>
 
                             <p>
-                            Reporting status/problems in the Folders module:
-                                <ol>
-                                    <li>🔴 == everything looks good</li>
-                                    <li>🔴 == too much content == content will be edited</li>
-                                </ol>
-
+                                * In combination with the Picture module, it is recommended to work with single words or a few sentences. If the entire range cannot fit the selected format - the Tool will be preferred Words to Pictures by applying a "Curator mode"
                             </p>
                         </div>
                     </Hider>

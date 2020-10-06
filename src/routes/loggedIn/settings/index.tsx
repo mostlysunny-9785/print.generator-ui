@@ -171,9 +171,13 @@ export default class Settings extends Component<any, State> {
                         </div>
                         <div class={style.settingsLine} style={{marginBottom: "0px"}}>
                             <div class={style.settingsElem}> Canvas: </div>
-                            <select class={style.input + " " + style.settingsElem}>
-                                <option value="A3">A3</option>
-                            </select>
+                            <input
+                                type="text"
+                                value={"A3"}
+                                class={style.input + " " + style.settingsElem}
+                                style={{color: "#A6A6A6"}}
+                                disabled
+                            />
 
                             <div class={style.settingsElemBig}> </div>
                         </div>

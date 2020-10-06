@@ -3,5 +3,12 @@ select {
     text-align-last: center;
     -moz-text-align-last: center;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("/assets/select_arrows.svg");
+    background-size: 10px;
+    background-position: calc(100% - 10px) center;
+    background-repeat: no-repeat;
+    background-color: #efefef;
 }
 

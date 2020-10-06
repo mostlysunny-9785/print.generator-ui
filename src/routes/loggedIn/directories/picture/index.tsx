@@ -60,13 +60,13 @@ export default class PictureFolder extends Component<Props, State> {
                 key={image._id}
                 image={image}
                 canDelete={this.state.deleteEnabled}
-                onRemoval={() => {this.onRemoval(image)}}></Image>)
+                onRemoval={() => {this.onRemoval(image)}}> </Image>)
         });
 
         return (
             <div>
 
-                <PictureFolderHeader folderId={this.props.id} pictures={this.state.images.length}></PictureFolderHeader>
+                <PictureFolderHeader folderId={this.props.id} pictures={this.state.images.length}> </PictureFolderHeader>
 
                 <div class={style.imageContainerWrapper}>
                     <div class={style.imageContainer}>
@@ -82,7 +82,7 @@ export default class PictureFolder extends Component<Props, State> {
                     pictureFolderId={this.props.id}
                     toggleDelete={this.toggleDelete}
                     deleteEnabled={this.state.deleteEnabled}
-                newPictureUploaded={this.newPictureUploaded}></PictureFolderMenu>
+                newPictureUploaded={this.newPictureUploaded}> </PictureFolderMenu>
 
 
             </div>

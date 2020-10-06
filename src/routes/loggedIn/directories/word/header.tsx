@@ -2,6 +2,7 @@ import {Component, FunctionalComponent, h} from "preact";
 import * as style from "../../../../components/header/style.css";
 import * as menuStyle from "../../../../components/menu/menuStyle.css";
 import {route} from "preact-router";
+import {isMobile} from "../../../../components/utils/screen";
 
 
 
@@ -16,7 +17,9 @@ const WordFolderHeader: FunctionalComponent<Props> = (props: Props) => {
             <div class={style.main}>
                 <div class={style.a}></div>
                 <div class={style.b} onClick={()=>{route("/home")}}>
-                    Word folder, {props.wordCount} words, 0 emoji
+                    Word folder,
+                    {isMobile() ? <br /> : ""}
+                    {props.wordCount} words
                 </div>
                 <div class={style.c}>
                     <button type="submit" class={menuStyle.menuButton} onClick={()=>{

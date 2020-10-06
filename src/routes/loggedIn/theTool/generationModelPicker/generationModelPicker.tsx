@@ -85,10 +85,6 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
                 <Hider headline="DEBUG" visible={true}>
                     DEBUG:
                     {debugCheckboxes}
-                    <div class={style.caption}>Composition:</div>
-                    <div class={style.option}>
-                        {compositionTypes}
-                    </div>
                     {/*<div class={style.caption}>Composition strategy:</div>*/}
                     {/*<div class={style.option}>*/}
                     {/*    {compositionStrategy}*/}
@@ -96,15 +92,30 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
                 </Hider>
 
                 <Hider headline="Composition" visible={true}>
-                    Composition:
-                    <div>
-                        <div class={style.caption} style={{fontSize: '20px'}}>picturesCount:</div>
-                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.picturesCount} onChange={(event: any) => {this.props.modelChange('picturesCount', parseInt(event.target.value))}} />
+
+
+                    <div class={style.settingsLine} style={{marginBottom: "0px"}}>
+                        <div class={style.settingsElem}> Picture Count: </div>
+                        <input
+                            type="text"
+                            class={style.input + " " + style.settingsElem}
+                            value={this.props.model.picturesCount}
+                            onChange={(event: any) => {this.props.modelChange('picturesCount', parseInt(event.target.value))}}
+                        />
+
+                        <div class={style.settingsElemBig}> </div>
                     </div>
 
-                    <div style={{display: 'flex'}}>
-                        <div class={style.caption} style={{fontSize: '20px'}}>textCount:</div>
-                        <input style={{fontSize: '20px'}} type="text" value={this.props.model.wordsCount} onChange={(event: any) => {this.props.modelChange('wordsCount', parseInt(event.target.value))}} />
+                    <div class={style.settingsLine} style={{marginBottom: "0px"}}>
+                        <div class={style.settingsElem}> Word count: </div>
+                        <input
+                            type="text"
+                            class={style.input + " " + style.settingsElem}
+                            value={this.props.model.wordsCount}
+                            onChange={(event: any) => {this.props.modelChange('wordsCount', parseInt(event.target.value))}}
+                        />
+
+                        <div class={style.settingsElemBig}> </div>
                     </div>
 
                     {/*<div style={{display: 'flex'}}>*/}
@@ -114,7 +125,7 @@ export default class GenerationModelPicker extends Component<GenerationModelPick
                 </Hider>
 
                 <button onClick={this.generate}>
-                    GENERATE!
+                    GENERATE
                 </button>
             </div>
         );
