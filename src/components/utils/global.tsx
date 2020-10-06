@@ -7,7 +7,7 @@ export var hasGotTheirOwnMenu = [];
 export var publicRoutes = ["/login"];
 
 export var apiUrlPrefix = "/api/";
-
+export const anonymousPrefix = "Anonymous #"
 
 
 

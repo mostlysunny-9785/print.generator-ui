@@ -2,6 +2,8 @@ import {UserDocument} from "../model/user.model";
 import {apiUrlPrefix} from "../components/utils/global";
 import {store} from "../model/store";
 import {userActionLoad, userActionLogin, userActionLogout} from "../model/user_reducer_actions";
+import {GuestInfo, GuestService} from "./guest.service";
+import {guestActionLoad} from "../model/guest_reducer_actions";
 
 class AuthorizationServiceClass {
 
@@ -49,9 +51,17 @@ class AuthorizationServiceClass {
                 let user = await response.json();
                 store.dispatch(userActionLoad(user as UserDocument));
                 store.dispatch(userActionLogin());
+                GuestService.identifyGuest().then((guestInfo: GuestInfo) => {
+                    store.dispatch(guestActionLoad(guestInfo)); // save guest info for UI
+                });
 
                 return user;
             } else {
+                // user is not authentificated, try to determine guest
+                GuestService.identifyGuest().then((guestInfo: GuestInfo) => {
+                    store.dispatch(guestActionLoad(guestInfo)); // save guest info for UI
+                });
+                // return user unidentified
                 return undefined;
             }
             // }

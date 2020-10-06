@@ -15,7 +15,7 @@ const PictureFolderHeader: FunctionalComponent<Props> = (props: Props) => {
 
         return (
             <div class={style.main}>
-                <div class={style.a}></div>
+                <div class={style.a}> </div>
                 <div class={style.b} onClick={()=>{route("/home")}}>
                     Picture folder, {props.pictures} files
                 </div>

@@ -6,6 +6,7 @@ import * as menuStyle from "../../components/menu/menuStyle.css";
 import {store} from "../../model/store";
 import {isMobile} from "../../components/utils/screen";
 import LoginHeader from "./header";
+import {anonymousPrefix} from "../../components/utils/global";
 
 interface LoginState {
     username?: string;
@@ -26,6 +27,16 @@ export default class Login extends Component<any, LoginState> {
         };
     }
 
+    componentDidMount() {
+        this.setState({username: anonymousPrefix + store.getState().guestReducer.id}); // update username
+
+        store.subscribe(() => {
+            if (store.getState().guestReducer.id !== 0) {
+                this.setState({username: anonymousPrefix + store.getState().guestReducer.id}); // update username
+            }
+        });
+    }
+
     onSubmit = (e: any) => {
         e.preventDefault();
         // console.log(this.state);
@@ -33,19 +44,16 @@ export default class Login extends Component<any, LoginState> {
             route("/home", true);
         }
         var pass = this.state.password;
-        if (this.state.username === username) {
+        if (this.state.username?.includes(anonymousPrefix)) {
             pass = 'dummy'
         }
         AuthorizationService.authenticate(this.state.username || "", pass || "").then(result => {
             console.log({result});
             if (result == undefined) {
-                // wrong passport
+                // wrong password
             } else {
                 route("/home", true);
             }
-            // if (result) {
-            //     route("/home", true);
-            // }
         });
     };
 
