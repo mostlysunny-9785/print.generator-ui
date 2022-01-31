@@ -16,6 +16,9 @@ interface State {
     printColor: PrintColors
 }
 
+/**
+ * Component for changing user settings
+ */
 export default class Settings extends Component<any, State> {
 
 

@@ -9,7 +9,9 @@ interface State {
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
-
+/**
+ * Archive of already generated models from The Tool
+ */
 export default class Archive extends Component<any, State> {
     constructor() {
         super();

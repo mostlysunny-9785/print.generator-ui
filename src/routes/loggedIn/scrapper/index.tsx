@@ -17,6 +17,9 @@ interface ScrapperState {
     chanelToLoad: string;
 }
 
+/**
+ * Component for loading images from arena or other parts of web.
+ */
 export default class Scrapper extends Component<any, ScrapperState> {
     constructor(props: any, context: any) {
         super(props, context);

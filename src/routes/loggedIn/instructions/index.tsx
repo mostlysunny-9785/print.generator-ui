@@ -5,6 +5,9 @@ import Navigation from "../../../components/navigation";
 import Hider from "../../../components/hider";
 import Archive from "../archive";
 
+/**
+ * Instructions component for showing text recipie how to create tshirt.
+ */
 export default class Instructions extends Component<any, any> {
     constructor() {
         super();

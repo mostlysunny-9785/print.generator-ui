@@ -13,6 +13,11 @@ interface State {
     disabled: boolean;
 }
 
+/**
+ * Component used for text information in settings.
+ * Dropdown
+ */
+
 export default class Hider extends Component<Props, State> {
     constructor(props: Props) {
         super(props);

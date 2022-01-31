@@ -15,6 +15,9 @@ interface Props {
     wordFolderId: string
 }
 
+/**
+ * Component for putting words into database. This show & edit exactly one word get by folder ID
+ */
 export default class WordFolder extends Component<Props, State> {
 
     private textAreaRef = useRef<HTMLTextAreaElement>(null);

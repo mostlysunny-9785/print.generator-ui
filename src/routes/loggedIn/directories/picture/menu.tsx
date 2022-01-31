@@ -53,8 +53,6 @@ export default class PictureFolderMenu extends Component<Props> {
                 this.props.newPictureUploaded(value)
             });
         }
-
-
     }
 
 

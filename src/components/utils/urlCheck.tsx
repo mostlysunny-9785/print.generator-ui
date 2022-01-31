@@ -5,6 +5,11 @@ export enum UrlTypes {
     NOT_VALID
 }
 
+/**
+ * Checking URL for arena url sanitizing
+ * @param url arena link
+ * @constructor
+ */
 export function UrlCheck(url: string) : UrlTypes {
 
     if (url.includes('are.na/')) {

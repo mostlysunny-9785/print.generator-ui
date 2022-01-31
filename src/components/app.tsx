@@ -26,6 +26,10 @@ if ((module as any).hot) {
     require("preact/debug");
 }
 
+/**
+ * Main app component
+ */
+
 export default class App extends Component<any, any> {
     constructor() {
         super();
@@ -35,6 +39,9 @@ export default class App extends Component<any, any> {
         };
     }
 
+    /**
+     * First run of app - check session and subscribe to changes in user reducer
+     */
     componentDidMount() {
         AuthorizationService.getSession().then(); // on app start get session from backend
 
@@ -46,6 +53,11 @@ export default class App extends Component<any, any> {
         })
     }
 
+    /**
+     * Triggered on every route change. Check user and if he can be present on this page
+     * Eg.: user is not logged in - redirect him to 2
+     * @param e
+     */
     private handleRoute = (e: any) => {
         if (!publicRoutes.includes(e.url)) {
             // you need to be logged in to see different than allowedRoutes

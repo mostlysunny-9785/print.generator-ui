@@ -17,6 +17,9 @@ interface Props {
     id: string
 }
 
+/**
+ * Component for rendering pictures based on url property where should be folder ID.
+ */
 export default class PictureFolder extends Component<Props, State> {
     constructor(props: Props) {
         super(props);

@@ -2,6 +2,10 @@ import { FunctionalComponent, h } from "preact";
 import { Link } from 'preact-router/match';
 import * as style from "./style.css";
 
+/**
+ * Handler for 404 page
+ * @constructor
+ */
 const Notfound: FunctionalComponent = () => {
     return (
         <div class={style.notfound}>

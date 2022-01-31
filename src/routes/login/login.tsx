@@ -17,6 +17,10 @@ interface LoginState {
 const passwordMessage = "not needed";
 const username = "nobody #10156";
 
+/**
+ * Component for logging in
+ */
+
 export default class Login extends Component<any, LoginState> {
     constructor(props: any) {
         super(props);
@@ -27,6 +31,9 @@ export default class Login extends Component<any, LoginState> {
         };
     }
 
+    /**
+     * Determine if we are guest or already visited user
+     */
     componentDidMount() {
         this.setState({username: anonymousPrefix + store.getState().guestReducer.id}); // update username
 
@@ -37,6 +44,10 @@ export default class Login extends Component<any, LoginState> {
         });
     }
 
+    /**
+     * On auth ask backend for user profile
+     * @param e
+     */
     onSubmit = (e: any) => {
         e.preventDefault();
         // console.log(this.state);
