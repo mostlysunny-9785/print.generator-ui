@@ -1,4 +1,4 @@
-# YACYAG UI
+# print-generator UI
 
 ## How to run
 - ```npm install```
